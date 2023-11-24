@@ -10,25 +10,25 @@
         Tu as <?php echo (int)$_POST['age']; ?> ans.-->
         <form action="#" method="post">
             <label>Nom :</label>
-            <input name="nb1" id="nb1" type="number" value="nom"/></p>
+            <input name="nom" id="nom" type="text" /></p>
 
             <label>Prénom:</label>
-            <input name="nb2" id="nb2" type="number" value="prenom"/></p>
+            <input name="prenom" id="prenom" type="text" /></p>
 
             <label>Civilité :</label>
-            <input name="res" id="res" type="number" value="civ"/></p>
+            <input name="civ" id="civ" type="text" /></p>
 
             <label>Adresse Complète :</label>
-            <input name="res" id="res" type="number" value="adr"/></p>
+            <input name="adr" id="adr" type="text" /></p>
 
             <label>Date de naissance :</label>
-            <input name="res" id="res" type="number" value="dateN"/></p>
+            <input name="daten" id="daten" type="text" /></p>
 
             <label>Lieu de naissance :</label>
-            <input name="res" id="res" type="number" value="lieuN"/></p>
+            <input name="lieun" id="lieun" type="text" /></p>
 
-            <button type="submit" name="Additionner">Valider</button>
-            <button type="submit" name="Soustraire">Annuler</button>
+            <button type="submit" name="Valider">Valider</button>
+            <button type="submit" name="Annuler">Annuler</button>
             
         </form>
     </body>

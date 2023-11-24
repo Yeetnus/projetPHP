@@ -3,46 +3,30 @@
     <head>
         <meta charset="utf-8" />
         <title>Page de test</title>
+        <link rel="stylesheet" href="../CSS/style.css">
     </head>
     <body>
-
-        <!--Bonjour, <?php echo htmlspecialchars($_POST['nom']); ?>.
-        Tu as <?php echo (int)$_POST['age']; ?> ans.-->
         <form action="#" method="post">
-            <label>Nombre 1 :</label>
-            <input name="nb1" id="nb1" type="number" value="<?php if(!empty($_POST['nb1'])){
-                 echo $_POST['nb1'];
-            }?>"/></p>
+            <label>Nom :</label>
+            <input name="nom" id="nom" type="text" /></p>
 
-            <label>Nombre 2 :</label>
-            <input name="nb2" id="nb2" type="number" value="<?php if(!empty($_POST['nb2'])){
-                 echo $_POST['nb2'];
-            }?>"/></p>
+            <label>Prénom:</label>
+            <input name="prenom" id="prenom" type="text" /></p>
 
-            <label>Résultat :</label>
-            <input name="res" id="res" type="number" value="<?php if(isset($_POST['Additionner'])) {
-                    $var=((int)$_POST['nb1']+(int)$_POST['nb2']);
-                }
-                if(isset($_POST['Soustraire'])) {
-                    $var=((int)$_POST['nb1']-(int)$_POST['nb2']);
-                }
-                if(isset($_POST['Multiplier'])) {
-                    $var=((int)$_POST['nb1']*(int)$_POST['nb2']);
-                }
-                if(isset($_POST['Diviser'])) {
-                    if($_POST['nb2']!=0){
-                        $var=((int)$_POST['nb1']/(int)$_POST['nb2']);
-                    }else{
-                        $var=0;
-                    }
-                }
-                echo $var ?>"/></p>
+            <label>Civilité :</label>
+            <input name="civ" id="civ" type="text" /></p>
 
-            <label>Opérations</label>
-            <button type="submit" name="Additionner">Additionner</button>
-            <button type="submit" name="Soustraire">Soustraire</button>
-            <button type="submit" name="Multiplier">Multiplier</button>
-            <button type="submit" name="Diviser">Diviser</button>
+            <label>Adresse Complète :</label>
+            <input name="adr" id="adr" type="text" /></p>
+
+            <label>Date de naissance :</label>
+            <input name="daten" id="daten" type="text" /></p>
+
+            <label>Lieu de naissance :</label>
+            <input name="lieun" id="lieun" type="text" /></p>
+
+            <button type="submit" name="Valider">Valider</button>
+            <button type="submit" name="Annuler">Annuler</button>
             
         </form>
     </body>
