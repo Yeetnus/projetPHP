@@ -48,12 +48,26 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="../CSS/style.css">
 </head>
 <body>
-    <h2>Connexion</h2>
-    <form method="post" action="">
-        <div><label>Nom d'utilisateur:</label> <input type="text" name="username" required></div>
-        <div><label>Mot de passe:</label> <input type="password" name="password" required></div>
-        <div><input type="submit" name="login" value="Se connecter"></div>
-    </form>
+<div class="login-box">
+  <h2>𝐋𝐨𝐠𝐢𝐧</h2>
+  <form>
+    <div class="user-box">
+      <input type="text" name="" required="">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="" required="">
+      <label>Password</label>
+    </div>
+    <a href="ajouter.php">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </a>
+  </form>
+</div>
     <?php if (!empty($error)): ?>
         <p style="color: red;"><?= $error ?></p>
     <?php endif; ?>
