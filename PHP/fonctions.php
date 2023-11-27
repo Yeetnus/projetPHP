@@ -1,8 +1,14 @@
 <?php
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$adr = $_POST['adr'];
+$lieuN = $_POST['lieuN'];
+$dateN = $_POST['dateN'];
+$civ = $_POST['civ'];
     class BDD {
         public function linkBDD(){
             $linkpdo = new PDO(
-                'mysql:host=localhost;dbname=tp3;charset=utf8',
+                'mysql:host=localhost;dbname=projetr301;charset=utf8',
                 'carnet', 'iut'
             );
         }

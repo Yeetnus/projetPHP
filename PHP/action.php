@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <title>Page de test</title>
         <link rel="stylesheet" href="../CSS/style.css">
     </head>
     <body>
-        <form action="#" method="post">
+        <form action="fonctions.php" method="post">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>
 
