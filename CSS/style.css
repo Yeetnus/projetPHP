@@ -1,0 +1,61 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+  }
+
+  .choice-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+
+  .choice-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .choice-box form a {
+    position: relative;
+    display:flexbox;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+  }
+
+  .choice-box form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .choice-box a:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .choice-button {
+    padding: 10px;
+    display: grid;    
+    place-items: center;
+    font-weight: bolder;
+}
