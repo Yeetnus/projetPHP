@@ -1,20 +1,12 @@
 <?php
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
-$civ = $_POST['civ'];
-$adr = $_POST['adr'];
-$dateN = $_POST['dateN'];
-$lieuN = $_POST['lieuN'];
-
-
     class BDD {
         private static $_instance = null;
         private $linkpdo;
 
-        private function BDD(){
+        private function __construct(){
             $this->linkpdo = new PDO(
-                'mysql:host=localhost;dbname=projetr301;charset=utf8',
-                'root'
+                "mysql:host=localhost;dbname=projetr301;charset=utf8",
+                "root"
             );
         }
 
@@ -25,17 +17,17 @@ $lieuN = $_POST['lieuN'];
             }
         
             return self::$_instance;
-          }
+        }
 
-          public function getBDD(){
+        public function getBDD(){
             return $this->linkpdo;
-          }
+        }
 
         public function select(string $table){
-            $sql = "SELECT * FROM usager";
-            $result = $this::getBDD()::query($sql);
+            $sql = "SELECT nom,prenom FROM usager";
+            $result = $this->getBDD()->query($sql);
             while($row = $result->fetch()) {
-                echo "nom: " . $row["nom"]. " - prenom: " . $row["prenom"]. " - adresse: " . $row["adresse"]. " - code postal: " . $row["code_postal"]. "  -ville: " . $row["ville"]. " - telephone: " . $row["telephone"]. "<br>";
+                echo "nom: " . $row["nom"]. " - prenom: " . $row["prenom"]. "<br>";
             }
             return $result;
         }
