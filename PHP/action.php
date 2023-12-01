@@ -3,10 +3,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Page de test</title>
-        <link rel="stylesheet" href="../CSS/style.css">
     </head>
     <body>
-        <form action="fonctions.php" method="post">
+        <form action="#" method="post">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>
 
@@ -20,13 +19,18 @@
             <input name="adr" id="adr" type="text" /></p>
 
             <label>Date de naissance :</label>
-            <input name="daten" id="daten" type="text" /></p>
+            <input name="dateN" id="dateN" type="text" /></p>
 
             <label>Lieu de naissance :</label>
-            <input name="lieun" id="lieun" type="text" /></p>
+            <input name="lieuN" id="lieuN" type="text" /></p>
 
             <button type="submit" name="Valider">Valider</button>
             <button type="submit" name="Annuler">Annuler</button>
+            <?php
+            require("fonctions.php");
+            $BDD =BDD::getInstanceBDD();
+            $BDD->select("usager");
+            ?>
             
         </form>
     </body>
