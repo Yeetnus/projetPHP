@@ -1,5 +1,5 @@
 <?php
-    class BDD {
+    class BDDrdv {
         private static $_instance = null;
         private $linkpdo;
 
@@ -13,7 +13,7 @@
         public static function getInstanceBDD() {
  
             if(is_null(self::$_instance)) {
-              self::$_instance = new BDD();  
+              self::$_instance = new BDDrdv();  
             }
         
             return self::$_instance;
@@ -23,8 +23,8 @@
             return $this->linkpdo;
         }
 
-        public function select(string $table){
-            $sql = "SELECT nom,prenom,civilite FROM $table";
+        public function select(){
+            $sql = "SELECT nom,prenom,civilite FROM rendezvous";
             $result = $this->getBDD()->query($sql);
             return $result;
         }
