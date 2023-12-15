@@ -24,19 +24,25 @@
         }
 
         public function select(){
-            $sql = "SELECT nom,prenom,civilite FROM rendezvous";
+            $sql = "SELECT ID,DateHeureRDV,DuréeRDV FROM rendezvous";
             $result = $this->getBDD()->query($sql);
             return $result;
         }
 
-        public function update(string $table,string $updated,string $updating){
-            $sql = "UPDATE $table SET $updated=$updating  WHERE nom='aaaaaaaaaa' ";
+        public function selectById(int $id){
+            $sql = "SELECT ID,DateHeureRDV,DuréeRDV FROM rendezvous WHERE ID=$id";
+            $result = $this->getBDD()->query($sql);
+            return $result;
+        }
+
+        public function update(string $updated,string $updating,int $id){
+            $sql = "UPDATE rendezvous SET $updated=$updating  WHERE ID=$id ";
             $stmt = $linkpdo->prepare($sql);
             $stmt->execute();
         }
 
-        public function delete(string $table,string $deleted,string $row){
-            $sql = "DELETE FROM $table WHERE $row=$deleted";
+        public function delete(string $deleted){
+            $sql = "DELETE FROM rendezvous WHERE ID=$deleted";
             $linkpdo->exec($sql);
         }
 

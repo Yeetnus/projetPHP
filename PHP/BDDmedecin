@@ -1,5 +1,5 @@
 <?php
-    class BDD {
+    class BDDrdv {
         private static $_instance = null;
         private $linkpdo;
 
@@ -13,7 +13,7 @@
         public static function getInstanceBDD() {
  
             if(is_null(self::$_instance)) {
-              self::$_instance = new BDD();  
+              self::$_instance = new BDDrdv();  
             }
         
             return self::$_instance;
@@ -23,20 +23,26 @@
             return $this->linkpdo;
         }
 
-        public function select(string $table){
-            $sql = "SELECT nom,prenom,civilite FROM $table";
+        public function select(){
+            $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin";
             $result = $this->getBDD()->query($sql);
             return $result;
         }
 
-        public function update(string $table,string $updated,string $updating){
-            $sql = "UPDATE $table SET $updated=$updating  WHERE nom='aaaaaaaaaa' ";
+        public function selectById(int $id){
+            $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin WHERE ID=$id";
+            $result = $this->getBDD()->query($sql);
+            return $result;
+        }
+
+        public function update(string $updated,string $updating,int $id){
+            $sql = "UPDATE medecin SET $updated=$updating  WHERE ID=$id ";
             $stmt = $linkpdo->prepare($sql);
             $stmt->execute();
         }
 
-        public function delete(string $table,string $deleted,string $row){
-            $sql = "DELETE FROM $table WHERE $row=$deleted";
+        public function delete(string $deleted){
+            $sql = "DELETE FROM medecin WHERE ID=$deleted";
             $linkpdo->exec($sql);
         }
 
