@@ -1,16 +1,16 @@
 <?php
-include('BDD.php');
+    include('BDD.php');
     class BDDmedecin {
         private $BDD;
 
         public function __construct() {
             $this->BDD = BDD::getInstanceBDD();
         }
-
+/*
         public function insert(int $id,string $nom,){
 
         }
-
+*/
         public function select(){
             $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin";
             $result = $this->BDD->getBDD()->query($sql);
