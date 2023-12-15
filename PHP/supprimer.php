@@ -3,9 +3,7 @@
   <head>
     <title>Supprimer</title>
     <style>
-      table,
-      th,
-      td {
+      table, th, td {
         padding: 10px;
         border: 1px solid black;
         border-collapse: collapse;
@@ -14,40 +12,29 @@
   </head>
   <body>
     <?php
-        require("BDDusager.php");
-        $BDD = new BDDusager();
-        $result = $BDD->select();
-/*
-        if( isset($_POST['supp'])  ){
-            // ceci est la requete que je veux executer après le clique 
-            try{
-               $req = $database->query('SELECT nom FROM teams WHERE id = 1');
-               $team1 = $req->fetch();
-            }catch(Exception $e){
-               echo "Erreur " . $e->getMessage();
-            }
-               $nom = !empty($team1['nom']) ? $team1['nom']: "";
-        }
-*/
+        require("BDDmedecin.php");
+        $BDD = new BDDmedecin();
+        $records = $BDD->select();
+
         echo "<table>";
         echo "<tr>";
+        echo "<th>ID</th>";
         echo "<th>Nom</th>";
         echo "<th>Prenom</th>";
         echo "<th>Civilité</th>";
         echo "<th>Choix</th>";
         echo "</tr>";
-        while($row = $result->fetch()) {
+        while($row = $records->fetch()) {
+            $recordID = $row["ID"];
             echo "<tr>";
+            echo "<td>" . $recordID . "</td>";
             echo "<td>" . $row["Nom"] . "</td>";
             echo "<td>" . $row["Prenom"] . "</td>";
             echo "<td>" . $row["Civilite"] . "</td>";
-            echo "<td> 
-                <button id='supp' name='supp'><img src='../IMAGES/icons8-trash-50.png'/> </button>
-            </td>";
+            echo "<td><a href='delete-script.php?recordID=<?php echo $recordID?>'>Delete</a> </td>";
             echo "</tr>";
         }
         echo "</table>";
-        
     ?>
   </body>
 </html>

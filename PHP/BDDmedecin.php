@@ -28,10 +28,11 @@
             $stmt = BDD->getBDD()->prepare($sql);
             $stmt->execute();
         }
-
+        
         public function delete(string $deleted){
-            $sql = "DELETE FROM medecin WHERE ID=$deleted";
-            BDD->getBDD()->exec($sql);
+            $sql = "DELETE FROM medecin WHERE id='$deleted'";
+            $result = $this->BDD->getBDD()->query($sql);
+            return $result;
         }
 
         public function getAllHeures(int $id){
