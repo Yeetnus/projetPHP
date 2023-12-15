@@ -24,24 +24,24 @@
         }
 
         public function select(string $table){
-            $sql = "SELECT nom,prenom FROM usager";
+            $sql = "SELECT nom,prenom,civilite FROM $table";
             $result = $this->getBDD()->query($sql);
             while($row = $result->fetch()) {
                 echo "nom: " . $row["nom"]. " - prenom: " . $row["prenom"]. "<br>";
             }
             return $result;
         }
-        /*
+
         public function update(string $table,string $updated,string $updating){
-            $sql = "UPDATE "'$table'" SET "'$updated'"="'$updating'"  WHERE nom='aaaaaaaaaa' ";
+            $sql = "UPDATE $table SET $updated=$updating  WHERE nom='aaaaaaaaaa' ";
             $stmt = $linkpdo->prepare($sql);
             $stmt->execute();
         }
 
         public function delete(string $table,string $deleted,string $row){
-            $sql = "DELETE FROM "'$table'" WHERE "'$row'"="'$deleted';
+            $sql = "DELETE FROM $table WHERE $row=$deleted";
             $linkpdo->exec($sql);
         }
-        */
+
     }
 ?>

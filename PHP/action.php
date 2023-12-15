@@ -29,7 +29,7 @@
             <?php
             require("fonctions.php");
             $BDD =BDD::getInstanceBDD();
-            $BDD->select("usager");
+            $BDD->select("medecin");
             ?>
             
         </form>
