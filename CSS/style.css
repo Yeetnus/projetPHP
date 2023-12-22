@@ -59,3 +59,24 @@ body {
     place-items: center;
     font-weight: bolder;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+table, th, td {
+  border: 1px solid #ffffff;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+label {
+  color: #ffffff;
+  flex-wrap: wrap;
+}

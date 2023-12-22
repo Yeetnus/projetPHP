@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Supprimer</title>
+    <link rel="stylesheet" href="../CSS/style.css">
     <style>
       table, th, td {
         padding: 10px;
@@ -11,6 +12,9 @@
     </style>
   </head>
   <body>
+  <div class="choice-box">
+    
+  <h2>Page de suppression de médecin</h2>
     <?php
         require("BDDmedecin.php");
         $BDD = new BDDmedecin();
@@ -36,5 +40,6 @@
         }
         echo "</table>";
     ?>
+    </div>
   </body>
 </html>

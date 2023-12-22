@@ -3,9 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <title>Page de test</title>
+        <link rel="stylesheet" href="../CSS/style.css">
     </head>
     <body>
-
+        <div class="choice-box">
+        <h2>Page d'ajout</h2>
         <!--Bonjour, <?php echo htmlspecialchars($_POST['nom']); ?>.
         Tu as <?php echo (int)$_POST['age']; ?> ans.-->
         <form action="#" method="post">
@@ -31,5 +33,6 @@
             <button type="submit" name="Annuler">Annuler</button>
             
         </form>
+        </div>
     </body>
 </html>
