@@ -47,17 +47,21 @@ body {
     flex-direction: row;
   }
 
-  .choice-box a:hover {
+  .choice-box a:hover:not(.delete-icon) {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
   }
-
+  
   .choice-button {
     padding: 10px;
     display: grid;    
     place-items: center;
     font-weight: bolder;
+}
+
+#retour {
+  float: right;
 }
 
 table {
