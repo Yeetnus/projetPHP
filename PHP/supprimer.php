@@ -15,31 +15,31 @@
   <div class="choice-box">
     
   <h2>Page de suppression de médecin</h2>
-    <?php
+    
+        
+         <table>
+         <tr>
+         <th>ID</th>
+         <th>Nom</th>
+         <th>Prenom</th>
+         <th>Civilité</th>
+         <th>Choix</th>
+         </tr>
+        <?php
         require("BDDmedecin.php");
         $BDD = new BDDmedecin();
         $records = $BDD->select();
 
-        echo "<table>";
-        echo "<tr>";
-        echo "<th>ID</th>";
-        echo "<th>Nom</th>";
-        echo "<th>Prenom</th>";
-        echo "<th>Civilité</th>";
-        echo "<th>Choix</th>";
-        echo "</tr>";
         while($row = $records->fetch()) {
-            $recordID = $row["ID"];
-            echo "<tr>";
-            echo "<td>" . $recordID . "</td>";
-            echo "<td>" . $row["Nom"] . "</td>";
-            echo "<td>" . $row["Prenom"] . "</td>";
-            echo "<td>" . $row["Civilite"] . "</td>";
-            echo "<td><a href='delete-script.php?recordID=<?php echo $recordID?>'>Delete</a> </td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-    ?>
+            $recordID = $row["ID"];?>
+            <tr>
+            <td><?php echo $recordID;?></td>
+            <td><?php echo $row["Nom"];?></td>
+            <td><?php echo$row["Prenom"];?></td>
+            <td><?php echo$row["Civilite"];?></td><td><a href='delete-script.php?recordID=<?php echo $recordID?>'>Delete</a> </td>
+            </tr>;
+        <?php }
+        ?>
     </div>
   </body>
 </html>

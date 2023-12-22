@@ -77,6 +77,6 @@ th, td {
 }
 
 label {
-  color: #ffffff;
-  flex-wrap: wrap;
+  display: block;
+  margin-top: 10px;
 }
