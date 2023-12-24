@@ -3,8 +3,8 @@ html {
 }
 
 body {
-    margin:0;
-    padding:0;
+    margin:0px;
+    padding:0px;
     font-family: sans-serif;
     background: linear-gradient(#141e30, #243b55);
   }
@@ -13,22 +13,25 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    padding: 40px;
+    padding: 20px; /* réduit le padding */
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,.5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
-  }
+    width: 80%;
+    max-width: 600px;
+    overflow: auto;
+ }
 
-  .choice-box h2 {
-    margin: 0 0 30px;
+ .choice-box h2 {
+    margin: 0 0 20px; /* réduit le margin */
     padding: 0;
     color: #fff;
     text-align: center;
-  }
+ }
 
-  .choice-box form a {
+ .choice-box form a {
     position: relative;
     display:flexbox;
     padding: 10px 20px;
@@ -40,24 +43,40 @@ body {
     transition: .5s;
     margin-top: 40px;
     letter-spacing: 4px
-  }
+ }
 
-  .choice-box form {
+ .choice-box form {
     display: flex;
     flex-direction: row;
-  }
+ }
 
-  .choice-box a:hover:not(.delete-icon) {
+ .choice-box a:hover:not(.delete-icon) {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
-  }
+ }
   
-  .choice-button {
+ .choice-button {
     padding: 10px;
     display: grid;    
     place-items: center;
     font-weight: bolder;
+}
+
+@media (max-width: 600px) { /* Ajoute des media queries pour une meilleure expérience sur les petits écrans */
+ .choice-box {
+    width: 100%;
+    padding: 20px;
+ }
+
+ .choice-box h2 {
+    margin: 0 0 20px;
+ }
+
+ .choice-box form a {
+    padding: 10px 15px;
+    margin-top: 30px;
+ }
 }
 
 #retour {
@@ -83,4 +102,88 @@ th, td {
 label {
   display: block;
   margin-top: 10px;
+}
+
+/*Reset CSS*/
+*{
+  margin: 0px;
+  padding: 0px;
+  font-family: Avenir, sans-serif;
+}
+
+nav{
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(0,0,0,.5);
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  color:#03e9f4;
+  position: sticky;
+  top: 0px;
+}
+
+nav > ul {
+  display: flex;
+  text-align: center;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  background: rgba(0,0,0,.5);
+  margin-left: 0;
+}
+
+nav ul{
+  list-style-type: none;
+}
+
+nav ul li{
+  float: left;
+  width: 25%;
+  text-align: center;
+  position: relative;
+}
+
+nav ul::after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+nav a{
+  display: block;
+  text-decoration: none;
+  color: #03e9f4;
+  border-bottom: 2px solid transparent;
+  padding: 10px 0px;
+}
+
+nav a:hover{
+  color: rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.sous{
+  display: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,.6);
+  background: rgba(0,0,0,.5);
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+nav > ul li:hover .sous{
+  display: block;
+}
+.sous li{
+  float: none;
+  width: 100%;
+  text-align: left;
+}
+.sous a{
+  padding: 10px;
+  border-bottom: none;
+}
+.sous a:hover{
+  border-bottom: none;
+  background-color: RGBa(200,200,200,0.1);
+}
+.deroulant > a::after{
+  content:" ▼";
+  font-size: 12px;
 }
