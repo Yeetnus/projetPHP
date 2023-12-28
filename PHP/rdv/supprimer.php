@@ -54,7 +54,7 @@
       </tr>
       
       <?php
-        require("BDDmedecin.php");
+        require("../BDD/BDDmedecin.php");
         $BDD = new BDDmedecin();
         $records = $BDD->select();
         while($row = $records->fetch()) {

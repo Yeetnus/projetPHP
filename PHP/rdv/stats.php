@@ -3,12 +3,8 @@
     <head>
         <meta charset="utf-8"/>
         <title>Page de test</title>
-        <link rel="stylesheet" href="../CSS/style.css">
     </head>
     <body>
-    <div class="choice-box">
-    
-    <h2>Page de suppression</h2>
         <form action="#" method="post">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>
@@ -31,12 +27,11 @@
             <button type="submit" name="Valider">Valider</button>
             <button type="submit" name="Annuler">Annuler</button>
             <?php
-            require("BDDusager.php");
-            $BDD =new BDDusager();
-            $BDD->select("medecin");
+            require("../BDD/fonctions.php");
+            $BDD =BDD::getInstanceBDD();
+            $BDD->select("usager");
             ?>
             
         </form>
-</div>
     </body>
 </html>
