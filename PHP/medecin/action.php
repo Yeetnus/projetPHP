@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Page de test</title>
-        <link rel="stylesheet" href="../CSS/style.css">
+        <link rel="stylesheet" href="../../CSS/style.css">
     </head>
     <header>
         <nav>
@@ -34,8 +34,6 @@
         </nav>
     </header>
     <body>
-    <div class="choice-box">
-    
     <h2>Page de suppression</h2>
         <form action="#" method="post">
             <label>Nom :</label>
@@ -47,15 +45,6 @@
             <label>Civilité :</label>
             <input name="civ" id="civ" type="text" /></p>
 
-            <label>Adresse Complète :</label>
-            <input name="adr" id="adr" type="text" /></p>
-
-            <label>Date de naissance :</label>
-            <input name="dateN" id="dateN" type="text" /></p>
-
-            <label>Lieu de naissance :</label>
-            <input name="lieuN" id="lieuN" type="text" /></p>
-
             <button type="submit" name="Valider">Valider</button>
             <button type="submit" name="Annuler">Annuler</button>
             <?php
@@ -65,6 +54,5 @@
             ?>
             
         </form>
-</div>
     </body>
 </html>
