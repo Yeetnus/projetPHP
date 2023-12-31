@@ -6,11 +6,13 @@
         public function __construct() {
             $this->BDD = BDD::getInstanceBDD();
         }
-/*
-        public function insert(int $id,string $nom,){
 
+        public function insert(int $id,string $nom, string $prenom, string $civ){
+            $sql = "INSERT INTO medecin WHERE ID=$id ";
+            $stmt = BDD->getBDD()->prepare($sql);
+            $stmt->execute();
         }
-*/
+
         public function select(){
             $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin";
             $result = $this->BDD->getBDD()->query($sql);
