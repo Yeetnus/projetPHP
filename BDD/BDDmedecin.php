@@ -21,7 +21,6 @@
                 // Exécution de la requête
                 $stmt->execute();
                 
-                echo "<script>alert('Le médecin a bien été ajouté')</script>";
             } catch (PDOException $e) {
                 die("Erreur d'insertion dans la base de données: " . $e->getMessage());
             }

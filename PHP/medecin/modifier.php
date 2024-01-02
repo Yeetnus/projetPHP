@@ -12,30 +12,32 @@
                 <ul class="sous">
                     <li><a href="supprimer.php">Supprimer un médecin</a></li>
                     <li><a href="ajouter.php">Ajouter un médecin</a></li>
-                    <li><a href="action.php">Modifier un médecin</a></li>
+                    <li><a href="modifier.php">Modifier un médecin</a></li>
                 </ul>
                 </li>
                 <li class="deroulant"><a href="#">Usager &ensp;</a>
                 <ul class="sous">
                 <li><a href="supprimer.php">Supprimer un usager</a></li>
                     <li><a href="ajouter.php">Ajouter un usager</a></li>
-                    <li><a href="action.php">Modifier un usager</a></li>
+                    <li><a href="modifier.php">Modifier un usager</a></li>
                 </ul>
                 </li>
                 <li class="deroulant"><a href="#">Consultations &ensp;</a>
                 <ul class="sous">
                 <li><a href="supprimer.php">Supprimer</a></li>
                     <li><a href="ajouter.php">Ajouter</a></li>
-                    <li><a href="action.php">Modifier</a></li>
+                    <li><a href="modifier.php">Modifier</a></li>
                 </ul>
                 </li>
                 <li><a href="#">A propos</a></li>
             </ul>
         </nav>
     </header>
+
     <body>
-    <h2>Page de suppression</h2>
-        <form action="#" method="post">
+        <h2>Page de suppression</h2>
+        <div class="scrollable-div choice-box">
+        <form action="#" method="post" class="formulaire">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>
 
@@ -48,11 +50,19 @@
             <button type="submit" name="Valider">Valider</button>
             <button type="submit" name="Annuler">Annuler</button>
             <?php
-            require("../../BDD/BDDmedecin.php");
-            $BDD =new BDDmedecin();
-            $BDD->select();
-            ?>
-            
+        require("../../BDD/BDDmedecin.php");
+        $BDD = new BDDmedecin();
+
+        if(array_key_exists('Valider', $_POST)) { 
+            $prenom = $_POST['prenom'];
+            $nom = $_POST['nom'];
+            $civ = $_POST['civ'];
+            $BDD->insert($nom, $prenom, $civ);
+            echo "<a href='ajouter.php'></a>";
+        } 
+                
+        ?>
         </form>
+        </div>
     </body>
 </html>
