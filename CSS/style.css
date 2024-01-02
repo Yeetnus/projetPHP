@@ -167,6 +167,11 @@ body {
     }
   }
   
+  .scrollable-div {
+    height: 80%;
+    overflow: auto; 
+  }
+
   .choice-box {
     position: absolute;
     top: 50%;
@@ -203,7 +208,7 @@ body {
     letter-spacing: 4px
  }
 
- .choice-box form {
+ .choice-box form:not(.formulaire) {
     display: flex;
     flex-direction: row;
  }
