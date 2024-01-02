@@ -7,10 +7,24 @@
             $this->BDD = BDD::getInstanceBDD();
         }
 
-        public function insert(int $id,string $nom, string $prenom, string $civ){
-            $sql = "INSERT INTO medecin WHERE ID=$id ";
-            $stmt = BDD->getBDD()->prepare($sql);
-            $stmt->execute();
+        public function insert(string $nom, string $prenom, string $civ) {
+            
+            try {
+                $sql = "INSERT INTO medecin (Nom, Prenom, Civilite) VALUES (:nom, :prenom, :civ)";
+                $stmt = $this->BDD->getBDD()->prepare($sql);
+        
+                // Liaison des paramètres
+                $stmt->bindParam(':nom', $nom);
+                $stmt->bindParam(':prenom', $prenom);
+                $stmt->bindParam(':civ', $civ);
+                
+                // Exécution de la requête
+                $stmt->execute();
+                
+                echo "<script>alert('Le médecin a bien été ajouté')</script>";
+            } catch (PDOException $e) {
+                die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+            }
         }
 
         public function select(){
@@ -27,7 +41,7 @@
 
         public function update(string $updated,string $updating,int $id){
             $sql = "UPDATE medecin SET $updated=$updating  WHERE ID=$id ";
-            $stmt = BDD->getBDD()->prepare($sql);
+            $stmt = $this->BDD->getBDD()->prepare($sql);
             $stmt->execute();
         }
         
