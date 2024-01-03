@@ -5,44 +5,19 @@
   <title>Supprimer</title>
   <link rel="stylesheet" href="../../CSS/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    $('.open-menu-btn').on('click', function(){
-  if($('body').hasClass('closed-menu')){
-    $('body').removeClass('closed-menu');
-  }else  $('body').addClass('closed-menu');
-});
-  </script>
+  
 </head>
+<header><?php include "../../HTML/header.php"; ?></header>
 
 <body>
-  <!--<?php include "../../HTML/header.php"; ?>-->
-
-  <!-- menu vertical -->
-  <nav class="vertical-menu-wrapper">
-  <div class="vertical-menu-logo">
-    <div>LOGO</div>
-    <span class="open-menu-btn"><hr><hr><hr></span>
+  
+  
+  <div class="content-wrapper">
+    <div class="content">
+    </div>
   </div>
-  <ul class="vertical-menu">
-    <li>Schedule</li>
-    <li>Event</li>
-    <hr />
-    <li>Setting</li>
-    <li>Privacy</li>
-    <li id="user-info">MJ<span>online</span></li>
-  </ul>
-</nav>
-<div class="content-wrapper">
-  <div class="content">
-  </div>
-</div>  
-<!-- /menu vertical -->
+  <!-- /menu vertical -->
 
-<!-- contenido de pagina, realmente no importa -->
-<div id="container">
-  <h2>Hello World!</h2>
-</div>
-<!-- /contenido de pagina, realmente no importa -->
 
   <div class="scrollable-div choice-box">
     <h2>Page de suppression de médecin</h2>
@@ -76,7 +51,7 @@
             <a href='../../BDD/delete-script.php?recordID=<?php echo $recordID ?>' class="delete-icon">
               <img src="../../IMAGES/icons8-trash-50.png"></a>
           </td>
-        </tr>;
+        </tr>
       <?php } ?>
     </table>
     <form>
@@ -106,7 +81,8 @@
           }
         }
       }
-    }
+    };
+
   </script>
 </body>
 

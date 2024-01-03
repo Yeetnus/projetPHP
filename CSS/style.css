@@ -254,6 +254,7 @@ h2 {
 .retour {
   margin-top: 50px;
 }
+
 @media (max-width: 600px) {
 
   /* Ajoute des media queries pour une meilleure expérience sur les petits écrans */
@@ -303,47 +304,11 @@ label {
 
 
 /*
-nav {
-  width: 100%;
-  margin: 0 auto;
-  background: rgba(0, 0, 0, .5);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-  color: #03e9f4;
-  position: sticky;
-  top: 0px;
-}
-
-nav>ul {
-  display: flex;
-  text-align: center;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-  background: rgba(0, 0, 0, .5);
-  margin-left: 0;
-}
-
-nav ul {
-  list-style-type: none;
-}
-
-nav ul li {
-  float: left;
-  width: 25%;
-  text-align: center;
-  position: relative;
-}
-
 nav ul::after {
   display: table;
   clear: both;
 }
 
-nav a {
-  display: block;
-  text-decoration: none;
-  color: #03e9f4;
-  border-bottom: 2px solid transparent;
-  padding: 10px 0px;
-}
 
 nav a:hover {
   color: rgb(255, 255, 255);
@@ -355,6 +320,7 @@ nav a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
   background: rgba(0, 0, 0, .5);
   position: absolute;
+  height: auto;
   width: 100%;
   z-index: 1000;
 }
@@ -382,8 +348,7 @@ nav>ul li:hover .sous {
 .deroulant>a::after {
   content: " ▼";
   font-size: 12px;
-}
-*/
+}*/
 
 .flip {
   position: relative;
@@ -470,7 +435,7 @@ nav>ul li:hover .sous {
 }
 
 .flip-box {
-  position:absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   padding: 20px;
@@ -519,26 +484,41 @@ nav>ul li:hover .sous {
 }
 
 #myInput {
-  background-image: url('../IMAGES/icons8-search-20.png'); /* Add a search icon to input */
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: auto; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  background-image: url('../IMAGES/icons8-search-20.png');
+  /* Add a search icon to input */
+  background-position: 10px 12px;
+  /* Position the search icon */
+  background-repeat: no-repeat;
+  /* Do not repeat the icon image */
+  width: auto;
+  /* Full-width */
+  font-size: 16px;
+  /* Increase font-size */
+  padding: 12px 20px 12px 40px;
+  /* Add some padding */
+  border: 1px solid #ddd;
+  /* Add a grey border */
+  margin-bottom: 12px;
+  /* Add some space below the input */
 }
 
 #myTable {
-  border-collapse: collapse; /* Collapse borders */
-  width: 100%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
-  font-size: 18px; /* Increase font-size */
+  border-collapse: collapse;
+  /* Collapse borders */
+  width: 100%;
+  /* Full-width */
+  border: 1px solid #ddd;
+  /* Add a grey border */
+  font-size: 18px;
+  /* Increase font-size */
 }
 
-#myTable th, #myTable td {
-  text-align: left; /* Left-align text */
-  padding: 12px; /* Add padding */
+#myTable th,
+#myTable td {
+  text-align: left;
+  /* Left-align text */
+  padding: 12px;
+  /* Add padding */
 }
 
 #myTable tr {
@@ -551,7 +531,8 @@ nav {
   position: fixed;
   width: 100%;
   max-width: 300px;
-  bottom: 0; top: 0;
+  bottom: 0;
+  top: 0;
   display: block;
   min-height: 300px;
   height: 100%;
@@ -561,27 +542,52 @@ nav {
   -moz-transition: all 300ms;
   -webkit-transition: all 300ms;
 }
-nav .vertical-menu hr{opacity: 0.1; border-width: 0.5px;}
-nav ul{width: 90%; padding-inline-start: 0; margin: 10px; height: calc(100% - 20px); }
-nav .vertical-menu-logo{padding: 20px; font-size: 1.3em; position: relative}
-nav .vertical-menu-logo .open-menu-btn{width: 30px; height: max-content; position: absolute; display: block; right: 20px; top: 0; bottom: 0; margin: auto; cursor: pointer;}
-nav .vertical-menu-logo .open-menu-btn hr{margin: 5px 0}
-nav li{list-style: none; padding: 10px 10px; cursor: pointer;}
-nav li:hover{ color: rgba(75, 105, 176,1); }
-nav li#user-info{position: absolute; bottom: 0; width: 80%;}
-nav li#user-info > span{display: block; float: right; font-size: 0.9em; position: relative; opacity: 0.6;}
-nav li#user-info > span:after{
-  content: '';
-  width: 12px;
-  height: 12px;
-  display: block;
-  position: absolute;
-  background: green;
-  left: -20px; top: 0; bottom: 0;
-  margin: auto;
-  border-radius: 50%;
+
+nav .vertical-menu hr {
+  opacity: 0.1;
+  border-width: 0.5px;
 }
-.content-wrapper{
+
+nav ul {
+  width: 90%;
+  padding-inline-start: 0;
+  margin: 10px;
+  height: calc(100% - 20px);
+}
+
+nav .vertical-menu-logo {
+  padding: 20px;
+  font-size: 1.3em;
+  position: relative
+}
+
+nav .vertical-menu-logo .open-menu-btn {
+  width: 30px;
+  height: max-content;
+  position: absolute;
+  display: block;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  cursor: pointer;
+}
+
+nav .vertical-menu-logo .open-menu-btn hr {
+  margin: 5px 0
+}
+
+nav li {
+  list-style: none;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+nav li:hover {
+  color: rgba(75, 105, 176, 1);
+}
+
+.content-wrapper {
   width: calc(100% - 300px);
   height: 100%;
   position: fixed;
@@ -589,30 +595,61 @@ nav li#user-info > span:after{
   left: 300px;
   padding: 20px;
 }
-.closed-menu .content-wrapper{
+
+.closed-menu .content-wrapper {
   width: 100%;
   left: 50px;
 }
-.content-wrapper{
-    transition: all 300ms;
+
+.content-wrapper {
+  transition: all 300ms;
 }
-.vertical-menu-wrapper .vertical-menu-logo div{transition: all 100ms;}
-.closed-menu .vertical-menu-wrapper .vertical-menu-logo div{
+
+.vertical-menu-wrapper .vertical-menu-logo div {
+  transition: all 100ms;
+}
+
+.closed-menu .vertical-menu-wrapper .vertical-menu-logo div {
   margin-left: -100px;
 }
-.vertical-menu-wrapper .vertical-menu-logo .open-menu-btn{transition: all 300ms;}
-.closed-menu .vertical-menu-wrapper .vertical-menu-logo .open-menu-btn{
+
+.vertical-menu-wrapper .vertical-menu-logo .open-menu-btn {
+  transition: all 300ms;
+}
+
+.closed-menu .vertical-menu-wrapper .vertical-menu-logo .open-menu-btn {
   left: 7px;
   right: 100%;
 }
 
-.closed-menu .vertical-menu-wrapper ul,.closed-menu .vertical-menu-wrapper hr{margin-left: -300px;}
-.vertical-menu-wrapper ul, .vertical-menu-wrapper hr{transition: all 100ms;}
-.content-wrapper{background: #ebebeb;}
-.content{
+.closed-menu .vertical-menu-wrapper ul,
+.closed-menu .vertical-menu-wrapper hr {
+  margin-left: -300px;
+}
+
+.vertical-menu-wrapper ul,
+.vertical-menu-wrapper hr {
+  transition: all 100ms;
+}
+
+.content-wrapper {
+  background: #ebebeb;
+}
+
+.content {
   width: 90%;
   min-height: 90%;
   background: #fff;
   border-radius: 10px;
   padding: 30px;
+}
+
+li a {
+  text-decoration: none;
+  color:#fff;
+}
+
+li a:hover {
+  background-color: rgba(75, 105, 176, 0.15);
+  color: rgba(75, 105, 176, 1);
 }
