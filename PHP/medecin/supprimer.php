@@ -5,11 +5,44 @@
   <title>Supprimer</title>
   <link rel="stylesheet" href="../../CSS/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <script>
+    $('.open-menu-btn').on('click', function(){
+  if($('body').hasClass('closed-menu')){
+    $('body').removeClass('closed-menu');
+  }else  $('body').addClass('closed-menu');
+});
+  </script>
 </head>
 
 <body>
-  <?php include "../../HTML/header.php"; ?>
+  <!--<?php include "../../HTML/header.php"; ?>-->
+
+  <!-- menu vertical -->
+  <nav class="vertical-menu-wrapper">
+  <div class="vertical-menu-logo">
+    <div>LOGO</div>
+    <span class="open-menu-btn"><hr><hr><hr></span>
+  </div>
+  <ul class="vertical-menu">
+    <li>Schedule</li>
+    <li>Event</li>
+    <hr />
+    <li>Setting</li>
+    <li>Privacy</li>
+    <li id="user-info">MJ<span>online</span></li>
+  </ul>
+</nav>
+<div class="content-wrapper">
+  <div class="content">
+  </div>
+</div>  
+<!-- /menu vertical -->
+
+<!-- contenido de pagina, realmente no importa -->
+<div id="container">
+  <h2>Hello World!</h2>
+</div>
+<!-- /contenido de pagina, realmente no importa -->
 
   <div class="scrollable-div choice-box">
     <h2>Page de suppression de médecin</h2>
@@ -47,7 +80,7 @@
       <?php } ?>
     </table>
     <form>
-      <a href="../../choix.html" class="choice-button" id="retour">
+      <a href="../../choix.html" class="choice-button retour" id="retour">
         Retour
       </a>
     </form>
