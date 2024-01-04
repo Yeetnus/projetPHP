@@ -30,9 +30,10 @@ class BDDusager
             $stmt = $this->BDD->getBDD()->prepare($sql);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':civilite', $civilite);
+            $stmt->bindParam(':civ', $civilite);
             $stmt->bindParam(':adresse', $adresse);
-            $stmt->bindParam(':dateN', $dateN);
+            $date_string = $dateN->format('Y-m-d');
+            $stmt->bindParam(':dateN', $date_string);
             $stmt->bindParam(':lieuN', $lieuN);
             $stmt->bindParam(':numsecu', $numsecu);
             $stmt->execute();
@@ -50,6 +51,8 @@ class BDDusager
         $stmt->bindParam(':prenom', $prenom);
         $stmt->bindParam(':civilite', $civilite);
         $stmt->bindParam(':adresse', $adresse);
+        //$date_object = DateTime::createFromFormat('Y-m-d', $dateN);
+        //$date_sql = $date_object->format('Y-m-d');
         $stmt->bindParam(':dateN', $dateN);
         $stmt->bindParam(':lieuN', $lieuN);
         $stmt->bindParam(':numsecu', $numsecu);

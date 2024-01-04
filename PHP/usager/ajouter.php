@@ -9,7 +9,7 @@
 <?php include "../../HTML/header.php"; ?>
 
 <body>
-  <div class="content-wrapper" >
+  <div class="content-wrapper">
     <div class="content">
       <div class="scrollable-div login-box">
         <h2>Ajouter un usager</h2>
@@ -31,7 +31,7 @@
             <label>Adresse</label>
           </div>
           <div class="user-box">
-            <input type="date" name="dateN" required="">
+            <input type="date" name="dateN" required>
             <label>Date de naissance</label>
           </div>
           <div class="user-box">
@@ -45,7 +45,7 @@
           <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
           <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
           <?php
-          require("../../BDD/BDDmedecin.php");
+          require("../../BDD/BDDusager.php");
           $BDD = new BDDusager();
 
           if (array_key_exists('Valider', $_POST)) {
@@ -53,9 +53,10 @@
             $nom = $_POST['nom'];
             $civ = $_POST['civ'];
             $adresse = $_POST['adresse'];
-            $dateN = $_POST['dateN'];
             $lieuN = $_POST['lieuN'];
             $numsecu = $_POST['numsecu'];
+            $date = $_POST['dateN'];
+            $dateN = new DateTime($date);
             $BDD->insert($nom, $prenom, $civ, $adresse, $dateN, $lieuN, $numsecu);
             echo '<script>window.location.href="ajouter.php";</script>';
           }
@@ -66,4 +67,5 @@
     </div>
   </div>
 </body>
+
 </html>
