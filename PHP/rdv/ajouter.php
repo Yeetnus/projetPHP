@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Page de test</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../../CSS/style.css">
 </head>
 <header>
     <?php include "../../HTML/header.php"; ?>

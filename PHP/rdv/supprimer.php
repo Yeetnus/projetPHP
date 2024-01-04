@@ -3,7 +3,7 @@
 
 <head>
   <title>Supprimer</title>
-  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../../CSS/style.css">
   <style>
     table,
     th,
