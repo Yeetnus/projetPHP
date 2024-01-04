@@ -27,9 +27,9 @@
             <button type="submit" name="Valider">Valider</button>
             <button type="submit" name="Annuler">Annuler</button>
             <?php
-            require("../BDD/fonctions.php");
-            $BDD =BDD::getInstanceBDD();
-            $BDD->select("usager");
+            require("../../BDD/BDDmedecin.php");
+            $BDD = new BDDmedecin();
+            $BDD->select();
             ?>
             
         </form>

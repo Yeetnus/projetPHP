@@ -1,38 +1,69 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Page de test</title>
-        <link rel="stylesheet" href="../CSS/style.css">
-    </head>
-    <body>
-        <div class="choice-box">
-        <h2>Page d'ajout</h2>
-        <!--Bonjour, <?php echo htmlspecialchars($_POST['nom']); ?>.
-        Tu as <?php echo (int)$_POST['age']; ?> ans.-->
-        <form action="#" method="post">
-            <label>Nom :</label>
-            <input name="nom" id="nom" type="text" /></p>
 
-            <label>Prénom:</label>
-            <input name="prenom" id="prenom" type="text" /></p>
+<head>
+  <meta charset="utf-8" />
+  <title>Page de test</title>
+  <link rel="stylesheet" href="../../CSS/style.css">
+</head>
+<?php include "../../HTML/header.php"; ?>
 
-            <label>Civilité :</label>
-            <input name="civ" id="civ" type="text" /></p>
+<body>
+  <div class="content-wrapper" >
+    <div class="content">
+      <div class="scrollable-div login-box">
+        <h2>Ajouter un usager</h2>
+        <form action="#" method="post" class="formulaire">
+          <div class="user-box">
+            <input type="text" name="nom" required="">
+            <label>Nom</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="prenom" required="">
+            <label>Prénom</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="civ" required="">
+            <label>Civlité</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="adresse" required="">
+            <label>Adresse</label>
+          </div>
+          <div class="user-box">
+            <input type="date" name="dateN" required="">
+            <label>Date de naissance</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="lieuN" required="">
+            <label>Lieu de naissance</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="numsecu" minlength="13" maxlength="13" required="">
+            <label>Numéro de sécurité sociale</label>
+          </div>
+          <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
+          <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
+          <?php
+          require("../../BDD/BDDmedecin.php");
+          $BDD = new BDDusager();
 
-            <label>Adresse Complète :</label>
-            <input name="adr" id="adr" type="text" /></p>
+          if (array_key_exists('Valider', $_POST)) {
+            $prenom = $_POST['prenom'];
+            $nom = $_POST['nom'];
+            $civ = $_POST['civ'];
+            $adresse = $_POST['adresse'];
+            $dateN = $_POST['dateN'];
+            $lieuN = $_POST['lieuN'];
+            $numsecu = $_POST['numsecu'];
+            $BDD->insert($nom, $prenom, $civ, $adresse, $dateN, $lieuN, $numsecu);
+            echo '<script>window.location.href="ajouter.php";</script>';
+          }
 
-            <label>Date de naissance :</label>
-            <input name="daten" id="daten" type="text" /></p>
-
-            <label>Lieu de naissance :</label>
-            <input name="lieun" id="lieun" type="text" /></p>
-
-            <button type="submit" name="Valider">Valider</button>
-            <button type="submit" name="Annuler">Annuler</button>
-            
+          ?>
         </form>
-        </div>
-    </body>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

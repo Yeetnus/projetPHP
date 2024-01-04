@@ -38,9 +38,13 @@
             return $result;
         }
 
-        public function update(string $updated,string $updating,int $id){
-            $sql = "UPDATE medecin SET $updated=$updating  WHERE ID=$id ";
+        public function update(int $id, string $nom, string $prenom, string $civilite){
+            $sql = "UPDATE medecin SET Nom=:nom, Prenom=:prenom, Civilite=:civilite WHERE ID=:id";
             $stmt = $this->BDD->getBDD()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':civilite', $civilite);
             $stmt->execute();
         }
         
