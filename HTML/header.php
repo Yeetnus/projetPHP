@@ -14,23 +14,23 @@
         <ul class="<vertical-menu">
             <li>Médecin
                 <ul>
-                    <li><a href="supprimer.php">Supprimer un médecin</a></li>
-                    <li><a href="ajouter.php">Ajouter un médecin</a></li>
-                    <li><a href="modifier.php">Modifier un médecin</a></li>
+                    <li><a href="../medecin/supprimer.php">Supprimer un médecin</a></li>
+                    <li><a href="../medecin/ajouter.php">Ajouter un médecin</a></li>
+                    <li><a href="../medecin/modifier.php">Modifier un médecin</a></li>
                 </ul>
             </li><hr/>
             <li>Usager
                 <ul>
-                    <li><a href="supprimer.php">Supprimer un usager</a></li>
-                    <li><a href="ajouter.php">Ajouter un usager</a></li>
-                    <li><a href="modifier.php">Modifier un usager</a></li>
+                    <li><a href="../usager/supprimer.php">Supprimer un usager</a></li>
+                    <li><a href="../usager/ajouter.php">Ajouter un usager</a></li>
+                    <li><a href="../usager/modifier.php">Modifier un usager</a></li>
                 </ul>
             </li><hr/>
             <li>Consultations
                 <ul>
-                    <li><a href="supprimer.php">Supprimer une consultation</a></li>
-                    <li><a href="ajouter.php">Ajouter une consultation</a></li>
-                    <li><a href="modifier.php">Modifier une consultation</a></li>
+                    <li><a href="../rdv/supprimer.php">Supprimer une consultation</a></li>
+                    <li><a href="../rdv/ajouter.php">Ajouter une consultation</a></li>
+                    <li><a href="../rdv/modifier.php">Modifier une consultation</a></li>
                 </ul>
             </li><hr/>
             <li><a href="#">Statistiques</a></li>

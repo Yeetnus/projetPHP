@@ -1,14 +1,19 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Page de test</title>
-        <link rel="stylesheet" href="../CSS/style.css">
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Page de test</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<header>
+    <?php include "../../HTML/header.php"; ?>
+</header>
+
+<body>
     <div class="choice-box">
-    
-    <h2>Page de suppression</h2>
+
+        <h2>Page de suppression</h2>
         <form action="#" method="post">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>
@@ -32,11 +37,12 @@
             <button type="submit" name="Annuler">Annuler</button>
             <?php
             require("../BDD/BDDusager.php");
-            $BDD =new BDDusager();
+            $BDD = new BDDusager();
             $BDD->select("medecin");
             ?>
-            
+
         </form>
-</div>
-    </body>
+    </div>
+</body>
+
 </html>
