@@ -1,5 +1,5 @@
 <?php
-    include('BDD.php');
+    include_once('BDD.php');
     class BDDmedecin {
         private $BDD;
 

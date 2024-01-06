@@ -1,5 +1,5 @@
 <?php
-include('BDD.php');
+include_once('BDD.php');
 class BDDusager
 {
     private $BDD;
@@ -23,10 +23,10 @@ class BDDusager
         return $result;
     }
 
-    public function insert(string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu)
+    public function insert(string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu, int $medid)
     {
         try {
-            $sql = "INSERT INTO usager (Nom, Prenom, Civilite, Adresse, DateNaissance, LieuNaissance, NumeroSecuriteSociale) VALUES (:nom, :prenom, :civ, :adresse, :dateN, :lieuN, :numsecu)";
+            $sql = "INSERT INTO usager (Nom, Prenom, Civilite, Adresse, DateNaissance, LieuNaissance, NumeroSecuriteSociale, MedID) VALUES (:nom, :prenom, :civ, :adresse, :dateN, :lieuN, :numsecu, :medid)";
             $stmt = $this->BDD->getBDD()->prepare($sql);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
@@ -36,15 +36,16 @@ class BDDusager
             $stmt->bindParam(':dateN', $date_string);
             $stmt->bindParam(':lieuN', $lieuN);
             $stmt->bindParam(':numsecu', $numsecu);
+            $stmt->bindParam(':medid', $medid);
             $stmt->execute();
         } catch (PDOException $e) {
             die("Erreur d'insertion dans la base de données: " . $e->getMessage());
         }
     }
 
-    public function update(int $id, string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu)
+    public function update(int $id, string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu, int $medid)
     {
-        $sql = "UPDATE usager SET Nom=:nom,Prenom=:prenom,Civilite=:civ,Adresse=:adresse,DateNaissance=:dateN,LieuNaissance=:lieuN,NumeroSecuriteSociale=:numsecu WHERE ID=:id";
+        $sql = "UPDATE usager SET Nom=:nom,Prenom=:prenom,Civilite=:civ,Adresse=:adresse,DateNaissance=:dateN,LieuNaissance=:lieuN,NumeroSecuriteSociale=:numsecu, MedID=:medid WHERE ID=:id";
         $stmt = $this->BDD->getBDD()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nom', $nom);
@@ -56,6 +57,7 @@ class BDDusager
         $stmt->bindParam(':dateN', $dateN);
         $stmt->bindParam(':lieuN', $lieuN);
         $stmt->bindParam(':numsecu', $numsecu);
+        $stmt->bindParam(':medid', $medid);
         $stmt->execute();
     }
 

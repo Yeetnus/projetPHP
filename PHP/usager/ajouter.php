@@ -30,9 +30,10 @@
             <input type="text" name="adresse" required="">
             <label>Adresse</label>
           </div>
+          <label>Date de naissance</label>
           <div class="user-box">
             <input type="date" name="dateN" required>
-            <label>Date de naissance</label>
+            
           </div>
           <div class="user-box">
             <input type="text" name="lieuN" required="">
@@ -42,8 +43,26 @@
             <input type="text" name="numsecu" minlength="13" maxlength="13" required="">
             <label>Numéro de sécurité sociale</label>
           </div>
+          
+          <label>Médecin référent</label>
+          <?php
+          require("../../BDD/BDDmedecin.php");
+          $BDDmed = new BDDmedecin();
+          $records = $BDDmed->select();
+
+          echo "<select name='medid'>";
+        
+          while ($row = $records->fetch()) {
+            $recordID = $row["ID"];
+            echo "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
+          }
+
+          // Close the select element
+          echo "</select>"; ?>
+
           <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
           <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
+
           <?php
           require("../../BDD/BDDusager.php");
           $BDD = new BDDusager();
@@ -57,10 +76,10 @@
             $numsecu = $_POST['numsecu'];
             $date = $_POST['dateN'];
             $dateN = new DateTime($date);
-            $BDD->insert($nom, $prenom, $civ, $adresse, $dateN, $lieuN, $numsecu);
+            $medid = $_POST['medid'];
+            $BDD->insert($nom, $prenom, $civ, $adresse, $dateN, $lieuN, $numsecu, $medid);
             echo '<script>window.location.href="ajouter.php";</script>';
           }
-
           ?>
         </form>
       </div>
