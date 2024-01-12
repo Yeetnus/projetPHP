@@ -1,7 +1,8 @@
 <?php
     session_start();
-    if (!isset($_SESSION['username']) || $_SESSION['username'] !== true) {
-        header('Location: /index.php');
+    if (!isset($_SESSION['username'])) {
+        print_r("ok");
+        header('Location: /projetphp/index.php');
         exit();
     }
 ?>

@@ -1,3 +1,4 @@
+<?php require_once "PHP/verification.php" ?>
 <!DOCTYPE html>
 <html>
 

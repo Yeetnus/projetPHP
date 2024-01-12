@@ -7,7 +7,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
     
-    $records = $BDD->verification($_POST["username"], $_POST["password"]);
+    $records = $BDD->verification($username, $password);
 
     if ($records) {
         $_SESSION['username'] = $username;

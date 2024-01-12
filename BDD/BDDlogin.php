@@ -8,7 +8,7 @@ class BDDlogin {
     }
 
     public function verification(string $login, string $mdp){
-        $sql = "SELECT login, mdp FROM connecter where login=:login and mdp=:mdp";
+        $sql = "SELECT Login, Mdp FROM Connecter where Login=:login and Mdp=:mdp";
         $stmt = $this->BDD->getBDD()->prepare($sql);
         $stmt->bindParam(':login', $login);
         $stmt->bindParam(':mdp', $mdp); 
