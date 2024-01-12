@@ -1,37 +1,82 @@
+<?php require_once 'verification.php' ?>
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Page de test</title>
-    </head>
+<head>
+  <meta charset="utf-8" />
+  <title>Statistiques</title>
+  <link rel="icon" href="../IMAGES/logo_cabinet.png">
+  <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<?php include "../HTML/header.php"; ?>
     <body>
-        <form action="#" method="post">
-            <label>Nom :</label>
-            <input name="nom" id="nom" type="text" /></p>
+    <div class="content-wrapper" >
+      <div class="scrollable-div login-box">
+        <h2>Statistiques</h2>
+        <?php 
+            require("../BDD/BDDusager.php") ;
+            $BDDusager = new BDDusager();
+            $rslt25H = $BDDusager->getMoins25H();
+            $rslt25_50H = $BDDusager->getEntre25Et50H();
+            $rslt50H = $BDDusager->getPlus50H();
+            $rslt25F = $BDDusager->getMoins25F();
+            $rslt25_50F = $BDDusager->getEntre25Et50F();
+            $rslt50F = $BDDusager->getPlus50F();
+        ?>
+    <table>
+ <thead>
+    <tr>
+      <th>Tranche d'âge</th>    
+      <th>Nombre Hommes</th>
+      <th>Nombre Femmes</th>
+    </tr>
+ </thead>
+ <tbody>
+    <tr>
+      <td>Moins de 25 ans</td>
+      <td><?php echo $rslt25H?></td>
+      <td><?php echo $rslt25F?></td>
+    </tr>
+    <tr>
+      <td>Entre 25 et 50 ans</td>
+      <td><?php echo $rslt25_50H?></td>
+      <td><?php echo $rslt25_50F?></td>
+    </tr>
+    <tr>
+      <td>Plus de 50 ans</td>
+      <td><?php echo $rslt50H?></td>
+      <td><?php echo $rslt50F?></td>
+    </tr>
+ </tbody>
+</table>
+<br>
+<table id="myTable">
+          <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Durée</th>
+          </tr>
 
-            <label>Prénom:</label>
-            <input name="prenom" id="prenom" type="text" /></p>
-
-            <label>Civilité :</label>
-            <input name="civ" id="civ" type="text" /></p>
-
-            <label>Adresse Complète :</label>
-            <input name="adr" id="adr" type="text" /></p>
-
-            <label>Date de naissance :</label>
-            <input name="dateN" id="dateN" type="text" /></p>
-
-            <label>Lieu de naissance :</label>
-            <input name="lieuN" id="lieuN" type="text" /></p>
-
-            <button type="submit" name="Valider">Valider</button>
-            <button type="submit" name="Annuler">Annuler</button>
-            <?php
-            require("../BDD/fonctions.php");
-            $BDD =BDD::getInstanceBDD();
-            $BDD->select("usager");
-            ?>
-            
-        </form>
+          <?php
+          require("../BDD/BDDmedecin.php");
+          $BDD = new BDDmedecin();
+          $medecins = $BDD->getAllHeures();
+          foreach ($medecins as $medecin) {
+         ?>
+            <tr>
+              <td>
+                <?php echo $medecin["Nom"]; ?>
+              </td>
+              <td>
+                <?php echo $medecin["Prenom"]; ?>
+              </td>
+              <td>
+                <?php echo $medecin["TotalDuree"]; ?>
+              </td>
+            </tr>
+          <?php } ?>
+        </table>
+        <form>
+      </div>
+  </div>
     </body>
 </html>

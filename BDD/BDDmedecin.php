@@ -60,9 +60,22 @@
             return $result;
         }
 
-        public function getAllHeures(int $id){
-            $sql = "SELECT medecin,sum(DuréeRDV) FROM medecin WHERE ID=$id";
-            $result = $this->BDD->getBDD()->query($sql);
+        public function getAllHeures(){
+            $query = $this->BDD->getBDD()->query('SELECT m.Nom, m.Prenom, SUM(r.DuréeRDV) as TotalDuree FROM Medecin m INNER JOIN RendezVous r ON m.ID = r.MedID GROUP BY m.ID');
+
+            // Créer un tableau pour stocker les résultats
+            $result = array();
+
+            // Parcourir les résultats et les ajouter au tableau
+            while ($row = $query->fetch()) {
+                $result[] = array(
+                    'Nom' => $row['Nom'],
+                    'Prenom' => $row['Prenom'],
+                    'TotalDuree' => $row['TotalDuree']
+                );
+            }
+
+            // Retourner le tableau des résultats
             return $result;
         }
     }
