@@ -1,3 +1,4 @@
+<?php require_once "PHP/verification.php" ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -8,9 +9,8 @@
 </head>
 
 <body>
-
-  
   <div class="flip-box scrollable-div">
+    
     <div class="flip-boxH2">
     <h2>Où souhaitez-vous aller ?</h2>
     </div>
@@ -83,8 +83,10 @@
         </form>
       </div>
     </div>
-
   </div>
+  <form action="logout.php" method="post">
+    <input type="submit" value="Logout">
+</form>
 </body>
 
 </html>
