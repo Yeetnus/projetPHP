@@ -61,10 +61,10 @@ class BDDusager
         $stmt->execute();
     }
 
-    public function delete(string $deleted)
-    {
-        $sql = "DELETE FROM usager WHERE ID=$deleted";
-        $this->BDD->getBDD()->exec($sql);
+    public function delete(string $deleted){
+        $sql = "DELETE FROM usager WHERE id='$deleted'";
+        $result = $this->BDD->getBDD()->query($sql);
+        return $result;
     }
 
     public function getMoins25()

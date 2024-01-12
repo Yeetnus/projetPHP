@@ -1,11 +1,11 @@
-<?php require_once "PHP/verification.php" ?>
+<?php require_once "../verification.php" ?>
 <!DOCTYPE html>
 <html>
 
 <head>
   <title>Supprimer</title>
   <link rel="stylesheet" href="../../CSS/style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="w  idth=device-width, initial-scale=1.0">
 
 </head>
 <header>
@@ -26,12 +26,16 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>Civilité</th>
+            <th>Adresse</th>
+            <th>Date de naissance</th>
+            <th>Lieu de naissance</th>
+            <th>Numéro de sécurité sociale</th>
             <th>Choix</th>
           </tr>
 
           <?php
-          require("../../BDD/BDDmedecin.php");
-          $BDD = new BDDmedecin();
+          require("../../BDD/BDDusager.php");
+          $BDD = new BDDusager();
           $records = $BDD->select();
           while ($row = $records->fetch()) {
             $recordID = $row["ID"]; ?>
@@ -46,8 +50,20 @@
                 <?php echo $row["Civilite"]; ?>
               </td>
               <td>
+                <?php echo $row["Adresse"]; ?>
+              </td>
+              <td>
+                <?php echo $row["DateNaissance"]; ?>
+              </td>
+              <td>
+                <?php echo $row["LieuNaissance"]; ?>
+              </td>
+              <td>
+                <?php echo $row["NumeroSecuriteSociale"]; ?>
+              </td>
+              <td>
                 <a onclick="return confirm('Souhaitez-vous vraiment supprimer ce médecin ?');"
-                  href='../../BDD/delete-script.php?recordID=<?php echo $recordID ?>' class="delete-icon">
+                  href="delete-script.php?recordID=<?php echo $recordID ?>' class="delete-icon">
                   <img src="../../IMAGES/icons8-trash-50.png"></a>
               </td>
             </tr>
