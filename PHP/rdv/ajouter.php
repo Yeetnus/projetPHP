@@ -13,8 +13,6 @@
 <body>
     <div class="choice-box">
         <h2>Page d'ajout</h2>
-        <!--Bonjour, <?php echo htmlspecialchars($_POST['nom']); ?>.
-        Tu as <?php echo (int) $_POST['age']; ?> ans.-->
         <form action="#" method="post">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>

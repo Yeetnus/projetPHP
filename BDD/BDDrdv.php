@@ -8,7 +8,19 @@ include('BDD.php');
         }
 
         public function select(){
-            $sql = "SELECT ID,DateHeureRDV,DuréeRDV FROM rendezvous";
+            $sql = "SELECT ID,DateHeureRDV,DuréeRDV,MedID,UsaID FROM rendezvous";
+            $result = $this->BDD->getBDD()->query($sql);
+            return $result;
+        }
+
+        public function selectNomUsa(int $id){
+            $sql = "SELECT Nom FROM usager,rendezvous where UsaID=$id";
+            $result = $this->BDD->getBDD()->query($sql);
+            return $result;
+        }
+
+        public function selectNomMed(int $id){
+            $sql = "SELECT Nom FROM medecin,rendezvous where MedID=$id";
             $result = $this->BDD->getBDD()->query($sql);
             return $result;
         }
