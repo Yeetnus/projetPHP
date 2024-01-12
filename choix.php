@@ -84,7 +84,7 @@
       </div>
     </div>
   </div>
-  <form action="logout.php" method="post">
+  <form action="PHP/logout.php" method="post">
     <input type="submit" value="Logout">
 </form>
 </body>
