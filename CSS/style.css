@@ -303,52 +303,6 @@ label {
 }
 
 
-/*
-nav ul::after {
-  display: table;
-  clear: both;
-}
-
-
-nav a:hover {
-  color: rgb(255, 255, 255);
-  border-bottom: 2px solid rgb(255, 255, 255);
-}
-
-.sous {
-  display: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
-  background: rgba(0, 0, 0, .5);
-  position: absolute;
-  height: auto;
-  width: 100%;
-  z-index: 1000;
-}
-
-nav>ul li:hover .sous {
-  display: block;
-}
-
-.sous li {
-  float: none;
-  width: 100%;
-  text-align: left;
-}
-
-.sous a {
-  padding: 10px;
-  border-bottom: none;
-}
-
-.sous a:hover {
-  border-bottom: none;
-  background-color: RGBa(200, 200, 200, 0.1);
-}
-
-.deroulant>a::after {
-  content: " ▼";
-  font-size: 12px;
-}*/
 
 .flip {
   position: relative;

@@ -47,7 +47,7 @@
               </td>
               <td>
                 <a onclick="return confirm('Souhaitez-vous vraiment supprimer ce médecin ?');"
-                  href='../../BDD/delete-script.php?recordID=<?php echo $recordID ?>' class="delete-icon">
+                  href='delete-script.php?recordID=<?php echo $recordID ?>' class="delete-icon">
                   <img src="../../IMAGES/icons8-trash-50.png"></a>
               </td>
             </tr>

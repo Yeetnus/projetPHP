@@ -1,5 +1,5 @@
 <?php
-    include_once "BDDmedecin.php";
+    include_once "../../BDD/BDDmedecin.php";
     if (isset($_GET['recordID'])){
         $recordId = $_GET['recordID'];
         $BDD = new BDDmedecin();
