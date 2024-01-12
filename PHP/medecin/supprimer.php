@@ -1,4 +1,4 @@
-<?php require_once "PHP/verification.php" ?>
+<?php require_once "../verification.php" ?>
 <!DOCTYPE html>
 <html>
 
