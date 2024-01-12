@@ -18,7 +18,7 @@
   <div class="content-wrapper">
     <div class="content">
       <div class="scrollable-div choice-box">
-        <h2>Page de suppression de médecin</h2>
+        <h2>Supprimer un usager</h2>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
 
         <table id="myTable">

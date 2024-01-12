@@ -38,6 +38,12 @@
             return $result;
         }
 
+        public function selectNom(int $id){
+            $sql = "SELECT Nom,Prenom FROM medecin WHERE ID=$id";
+            $result = $this->BDD->getBDD()->query($sql);
+            return $result;
+        }
+
         public function update(int $id, string $nom, string $prenom, string $civilite){
             $sql = "UPDATE medecin SET Nom=:nom, Prenom=:prenom, Civilite=:civilite WHERE ID=:id";
             $stmt = $this->BDD->getBDD()->prepare($sql);

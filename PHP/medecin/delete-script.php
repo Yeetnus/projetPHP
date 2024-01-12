@@ -5,7 +5,7 @@
         $BDD = new BDDmedecin();
         $delete = $BDD->delete($recordId);
         if ($delete){
-            echo '<script>window.location.href="../PHP/medecin/supprimer.php";</script>';
+            echo '<script>window.location.href="supprimer.php";</script>';
         }
     }
 ?>

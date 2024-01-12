@@ -17,39 +17,54 @@
     <div class="content-wrapper">
         <div class="content">
             <div class="scrollable-div choice-box">
-                <h2>Page de suppression de médecin</h2>
+                <h2>Modifier un usager</h2>
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
 
                 <table id="myTable">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Civilité</th>
-                        <th>Choix</th>
-                    </tr>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Civilité</th>
+                    <th>Adresse</th>
+                    <th>Date de naissance</th>
+                    <th>Lieu de naissance</th>
+                    <th>Numéro de sécurité sociale</th>
+                    <th>Choix</th>
+                </tr>
 
-                    <?php
-                    require("../../BDD/BDDmedecin.php");
-                    $BDD = new BDDmedecin();
-                    $records = $BDD->select();
-                    while ($row = $records->fetch()) {
-                        $recordID = $row["ID"];
-                        $nom = $row["Nom"]; ?>
-                        <tr>
-                            <td>
-                                <?php echo $row["Nom"]; ?>
-                            </td>
-                            <td>
-                                <?php echo $row["Prenom"]; ?>
-                            </td>
-                            <td>
-                                <?php echo $row["Civilite"]; ?>
-                            </td>
-                            <td>
-                                <a href='modification.php?recordID=<?php echo $recordID ?>' class="delete-icon">
-                                    <img src="../../IMAGES/update-icon-50.png"></a>
-                            </td>
-                        </tr>
+                <?php
+                require("../../BDD/BDDusager.php");
+                $BDD = new BDDusager();
+                $records = $BDD->select();
+                while ($row = $records->fetch()) {
+                    $recordID = $row["ID"]; ?>
+                    <tr>
+                    <td>
+                        <?php echo $row["Nom"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $row["Prenom"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $row["Civilite"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $row["Adresse"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $row["DateNaissance"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $row["LieuNaissance"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $row["NumeroSecuriteSociale"]; ?>
+                    </td>
+                    <td>
+                        <a href='modification.php?recordID=<?php echo $recordID ?>' class="delete-icon">
+                            <img src="../../IMAGES/update-icon-50.png"></a>
+                        </td>
+                    </tr>
                     <?php } ?>
                 </table>
 

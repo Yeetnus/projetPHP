@@ -5,7 +5,7 @@
         $BDD = new BDDusager();
         $delete = $BDD->delete($recordId);
         if ($delete){
-            echo '<script>window.location.href="../PHP/usager/supprimer.php";</script>';
+            echo '<script>window.location.href="supprimer.php";</script>';
         }
     }
 ?>

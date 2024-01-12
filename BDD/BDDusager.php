@@ -11,18 +11,18 @@ class BDDusager
 
     public function select()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale FROM usager";
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
     public function selectById(int $id)
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale FROM usager WHERE ID=$id";
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale, MedID FROM usager WHERE ID=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
-
+    
     public function insert(string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu, int $medid)
     {
         try {
@@ -50,11 +50,10 @@ class BDDusager
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nom', $nom);
         $stmt->bindParam(':prenom', $prenom);
-        $stmt->bindParam(':civilite', $civilite);
+        $stmt->bindParam(':civ', $civilite);
         $stmt->bindParam(':adresse', $adresse);
-        //$date_object = DateTime::createFromFormat('Y-m-d', $dateN);
-        //$date_sql = $date_object->format('Y-m-d');
-        $stmt->bindParam(':dateN', $dateN);
+        $date_string = $dateN->format('Y-m-d');
+        $stmt->bindParam(':dateN', $date_string);
         $stmt->bindParam(':lieuN', $lieuN);
         $stmt->bindParam(':numsecu', $numsecu);
         $stmt->bindParam(':medid', $medid);
@@ -62,9 +61,27 @@ class BDDusager
     }
 
     public function delete(string $deleted){
-        $sql = "DELETE FROM usager WHERE id='$deleted'";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
+        $sql = "DELETE FROM usager WHERE id=:deleted";
+    
+        try {
+            $stmt = $this->BDD->getBDD()->prepare($sql);
+    
+            // bind the values
+            $stmt->bindParam(':deleted', $deleted);
+    
+            // execute the query
+            $stmt->execute();
+    
+            // check if the query succeeded
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function getMoins25()
