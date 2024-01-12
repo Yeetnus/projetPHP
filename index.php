@@ -7,17 +7,18 @@
     <title>Connexion</title>
   </head>
   <body>
-    <div class="login-box" >
-      <form action="login.php" method="post">
+    <div class="scrollable-div login-box" >
+      <h2>Page de connexion</h2>
+      <form action="login.php" method="post" class="formulaire">
         <div class="user-box">
-          <label for="username">Username:</label>
           <input type="text" id="username" name="username" required>
+          <label>Username</label>
         </div>
         <div class="user-box">
-          <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
+          <label>Password</label>
         </div>
-        <input type="submit" value="Login">
+        <input type="submit" value="Login" class="choice-button retour  ">
       </form>
       </div>
   </body>
