@@ -73,20 +73,17 @@
                         Retour
                     </a>
                 </form>
-
             </div>
         </div>
     </div>
     <script>
         function myFunction() {
-            // Declare variables
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those who don't match the search query
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
@@ -99,29 +96,6 @@
                 }
             }
         };
-
-        function masquer_div(id) {
-            var nom, prenom, civ;
-            nom = document.getElementById("nom-formulaire");
-            prenom = document.getElementById("prenom-formulaire");
-            civ = document.getElementById("civ-formulaire");
-
-            if (document.getElementById(id).style.display == 'block') {
-                document.getElementById(id).style.display = 'none';
-
-            }
-            else {
-                document.getElementById(id).style.display = 'block';
-            }
-        }
-
-        function resetInput() {
-            document.getElementById("nom-formulaire").value = "";
-        }
-
-        function saveValues(nom) {
-            localStorage.setItem("name", nom);
-        }
     </script>
 </body>
 

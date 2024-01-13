@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Page de test</title>
+    <title>Modification usager</title>
     <link rel="stylesheet" href="../../CSS/style.css">
     <script type="text/javascript">
         function displayValues() {
@@ -68,19 +68,35 @@
                             $BDDmed = new BDDmedecin();
                             $records = $BDDmed->select();
                             $recordNom = $BDDmed->selectNom($row["MedID"]);
-                            while ($medecin = $recordNom->fetch()) { $nommed = $medecin["Nom"] . " " . $medecin["Prenom"];  }
-                            echo "<label>Médecin référent actuel : $nommed</label>";
-                            echo "<select name='medid'>";
-                            
+                            while ($medecin = $recordNom->fetch()) { $nommed = $medecin["Nom"] . " " . $medecin["Prenom"]; }
+                            echo "<label>Médecin référent</label>";
+                            echo "<select id='liste_medecins' name='medid'>";
+
+                            $options = array();
+
                             while ($row = $records->fetch()) {
                                 $recordID = $row["ID"];
-                                echo "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
+                                $option = "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
+                                
+                                // Vérifie si l'option est égale à $nommed
+                                if ($option != "<option value='" . $recordID . "'>" . $nommed . "</option>") {
+                                    // Ajoute l'option au tableau $options
+                                    $options[] = $option;
+                                }
                             }
 
-                            // Close the select element
+                            // Déplace l'option de la variable $nommed au début du tableau $options
+                            array_unshift($options, "<option value='" . $recordID . "'>" . $nommed . "</option>");
+
+                            // Affiche les options du tableau $options
+                            foreach ($options as $option) {
+                                if ($option !== $nommed) {echo $option;}
+                            }
+
                             echo "</select>"; ?>
+
                             <button type="submit" name="Valider">Valider</button>
-                            <button onclick="resetInput()" name="Annuler">Annuler</button>
+                            <button onclick="location.href='modifier.php'" name="Annuler">Annuler</button>
 
                         <?php }
                     } 
