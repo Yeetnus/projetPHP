@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Page de test</title>
+    <title>Modifier usager</title>
     <link rel="stylesheet" href="../../CSS/style.css">
 </head>
 <header>
@@ -15,7 +15,6 @@
 
 
     <div class="content-wrapper">
-        <div class="content">
             <div class="scrollable-div choice-box">
                 <h2>Modifier un usager</h2>
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
@@ -74,7 +73,9 @@
                     </a>
                 </form>
             </div>
-        </div>
+            <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+        </form>
     </div>
     <script>
         function myFunction() {

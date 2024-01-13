@@ -6,5 +6,5 @@
     unset($_SESSION['username']);
 
     // Rediriger vers la page de connexion
-    header("Location: index.php");
+    header("Location: /projet/projetphp/index.php");
 ?>

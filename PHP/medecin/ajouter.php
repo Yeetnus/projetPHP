@@ -11,7 +11,6 @@
 
 <body>
   <div class="content-wrapper" >
-    <div class="content">
       <div class="scrollable-div login-box">
         <h2>Ajouter un médecin</h2>
         <form action="#" method="post" class="formulaire">
@@ -44,7 +43,9 @@
           ?>
         </form>
       </div>
-    </div>
+      <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+        </form>
   </div>
 </body>
 </html>

@@ -16,7 +16,6 @@
 
 
   <div class="content-wrapper">
-    <div class="content">
       <div class="scrollable-div choice-box">
         <h2>Page de suppression de médecin</h2>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
@@ -83,7 +82,9 @@
         };
 
       </script>
-    </div>
+      <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+        </form>
   </div>
 </body>
 

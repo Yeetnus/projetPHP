@@ -455,3 +455,12 @@ li a:hover {
   color: rgba(75, 105, 176, 1);
 }
 
+#logout {
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

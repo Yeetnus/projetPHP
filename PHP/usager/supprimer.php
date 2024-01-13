@@ -3,10 +3,9 @@
 <html>
 
 <head>
-  <title>Supprimer</title>
+  <meta charset="utf-8" />
+  <title>Supprimer usager</title>
   <link rel="stylesheet" href="../../CSS/style.css">
-  <meta name="viewport" content="w  idth=device-width, initial-scale=1.0">
-
 </head>
 <header>
   <?php include "../../HTML/header.php"; ?>
@@ -16,7 +15,6 @@
 
 
   <div class="content-wrapper">
-    <div class="content">
       <div class="scrollable-div choice-box">
         <h2>Supprimer un usager</h2>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
@@ -74,7 +72,11 @@
             Retour
           </a>
         </form>
+        
       </div>
+      <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+        </form>
       <script>
         function myFunction() {
           // Declare variables
@@ -99,7 +101,6 @@
         };
 
       </script>
-    </div>
   </div>
 </body>
 
