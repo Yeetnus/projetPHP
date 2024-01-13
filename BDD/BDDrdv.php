@@ -38,8 +38,17 @@ include('BDD.php');
         }
 
         public function delete(string $deleted){
-            $sql = "DELETE FROM rendezvous WHERE ID=$deleted";
-            BDD->getBDD()->exec($sql);
+            $sql = "DELETE FROM rendezvous WHERE ID=:deleted";
+            $stmt = $this->BDD->getBDD()->prepare($sql);
+            $stmt->bindParam(':deleted', $deleted);
+            $stmt->execute();
+        
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            
+            }
         }
 
     }

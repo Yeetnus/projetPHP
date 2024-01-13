@@ -23,6 +23,12 @@ class BDDusager
         return $result;
     }
     
+    public function selectNom(int $id){
+        $sql = "SELECT Nom,Prenom FROM usager WHERE ID=$id";
+        $result = $this->BDD->getBDD()->query($sql);
+        return $result;
+    }
+
     public function insert(string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu, int $medid)
     {
         try {
