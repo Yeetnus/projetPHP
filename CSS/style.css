@@ -199,7 +199,6 @@ h2 {
   top: 50%;
   left: 50%;
   padding: 20px;
-  /* réduit le padding */
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, .5);
   box-sizing: border-box;
@@ -213,7 +212,6 @@ h2 {
 
 .choice-box h2 {
   margin: 0 0 20px;
-  /* réduit le margin */
   padding: 0;
   color: #fff;
   text-align: center;
@@ -257,7 +255,6 @@ h2 {
 
 @media (max-width: 600px) {
 
-  /* Ajoute des media queries pour une meilleure expérience sur les petits écrans */
   .choice-box {
     width: 100%;
     padding: 20px;
@@ -393,7 +390,6 @@ label {
   top: 50%;
   left: 50%;
   padding: 20px;
-  /* réduit le padding */
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, .5);
   box-sizing: border-box;
@@ -404,7 +400,6 @@ label {
 
 .flip-box h2 {
   margin: 0 0 20px;
-  /* réduit le margin */
   padding: 0;
   color: #fff;
   text-align: center;
@@ -439,44 +434,29 @@ label {
 
 #myInput {
   background-image: url('../IMAGES/icons8-search-20.png');
-  /* Add a search icon to input */
   background-position: 10px 12px;
-  /* Position the search icon */
   background-repeat: no-repeat;
-  /* Do not repeat the icon image */
   width: auto;
-  /* Full-width */
   font-size: 16px;
-  /* Increase font-size */
   padding: 12px 20px 12px 40px;
-  /* Add some padding */
   border: 1px solid #ddd;
-  /* Add a grey border */
   margin-bottom: 12px;
-  /* Add some space below the input */
 }
 
 #myTable {
   border-collapse: collapse;
-  /* Collapse borders */
   width: 100%;
-  /* Full-width */
   border: 1px solid #ddd;
-  /* Add a grey border */
   font-size: 18px;
-  /* Increase font-size */
 }
 
 #myTable th,
 #myTable td {
   text-align: left;
-  /* Left-align text */
   padding: 12px;
-  /* Add padding */
 }
 
 #myTable tr {
-  /* Add a bottom border to all table rows */
   border-bottom: 1px solid #ddd;
 }
 

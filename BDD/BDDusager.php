@@ -61,25 +61,25 @@ class BDDusager
     }
 
     public function delete(string $deleted){
+        $sqlrdv = "DELETE FROM rendezvous WHERE UsaID=:deleted";
         $sql = "DELETE FROM usager WHERE id=:deleted";
     
         try {
+            $stmtrdv = $this->BDD->getBDD()->prepare($sqlrdv);
+            $stmtrdv->bindParam(':deleted', $deleted);
+            $stmtrdv->execute();
+    
             $stmt = $this->BDD->getBDD()->prepare($sql);
-    
-            // bind the values
             $stmt->bindParam(':deleted', $deleted);
-    
-            // execute the query
             $stmt->execute();
-    
-            // check if the query succeeded
+        
             if ($stmt->rowCount() > 0) {
                 return true;
             } else {
                 return false;
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            echo "Erreur lors de la suppression : " . $e->getMessage();
             return false;
         }
     }

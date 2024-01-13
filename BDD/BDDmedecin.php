@@ -54,10 +54,38 @@
             $stmt->execute();
         }
         
-        public function delete(string $deleted){
-            $sql = "DELETE FROM medecin WHERE id='$deleted'";
-            $result = $this->BDD->getBDD()->query($sql);
-            return $result;
+        function delete($id) {
+            try {
+                // Start transaction
+                $this->BDD->getBDD()->beginTransaction();
+        
+                // Check if there are any RendezVous linked to the Medecin
+                $stmt = $this->BDD->getBDD()->prepare("SELECT COUNT(*) FROM RendezVous WHERE MedID = :id");
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $count = $stmt->fetchColumn();
+        
+                if ($count > 0) {
+                    // Throw an exception if there are any RendezVous linked to the Medecin
+                    throw new Exception('Il y a des rendez-vous attribués à ce médecin. Impossible de supprimer le médecin.');
+                }
+        
+                // Delete the Medecin
+                $stmt = $this->BDD->getBDD()->prepare("DELETE FROM Medecin WHERE ID = :id");
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+        
+                // Commit transaction
+                $this->BDD->getBDD()->commit();
+                return true;
+            } catch (PDOException $e) {
+                // Rollback transaction if something went wrong
+                $this->BDD->getBDD()->rollBack();
+                throw $e;
+            } catch (Exception $e) {
+                // Throw an alert if there are any RendezVous linked to the Medecin
+                echo "<script>alert('".$e->getMessage()."');</script>";
+            }
         }
 
         public function getAllHeures(){
