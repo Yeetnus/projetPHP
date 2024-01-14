@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Page de test</title>
+    <title>Modification médecin</title>
     <link rel="stylesheet" href="../../CSS/style.css">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
     <script type="text/javascript">
         function displayValues() {
             var name = localStorage.getItem("name");
@@ -22,7 +23,7 @@
 <body>
     <div class="content-wrapper">
             <div class="scrollable-div login-box" id="a_masquer">
-                <h2>Ajouter un médecin</h2>
+                <h2>Modifier le médecin</h2>
                 <form action="#" method="post" class="formulaire">
                     <?php
                     require("../../BDD/BDDmedecin.php");

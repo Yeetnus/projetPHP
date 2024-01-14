@@ -3,9 +3,10 @@
 <html>
 
 <head>
-  <title>Supprimer</title>
+  <title>Supprimer médecin</title>
   <link rel="stylesheet" href="../../CSS/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 
 </head>
 <header>
@@ -17,7 +18,7 @@
 
   <div class="content-wrapper">
       <div class="scrollable-div choice-box">
-        <h2>Page de suppression de médecin</h2>
+        <h2>Sélectionnez le médecin que vous souhaitez supprimer</h2>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
 
         <table id="myTable">

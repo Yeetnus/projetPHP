@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <title>Modification usager</title>
     <link rel="stylesheet" href="../../CSS/style.css">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
     <script type="text/javascript">
         function displayValues() {
             var name = localStorage.getItem("name");
@@ -22,7 +23,7 @@
 <body>
     <div class="content-wrapper">
             <div class="scrollable-div login-box" id="a_masquer">
-                <h2>Modifier un usager</h2>
+                <h2>Modifier l'usager</h2>
                 <form action="#" method="post" class="formulaire">
                     <?php
                     require("../../BDD/BDDusager.php");

@@ -11,7 +11,7 @@
     <body>
     <div class="content-wrapper" >
       <div class="scrollable-div login-box">
-        <h2>Statistiques</h2>
+        <h2>Différentes statistiques du cabinet</h2>
         <?php 
             require("../BDD/BDDusager.php") ;
             $BDDusager = new BDDusager();

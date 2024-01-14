@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="IMAGES/logo_cabinet.png">
     <title>Connexion</title>
   </head>
   <body>

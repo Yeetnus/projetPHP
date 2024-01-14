@@ -6,6 +6,7 @@
   <meta charset="utf-8" />
   <title>Supprimer usager</title>
   <link rel="stylesheet" href="../../CSS/style.css">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 </head>
 <header>
   <?php include "../../HTML/header.php"; ?>
@@ -16,7 +17,7 @@
 
   <div class="content-wrapper">
       <div class="scrollable-div choice-box">
-        <h2>Supprimer un usager</h2>
+        <h2>Sélectionnez l'usager que vous souhaitez supprimer</h2>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
 
         <table id="myTable">

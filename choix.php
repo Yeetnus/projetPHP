@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <title>Page d'accueil</title>
   <link rel="stylesheet" href="CSS/stylechoix.css">
+  <link rel="icon" href="IMAGES/logo_cabinet.png">
 </head>
 
 <body>
@@ -13,6 +14,7 @@
     <h2>Où souhaitez-vous aller ?</h2>
   <div class="container">
         <div class="box">
+          <h4><h4>
           <a href="PHP/medecin/supprimer.php" class="choice-button">
             Supprimer un médecin
           </a><br>

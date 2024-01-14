@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Page de test</title>
+    <title>Modifier consultation</title>
     <link rel="stylesheet" href="../../CSS/style.css">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 </head>
 <header>
     <?php include "../../HTML/header.php"; ?>
@@ -15,7 +16,7 @@
 
     <div class="content-wrapper">
             <div class="scrollable-div choice-box">
-                <h2>Page de suppression de médecin</h2>
+                <h2>Sélectionnez la consultation que vous souhaitez modifier</h2>
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par patient...">
 
                 <table id="myTable">

@@ -4,8 +4,9 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Page de test</title>
+  <title>Ajouter médecin</title>
   <link rel="stylesheet" href="../../CSS/style.css">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 </head>
 <?php include "../../HTML/header.php"; ?>
 

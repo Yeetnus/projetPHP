@@ -6,6 +6,7 @@
   <title>Supprimer consultation</title>
   <link rel="stylesheet" href="../../CSS/style.css">
   <meta name="viewport" content="w  idth=device-width, initial-scale=1.0">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 
 </head>
 <header>
@@ -17,7 +18,7 @@
 
   <div class="content-wrapper">
       <div class="scrollable-div choice-box">
-        <h2>Supprimer une consultation</h2>
+        <h2>Sélectionnez la consultation que vous souhaitez supprimer</h2>
         
 
         <table id="myTable">

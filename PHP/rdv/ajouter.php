@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Page de test</title>
+    <title>Ajouter consultation</title>
     <link rel="stylesheet" href="../../CSS/style.css">
+  <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 </head>
 <header>
     <?php include "../../HTML/header.php"; ?>
@@ -12,7 +13,7 @@
 
 <body>
     <div class="choice-box">
-        <h2>Page d'ajout</h2>
+        <h2>Ajouter une consultation</h2>
         <form action="#" method="post">
             <label>Nom :</label>
             <input name="nom" id="nom" type="text" /></p>
