@@ -19,8 +19,13 @@
           <input type="password" id="password" name="password" required>
           <label>Password</label>
         </div>
+        <?php if (isset($_GET['error'])) : ?>
+        <p class="error-message" style="color: red;">Le nom d'utilisateur ou le mot de passe est incorrect.</p>
+      <?php endif; ?>
         <input type="submit" value="Login" class="choice-button retour  ">
       </form>
+      
       </div>
+      
   </body>
 </html>

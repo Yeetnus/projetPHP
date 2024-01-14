@@ -8,11 +8,11 @@
     $password = $_POST['password'];
     
     $records = $BDD->verification($username, $password);
-
+    $errors = "";
     if ($records) {
         $_SESSION['username'] = $username;
         header("Location: choix.php");
     } else {
-        echo "The password you entered is incorrect.";
+        header("Location: index.php?error=true");
     }
 ?>
