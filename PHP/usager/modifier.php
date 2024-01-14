@@ -69,7 +69,7 @@
                 </table>
 
                 <form>
-                    <a href="../../choix.html" class="choice-button retour" id="retour">
+                    <a href="../../choix.php" class="choice-button retour" id="retour">
                         Retour
                     </a>
                 </form>

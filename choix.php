@@ -14,7 +14,6 @@
     <h2>Où souhaitez-vous aller ?</h2>
   <div class="container">
         <div class="box">
-          <h4><h4>
           <a href="PHP/medecin/supprimer.php" class="choice-button">
             Supprimer un médecin
           </a><br>
@@ -48,7 +47,7 @@
           </a>
         </div>
         <div class="box">
-        <a href="PHP/stats.php" class="choice-button">
+          <a href="PHP/stats.php" class="choice-button">
             Statistiques
           </a>
         </div>

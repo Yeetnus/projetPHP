@@ -12,8 +12,8 @@
 
 <body>
   <div class="content-wrapper">
-      <div class="scrollable-div login-box">
-        <h2>Ajouter un usager</h2>
+      <div class="scrollable-div login-box ajout">
+        <h2 class="h2ajout">Ajouter un usager</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">
             <input type="text" name="nom" required="">
@@ -63,7 +63,7 @@
 
           <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
           <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
-
+          
           <?php
           require("../../BDD/BDDusager.php");
           $BDD = new BDDusager();
@@ -84,9 +84,12 @@
           ?>
         </form>
       </div>
+      <div>
+        <button id="logout" type="submit" href="../../choix.php" value="Retour">Retour</button>
+      </div>
       <form action="../logout.php" method="post" >
           <input id="logout" type="submit" value="Logout">
-        </form>
+      </form>  
   </div>
 </body>
 
