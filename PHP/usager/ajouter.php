@@ -84,9 +84,9 @@
           ?>
         </form>
       </div>
-      <div>
-        <button id="logout" type="submit" href="../../choix.php" value="Retour">Retour</button>
-      </div>
+      <form action="../../choix.php" method="post" >
+          <input id="logout" type="submit" value="Retour">
+      </form> 
       <form action="../logout.php" method="post" >
           <input id="logout" type="submit" value="Logout">
       </form>  
