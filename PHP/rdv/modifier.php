@@ -34,31 +34,35 @@
                     $BDD = new BDDrdv();
                     $records = $BDD->select();
                     while ($row = $records->fetch()) {
-                        $medecin=$BDD->selectNomMed($row["MedID"]);
-                        $usager=$BDD->selectNomUsa($row["UsaID"]);
-                        
-                            $recordID = $row["ID"];
-                            $date = $row["DateHeureRDV"]; 
-                            $dateHeureObj = new DateTime($date);
-                            $dateRDV = $dateHeureObj->format('d-m-y');
-                            $heureRDV = $dateHeureObj->format('H:i');
-                            ?>
-                            <tr>
-                                <td>
-                                    <?php echo $dateRDV; ?>
-                                </td>
-                                <td>
-                                    <?php echo $heureRDV; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row["DuréeRDV"]; ?>
-                                </td>
-                                <td>
-                                    <?php echo ($BDD->selectNomMed($row["MedID"])->fetch())["Nom"]; ?>
-                                </td>
-                                <td>
-                                    <?php echo $nomUsa; ?>
-                                </td>
+                      $recordID = $row["ID"];
+                      require_once("../../BDD/BDDmedecin.php");
+                      $BDDmed = new BDDmedecin();
+                      $recordNom = $BDDmed->selectNom($row["MedID"]);
+                      while ($medecin = $recordNom->fetch()) { $nommed = $medecin["Nom"] . " " . $medecin["Prenom"]; }
+                      require_once("../../BDD/BDDusager.php");
+                      $BDDusa = new BDDusager();
+                      $recordNomusa = $BDDusa->selectNom($row["UsaID"]);
+                      while ($usager = $recordNomusa->fetch()) { $nomusa = $usager["Nom"] . " " . $usager["Prenom"]; }
+                      $date = $row["DateHeureRDV"]; 
+                      $dateHeureObj = new DateTime($date);
+                      $dateRDV = $dateHeureObj->format('d-m-y');
+                      $heureRDV = $dateHeureObj->format('H:i'); ?>
+                      <tr>
+                        <td>
+                          <?php echo $dateRDV; ?>
+                        </td>
+                        <td>
+                          <?php echo $heureRDV; ?>
+                        </td>
+                        <td>
+                          <?php echo $row["DuréeRDV"]; ?>
+                        </td>
+                        <td>
+                          <?php echo $nommed; ?>
+                        </td>
+                        <td>
+                          <?php echo $nomusa; ?>
+                        </td>
                                 <td>
                                     <a href='modification.php?recordID=<?php echo $recordID ?>' class="delete-icon">
                                         <img src="../../IMAGES/update-icon-50.png"></a>

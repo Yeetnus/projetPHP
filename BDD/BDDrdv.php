@@ -1,5 +1,5 @@
 <?php
-include('BDD.php');
+include_once('BDD.php');
     class BDDrdv {
         private $BDD;
 
@@ -26,15 +26,48 @@ include('BDD.php');
         }
 
         public function selectById(int $id){
-            $sql = "SELECT ID,DateHeureRDV,DuréeRDV FROM rendezvous WHERE ID=$id";
+            $sql = "SELECT ID,DateHeureRDV,DuréeRDV, MedID, UsaID FROM rendezvous WHERE ID=$id";
             $result = $this->BDD->getBDD()->query($sql);
             return $result;
         }
 
-        public function update(string $updated,string $updating,int $id){
-            $sql = "UPDATE rendezvous SET $updated=$updating  WHERE ID=$id ";
-            $stmt = BDD->getBDD()->prepare($sql);
-            $stmt->execute();
+        public function insert(string $dateheurerdv, string $duree, int $medid, int $usaid) {
+            
+            try {
+                $sql = "INSERT INTO rendezvous (DateHeureRDV, DuréeRDV, MedID, UsaID) VALUES (:dateheurerdv, :duree, :medid, :usaid)";
+                $stmt = $this->BDD->getBDD()->prepare($sql);
+        
+                // Liaison des paramètres
+                $stmt->bindParam(':dateheurerdv', $dateheurerdv);
+                $stmt->bindParam(':duree', $duree);
+                $stmt->bindParam(':medid', $medid);
+                $stmt->bindParam(':usaid', $usaid);
+                
+                // Exécution de la requête
+                $stmt->execute();
+                
+            } catch (PDOException $e) {
+                die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+            }
+        }
+
+        function update($ID, $dateheurerdv, $duree, $medid, $usaid) {        
+            try {
+                $sql = "UPDATE rendezvous SET DateHeureRDV = :dateheurerdv, DuréeRDV = :duree, MedID = :medid, UsaID = :usaid WHERE ID = :id";
+            
+                $stmt = $this->BDD->getBDD()->prepare($sql);
+            
+                $stmt->bindParam(':dateheurerdv', $dateheurerdv);
+                $stmt->bindParam(':duree', $duree);
+                $stmt->bindParam(':medid', $medid);
+                $stmt->bindParam(':usaid', $usaid);
+                $stmt->bindParam(':id', $ID);
+            
+                $stmt->execute();
+
+            } catch (PDOException $e) {
+                die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+            }
         }
 
         public function delete(string $deleted){

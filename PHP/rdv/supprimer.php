@@ -17,7 +17,7 @@
 
 
   <div class="content-wrapper">
-      <div class="scrollable-div choice-box">
+      <div class="scrollable-div choice-box"  >
         <h2>Sélectionnez la consultation que vous souhaitez supprimer</h2>
         
 

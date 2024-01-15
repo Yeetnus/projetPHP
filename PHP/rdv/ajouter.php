@@ -1,43 +1,87 @@
+<?php require_once "../verification.php" ?>
 <!DOCTYPE HTML>
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>Ajouter consultation</title>
-    <link rel="stylesheet" href="../../CSS/style.css">
+  <meta charset="utf-8" />
+  <title>Ajouter consultation</title>
+  <link rel="stylesheet" href="../../CSS/style.css">
   <link rel="icon" href="../../IMAGES/logo_cabinet.png">
 </head>
-<header>
-    <?php include "../../HTML/header.php"; ?>
-</header>
+<?php include "../../HTML/header.php"; ?>
 
 <body>
-    <div class="choice-box">
-        <h2>Ajouter une consultation</h2>
-        <form action="#" method="post">
-            <label>Nom :</label>
-            <input name="nom" id="nom" type="text" /></p>
+  <div class="content-wrapper">
+      <div class="scrollable-div login-box ajout">
+        <h2 class="h2ajout">Ajouter une consultation</h2>
+        <form action="#" method="post" class="formulaire">
+          <label>Date & heure</label>
+          <div class="user-box">
+            <input type="datetime-local" name="dateheure" required="">
+            
+          </div>
+          <div class="user-box">
+            <input type="number" name="duree" min="30" max="60" step="5" required="">
+            <label>Durée</label>
+          </div>
 
-            <label>Prénom:</label>
-            <input name="prenom" id="prenom" type="text" /></p>
+          <label>Usager</label>
+          <?php
+          require_once("../../BDD/BDDusager.php");
+          $BDDusa = new BDDusager();
+          $records = $BDDusa->select();
 
-            <label>Civilité :</label>
-            <input name="civ" id="civ" type="text" /></p>
+          echo "<select name='usaid'>";
+        
+          while ($row = $records->fetch()) {
+            $recordIDusa = $row["ID"];
+            echo "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
+          }
 
-            <label>Adresse Complète :</label>
-            <input name="adr" id="adr" type="text" /></p>
+          // Close the select element
+          echo "</select>"; ?>
 
-            <label>Date de naissance :</label>
-            <input name="daten" id="daten" type="text" /></p>
+          <label>Médecin</label>
+          <?php
+          require_once("../../BDD/BDDmedecin.php");
+          $BDDmed = new BDDmedecin();
+          $records = $BDDmed->select();
 
-            <label>Lieu de naissance :</label>
-            <input name="lieun" id="lieun" type="text" /></p>
+          echo "<select name='medid'>";
+        
+          while ($row = $records->fetch()) {
+            $recordIDusa = $row["ID"];
+            echo "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
+          }
 
-            <button type="submit" name="Valider">Valider</button>
-            <button type="submit" name="Annuler">Annuler</button>
+          // Close the select element
+          echo "</select>"; ?>
 
+          <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
+          <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
+          
+          <?php
+          require_once("../../BDD/BDDrdv.php");
+          $BDD = new BDDrdv();
+
+          if (array_key_exists('Valider', $_POST)) {
+            $duree = $_POST['duree'];
+            $usaid = $_POST['usaid'];
+            $dateTime = $_POST['dateheure'];
+            $medid = $_POST['medid'];
+            $BDD->insert($dateTime, $duree, $medid, $usaid);
+            echo '<script>window.location.href="ajouter.php";</script>';
+          }
+          ?>
         </form>
-    </div>
+      </div>
+      <form action="../../choix.php" method="post" >
+          <input id="logout" type="submit" value="Retour">
+      </form> 
+      <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+      </form>  
+  </div>
 </body>
 
 </html>
