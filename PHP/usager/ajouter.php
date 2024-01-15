@@ -12,7 +12,7 @@
 
 <body>
   <div class="content-wrapper">
-      <div class="scrollable-div login-box ajout">
+      <div class=" login-box ">
         <h2 class="h2ajout">Ajouter un usager</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">

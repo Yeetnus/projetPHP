@@ -17,8 +17,11 @@
 
 
   <div class="content-wrapper">
-      <div class="scrollable-div choice-box"  >
-        <h2>Sélectionnez la consultation que vous souhaitez supprimer</h2>
+      <div class="scrollable-div "  >
+      <form action="../logout.php" method="post" >
+                    <input id="logout" type="submit" value="Logout">
+                </form>
+        <h2 class="h2page">Sélectionnez la consultation que vous souhaitez supprimer</h2>
         
 
         <table id="myTable">
@@ -73,15 +76,8 @@
             </tr>
           <?php } ?>
         </table>
-        <form>
-          <a href="../../choix.php" class="choice-button retour" id="retour">
-            Retour
-          </a>
-        </form>
+        <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
       </div>
-      <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
-        </form>
   </div>
 </body>
 

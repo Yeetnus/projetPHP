@@ -15,9 +15,13 @@
 
 
     <div class="content-wrapper">
-            <div class="scrollable-div choice-box">
-                <h2>Sélectionnez la consultation que vous souhaitez modifier</h2>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par patient...">
+    
+            <div class="scrollable-div ">
+                <form action="../logout.php" method="post" >
+                    <input id="logout" type="submit" value="Logout">
+                </form>
+                <h2 class="h2page">Sélectionnez la consultation que vous souhaitez modifier</h2>
+                <input type="text" id="myInput" onkeyup="recherche()" placeholder="Rechercher par date...">
 
                 <table id="myTable">
                     <tr>
@@ -45,7 +49,7 @@
                       while ($usager = $recordNomusa->fetch()) { $nomusa = $usager["Nom"] . " " . $usager["Prenom"]; }
                       $date = $row["DateHeureRDV"]; 
                       $dateHeureObj = new DateTime($date);
-                      $dateRDV = $dateHeureObj->format('d-m-y');
+                      $dateRDV = $dateHeureObj->format('d/m/Y');
                       $heureRDV = $dateHeureObj->format('H:i'); ?>
                       <tr>
                         <td>
@@ -70,28 +74,17 @@
                             </tr>
                         <?php } ?>
                 </table>
-
-                <form>
-                    <a href="../../choix.html" class="choice-button retour" id="retour">
-                        Retour
-                    </a>
-                </form>
-
+                <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
             </div>
-            <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
-        </form>
     </div>
     <script>
-        function myFunction() {
-            // Declare variables
+        function recherche() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those who don't match the search query
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
@@ -104,31 +97,6 @@
                 }
             }
         };
-
-        function masquer_div(id) {
-            var date, heure, duree,usager,medecin;
-            date = document.getElementById("date-formulaire");
-            heure = document.getElementById("heure-formulaire");
-            duree = document.getElementById("duree-formulaire");
-            usager = document.getElementById("usager-formulaire");
-            medecin = document.getElementById("medecin-formulaire");
-
-            if (document.getElementById(id).style.display == 'block') {
-                document.getElementById(id).style.display = 'none';
-
-            }
-            else {
-                document.getElementById(id).style.display = 'block';
-            }
-        }
-
-        function resetInput() {
-            document.getElementById("nom-formulaire").value = "";
-        }
-
-        function saveValues() {
-            localStorage.setItem("date", date);
-        }
     </script>
 </body>
 

@@ -12,8 +12,11 @@
 
 <body>
   <div class="content-wrapper" >
-      <div class="scrollable-div login-box">
-        <h2>Ajouter un médecin</h2>
+      <div class="login-box">
+        <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+        </form>
+        <h2 class="h2page">Ajouter un médecin</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">
             <input type="text" name="nom" required="">
@@ -27,8 +30,8 @@
             <input type="text" name="civ" required="">
             <label>Civlité</label>
           </div>
-          <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
-          <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
+          <button class="retour" type="submit" name="Valider">Valider</button>
+          <button class="retour" type="reset" name="Annuler" onclick="location.href='../../choix.php'">Annuler</button>
           <?php
           require("../../BDD/BDDmedecin.php");
           $BDD = new BDDmedecin();
@@ -44,12 +47,6 @@
           ?>
         </form>
       </div>
-      <form action="../../choix.php" method="post" >
-          <input id="logout" type="submit" value="Retour">
-      </form> 
-      <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
-        </form>
   </div>
 </body>
 </html>

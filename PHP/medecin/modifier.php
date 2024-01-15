@@ -16,9 +16,13 @@
 
 
     <div class="content-wrapper">
-            <div class="scrollable-div choice-box">
-                <h2>Sélectionnez le médecin que vous souhaitez modifier</h2>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">
+    
+            <div class="scrollable-div">
+                <form action="../logout.php" method="post" >
+          <input id="logout" type="submit" value="Logout">
+        </form>
+                <h2 class="h2page">Sélectionnez le médecin que vous souhaitez modifier</h2>
+                <input type="text" id="myInput" onkeyup="recherche()" placeholder="Rechercher par noms...">
 
                 <table id="myTable">
                     <tr>
@@ -52,20 +56,11 @@
                         </tr>
                     <?php } ?>
                 </table>
-
-                <form>
-                    <a href="../../choix.html" class="choice-button retour" id="retour">
-                        Retour
-                    </a>
-                </form>
-
+                <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
             </div>
-            <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
-        </form>
     </div>
     <script>
-        function myFunction() {
+        function recherche() {
             // Declare variables
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("myInput");
