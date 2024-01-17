@@ -12,6 +12,10 @@
 
 <body>
   <div class="content-wrapper">
+  <form action="../logout.php" method="post" >
+          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
+      </form>  
+      <div class="login-box login-box-scrollable">
         <h2 class="h2page">Ajouter un usager</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">
@@ -43,7 +47,7 @@
             <input type="text" name="numsecu" minlength="13" maxlength="13" required="">
             <label>Numéro de sécurité sociale</label>
           </div>
-          
+          <div>
           <label>Médecin référent</label>
           <?php
           require("../../BDD/BDDmedecin.php");
@@ -59,10 +63,13 @@
 
           // Close the select element
           echo "</select>"; ?>
-
+          </div>
+          <br>
+          <div style="margin: 0 auto; text-align: center;">
           <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
           <button class="choice-button retour" type="reset" name="Annuler" onclick="location.href='../../choix.php'">Annuler</button>
-          
+          <br>
+          </div>
           <?php
           require("../../BDD/BDDusager.php");
           $BDD = new BDDusager();
@@ -83,9 +90,7 @@
           ?>
         </form>
       </div>
-      <form action="../logout.php" method="post" >
-          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
-      </form>  
+  </div>
   </div>
 </body>
 
