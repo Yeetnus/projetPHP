@@ -19,7 +19,7 @@
   <div class="content-wrapper">
       <div class="scrollable-div">
         <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
+          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
         </form>
         <h2 class="h2page">Sélectionnez le médecin que vous souhaitez supprimer</h2>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par noms...">

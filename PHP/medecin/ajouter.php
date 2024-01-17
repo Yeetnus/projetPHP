@@ -12,10 +12,11 @@
 
 <body>
   <div class="content-wrapper" >
-      <div class="login-box">
-        <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
+    <form action="../logout.php" method="post" >
+          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
         </form>
+      <div class="login-box">
+        
         <h2 class="h2page">Ajouter un médecin</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">

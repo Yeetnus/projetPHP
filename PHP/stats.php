@@ -10,17 +10,14 @@
 <?php include "../HTML/header.php"; ?>
     <body>
     <div class="content-wrapper" >
-      <div class="scrollable-div login-box">
-        <h2>Différentes statistiques du cabinet</h2>
+      <div class="scrollable-div">
+      <form action="../logout.php" method="post" >
+          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
+        </form>
+        <h2 class="h2page">Différentes statistiques du cabinet</h2>
         <?php 
             require("../BDD/BDDusager.php") ;
             $BDDusager = new BDDusager();
-            $rslt25H = $BDDusager->getMoins25H();
-            $rslt25_50H = $BDDusager->getEntre25Et50H();
-            $rslt50H = $BDDusager->getPlus50H();
-            $rslt25F = $BDDusager->getMoins25F();
-            $rslt25_50F = $BDDusager->getEntre25Et50F();
-            $rslt50F = $BDDusager->getPlus50F();
         ?>
     <table>
  <thead>
@@ -33,21 +30,22 @@
  <tbody>
     <tr>
       <td>Moins de 25 ans</td>
-      <td><?php echo $rslt25H?></td>
-      <td><?php echo $rslt25F?></td>
+      <td><?php echo $BDDusager->getMoins25H()?></td>
+      <td><?php echo $BDDusager->getMoins25F()?></td>
     </tr>
     <tr>
       <td>Entre 25 et 50 ans</td>
-      <td><?php echo $rslt25_50H?></td>
-      <td><?php echo $rslt25_50F?></td>
+      <td><?php echo $BDDusager->getEntre25Et50H()?></td>
+      <td><?php echo $BDDusager->getEntre25Et50F()?></td>
     </tr>
     <tr>
       <td>Plus de 50 ans</td>
-      <td><?php echo $rslt50H?></td>
-      <td><?php echo $rslt50F?></td>
+      <td><?php echo $BDDusager->getPlus50H()?></td>
+      <td><?php echo $BDDusager->getPlus50F()?></td>
     </tr>
  </tbody>
 </table>
+<br>
 <br>
 <table id="myTable">
           <tr>

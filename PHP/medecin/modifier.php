@@ -81,29 +81,6 @@
                 }
             }
         };
-
-        function masquer_div(id) {
-            var nom, prenom, civ;
-            nom = document.getElementById("nom-formulaire");
-            prenom = document.getElementById("prenom-formulaire");
-            civ = document.getElementById("civ-formulaire");
-
-            if (document.getElementById(id).style.display == 'block') {
-                document.getElementById(id).style.display = 'none';
-
-            }
-            else {
-                document.getElementById(id).style.display = 'block';
-            }
-        }
-
-        function resetInput() {
-            document.getElementById("nom-formulaire").value = "";
-        }
-
-        function saveValues(nom) {
-            localStorage.setItem("name", nom);
-        }
     </script>
 </body>
 

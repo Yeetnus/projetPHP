@@ -12,8 +12,7 @@
 
 <body>
   <div class="content-wrapper">
-      <div class=" login-box ">
-        <h2 class="h2ajout">Ajouter un usager</h2>
+        <h2 class="h2page">Ajouter un usager</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">
             <input type="text" name="nom" required="">
@@ -62,7 +61,7 @@
           echo "</select>"; ?>
 
           <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
-          <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
+          <button class="choice-button retour" type="reset" name="Annuler" onclick="location.href='../../choix.php'">Annuler</button>
           
           <?php
           require("../../BDD/BDDusager.php");
@@ -84,11 +83,8 @@
           ?>
         </form>
       </div>
-      <form action="../../choix.php" method="post" >
-          <input id="logout" type="submit" value="Retour">
-      </form> 
       <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
+          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
       </form>  
   </div>
 </body>

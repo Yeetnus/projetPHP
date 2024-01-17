@@ -26,6 +26,7 @@
           </div>
 
           <label>Usager</label>
+          <div class="user-box">
           <?php
           require_once("../../BDD/BDDusager.php");
           $BDDusa = new BDDusager();
@@ -40,8 +41,11 @@
 
           // Close the select element
           echo "</select>"; ?>
+          </div>
 
+          
           <label>Médecin</label>
+          <div class="user-box">
           <?php
           require_once("../../BDD/BDDmedecin.php");
           $BDDmed = new BDDmedecin();
@@ -56,6 +60,7 @@
 
           // Close the select element
           echo "</select>"; ?>
+          </div>
 
           <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
           <button class="choice-button retour" type="reset" name="Annuler">Annuler</button>
@@ -79,7 +84,7 @@
           <input id="logout" type="submit" value="Retour">
       </form> 
       <form action="../logout.php" method="post" >
-          <input id="logout" type="submit" value="Logout">
+          <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
       </form>  
   </div>
 </body>
