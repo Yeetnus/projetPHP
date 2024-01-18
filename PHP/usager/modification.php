@@ -22,7 +22,7 @@
 
 <body>
     <div class="content-wrapper">
-            <div class="scrollable-div login-box" id="a_masquer">
+            <div class="login-box-scrollable" id="a_masquer">
                 <h2>Modifier l'usager</h2>
                 <form action="#" method="post" class="formulaire">
                     <?php

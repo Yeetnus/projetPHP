@@ -22,7 +22,7 @@
 
 <body>
     <div class="content-wrapper">
-            <div class="scrollable-div login-box" id="a_masquer">
+            <div class="login-box" id="a_masquer">
                 <h2>Modifier la consultation</h2>
                 <form action="#" method="post" class="formulaire">
                     <?php
@@ -106,9 +106,9 @@
 
                             // Close the select element
                             echo "</select>"; ?>
-
-                            <button type="submit" name="Valider">Valider</button>
-                            <button onclick="location.href='modifier.php'" name="Annuler">Annuler</button>
+                            <br>
+                            <button class="retour" type="submit" name="Valider">Valider</button>
+                            <button class="retour" onclick="location.href='modifier.php'" name="Annuler">Annuler</button>
 
                         <?php }
                     } 

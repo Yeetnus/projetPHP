@@ -15,7 +15,7 @@
   <form action="../logout.php" method="post" >
           <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
       </form>  
-      <div class="login-box login-box-scrollable">
+      <div class="login-box-scrollable">
         <h2 class="h2page">Ajouter un usager</h2>
         <form action="#" method="post" class="formulaire">
           <div class="user-box">
@@ -71,8 +71,8 @@
           </div>
           <br>
           <div style="margin: 0 auto; text-align: center;">
-          <button class="choice-button retour" id="retour" type="submit" name="Valider">Valider</button>
-          <button class="choice-button retour" type="reset" name="Annuler" onclick="location.href='../../choix.php'">Annuler</button>
+          <button class="retour" id="retour" type="submit" name="Valider">Valider</button>
+          <button class="retour" type="reset" name="Annuler" onclick="location.href='../../choix.php'">Annuler</button>
           <br>
           </div>
           <?php
