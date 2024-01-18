@@ -26,9 +26,7 @@
       <?php endif; ?>
       <input name="Login" type="submit" value="Login" class="choice-button retour">
     </form>
-
   </div>
-
 </body>
 
 </html>

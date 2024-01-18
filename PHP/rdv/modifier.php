@@ -28,15 +28,13 @@
     };
   </script>
 </head>
+
 <header>
   <?php include "../../HTML/header.php"; ?>
 </header>
 
 <body>
-
-
   <div class="content-wrapper">
-
     <div class="scrollable-div ">
       <form action="../logout.php" method="post">
         <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit"
@@ -44,7 +42,6 @@
       </form>
       <h2 class="h2page">Sélectionnez la consultation que vous souhaitez modifier</h2>
       <input type="text" id="myInput" onkeyup="recherche()" placeholder="Rechercher par date...">
-
       <table id="myTable">
         <tr>
           <th>Date</th>
@@ -54,7 +51,6 @@
           <th>Patient</th>
           <th>Choix</th>
         </tr>
-
         <?php
         require("../../BDD/BDDrdv.php");
         $BDD = new BDDrdv();
@@ -103,7 +99,6 @@
       <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
     </div>
   </div>
-
 </body>
 
 </html>

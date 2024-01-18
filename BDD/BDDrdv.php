@@ -79,7 +79,7 @@ class BDDrdv
             $stmt->execute();
 
         } catch (PDOException $e) {
-            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+            die("Erreur de modification de la base de données: " . $e->getMessage());
         }
     }
 

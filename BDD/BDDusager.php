@@ -22,8 +22,9 @@ class BDDusager
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
-    
-    public function selectNom(int $id){
+
+    public function selectNom(int $id)
+    {
         $sql = "SELECT Nom,Prenom FROM usager WHERE ID=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
@@ -66,19 +67,20 @@ class BDDusager
         $stmt->execute();
     }
 
-    public function delete(string $deleted){
+    public function delete(string $deleted)
+    {
         $sqlrdv = "DELETE FROM rendezvous WHERE UsaID=:deleted";
         $sql = "DELETE FROM usager WHERE id=:deleted";
-    
+
         try {
             $stmtrdv = $this->BDD->getBDD()->prepare($sqlrdv);
             $stmtrdv->bindParam(':deleted', $deleted);
             $stmtrdv->execute();
-    
+
             $stmt = $this->BDD->getBDD()->prepare($sql);
             $stmt->bindParam(':deleted', $deleted);
             $stmt->execute();
-        
+
             if ($stmt->rowCount() > 0) {
                 return true;
             } else {
@@ -100,7 +102,7 @@ class BDDusager
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "M" && $age<25) {
+            if ($row["Civilite"] == "M" && $age < 25) {
                 $result++;
             }
         }
@@ -117,7 +119,7 @@ class BDDusager
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "M" && $age>=25 && $age<=50) {
+            if ($row["Civilite"] == "M" && $age >= 25 && $age <= 50) {
                 $result++;
             }
         }
@@ -134,7 +136,7 @@ class BDDusager
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "M" && $age>50) {
+            if ($row["Civilite"] == "M" && $age > 50) {
                 $result++;
             }
         }
@@ -151,7 +153,7 @@ class BDDusager
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "MME" && $age<25) {
+            if ($row["Civilite"] == "MME" && $age < 25) {
                 $result++;
             }
         }
@@ -168,7 +170,7 @@ class BDDusager
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "MME" && $age>=25 && $age<=50) {
+            if ($row["Civilite"] == "MME" && $age >= 25 && $age <= 50) {
                 $result++;
             }
         }
@@ -185,7 +187,7 @@ class BDDusager
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "MME" && $age>50) {
+            if ($row["Civilite"] == "MME" && $age > 50) {
                 $result++;
             }
         }

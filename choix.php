@@ -53,7 +53,8 @@
       </div>
     </div>
     <form action="PHP/logout.php" method="post">
-      <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit" value="Logout">
+      <input onclick='return confirm("Voulez-vous vraiment vous déconnecter ?")' id="logout" type="submit"
+        value="Logout">
     </form>
 </body>
 

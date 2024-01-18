@@ -29,13 +29,12 @@
     };
   </script>
 </head>
+
 <header>
   <?php include "../../HTML/header.php"; ?>
 </header>
 
 <body>
-
-
   <div class="content-wrapper">
     <div class="scrollable-div ">
       <form action="../logout.php" method="post">
@@ -53,7 +52,6 @@
           <th>Usager</th>
           <th>Choix</th>
         </tr>
-
         <?php
         require("../../BDD/BDDrdv.php");
         $BDD = new BDDrdv();
@@ -84,7 +82,7 @@
               <?php echo $heureRDV; ?>
             </td>
             <td>
-              <?php echo $row["DuréeRDV"]. " min"; ?>
+              <?php echo $row["DuréeRDV"] . " min"; ?>
             </td>
             <td>
               <?php echo $nommed; ?>
