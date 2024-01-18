@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  web:
+    build: ./
+    ports:
+      - "80:80"
+    volumes:
+        - ./:/app/
+
+  db:
+    image: mariadb
+    container_name: db_project
+    restart: always
+    volumes:
+      - ./SQL/bdd.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - .env.db
+    ports:
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"

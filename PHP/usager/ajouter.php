@@ -26,9 +26,14 @@
             <input type="text" name="prenom" required="">
             <label>Prénom</label>
           </div>
-          <div class="user-box">
-            <input type="text" name="civ" required="">
             <label>Civlité</label>
+          <div class="user-box">
+            <select name="civ">
+              <option>M</option>
+              <option>MME</option>
+              <option>AUTRE</option>
+            </select>
+            
           </div>
           <div class="user-box">
             <input type="text" name="adresse" required="">

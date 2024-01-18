@@ -5,8 +5,8 @@
 
         private function __construct(){
             $this->linkpdo = new PDO(
-                "mysql:host=localhost;dbname=projetr301;charset=utf8",
-                "root"
+                "mysql:host=db_project;dbname=php_project;charset=utf8",
+                "test","test"
             );
         }
 
