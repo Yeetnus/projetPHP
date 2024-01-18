@@ -82,11 +82,11 @@
               $BDD->insert($dateTime, $duree, $medid, $usaid);
               echo '<script>window.location.href="ajouter.php";</script>';
               } else {
-                echo '<script>alert("Le médecin a déjà une consultation à ce moment-là grosse merde.");</script>';
+                echo '<script>alert("Le médecin a déjà une consultation à ce moment-là.");</script>';
               }
               
             } else {
-              echo '<script>alert("La date est invalide.");</script>';
+              echo '<script>alert("La date est passée.");</script>';
             }
           }
           ?>
