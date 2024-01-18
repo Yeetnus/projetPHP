@@ -39,11 +39,9 @@
             echo "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
           }
 
-          // Close the select element
           echo "</select>"; ?>
           </div>
 
-          
           <label>Médecin</label>
           <div class="user-box">
           <?php
@@ -54,11 +52,10 @@
           echo "<select name='medid'>";
         
           while ($row = $records->fetch()) {
-            $recordIDusa = $row["ID"];
+            $recordIDmed = $row["ID"];
             echo "<option value='" . $row["ID"] . "'>" . $row["Nom"] . " " . $row["Prenom"] . "</option>";
           }
 
-          // Close the select element
           echo "</select>"; ?>
           </div>
 
@@ -70,12 +67,27 @@
           $BDD = new BDDrdv();
 
           if (array_key_exists('Valider', $_POST)) {
-            $duree = $_POST['duree'];
-            $usaid = $_POST['usaid'];
-            $dateTime = $_POST['dateheure'];
-            $medid = $_POST['medid'];
-            $BDD->insert($dateTime, $duree, $medid, $usaid);
-            echo '<script>window.location.href="ajouter.php";</script>';
+            $dateActuelle = date('Y-m-d H:i:s');
+            $timestampActuelle = strtotime($dateActuelle);
+
+            $dateEntreee = $_POST['dateheure'];
+            $timestampEntreee = strtotime($dateEntreee);
+
+            if($timestampEntreee > $timestampActuelle) {
+              if ($BDD->medOccuped($recordIDmed,  $_POST['dateheure'], $_POST['duree'])) {
+              $duree = $_POST['duree'];
+              $usaid = $_POST['usaid'];
+              $dateTime = $_POST['dateheure'];
+              $medid = $_POST['medid'];
+              $BDD->insert($dateTime, $duree, $medid, $usaid);
+              echo '<script>window.location.href="ajouter.php";</script>';
+              } else {
+                echo '<script>alert("Le médecin a déjà une consultation à ce moment-là grosse merde.");</script>';
+              }
+              
+            } else {
+              echo '<script>alert("La date est invalide.");</script>';
+            }
           }
           ?>
         </form>

@@ -52,7 +52,7 @@
             $stmt->execute();
         }
         
-        function delete($id) {
+        function delete(int $id) {
             try {
                 $this->BDD->getBDD()->beginTransaction();
         

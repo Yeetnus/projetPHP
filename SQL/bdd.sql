@@ -56,7 +56,7 @@ INSERT INTO medecin (Nom, Prenom, Civilite) VALUES
 ('GUILLAUME', 'Nathalie', 'MME');
 
 INSERT INTO usager (Nom, Prenom, Civilite, Adresse, DateNaissance, LieuNaissance, NumeroSecuriteSociale, MedID) VALUES
-('DUPONT', 'Pierre', 'M', '1 Rue des Lilas, 75001 Toulouse', '1990-01-01', 'Paris', '12345678901234', 1),
+('DUPONT', 'Luc', 'M', '1 Rue des Lilas, 75001 Toulouse', '1990-01-01', 'Paris', '12345678901234', 1),
 ('DURAND', 'Marie', 'MME', '2 Rue des Roses, 75002 Toulouse', '1985-05-12', 'Lyon', '23456789742345', 2),
 ('MARTIN', 'Jean', 'M', '3 Rue des Tournesols, 75003 Toulouse', '1978-09-20', 'Marseille', '14567890123456', 3),
 ('THOMAS', 'Sophie', 'MME', '4 Rue des Pins, 75004 Toulouse', '1982-03-03', 'Toulouse', '25678901234567', 1),
@@ -74,9 +74,9 @@ INSERT INTO usager (Nom, Prenom, Civilite, Adresse, DateNaissance, LieuNaissance
 ('THOMAS', 'Jean', 'M', '16 Rue des Coq uelicots, 75016 Toulouse', '1987-02-19', 'Bordeaux', '18901234567890', 1),
 ('LEFEVRE', 'Sophie', 'MME', '17 Rue des Marguerites, 75017 Toulouse', '1990-06-30', 'Rennes', '29012345678901', 2),
 ('ROUX', 'Luc', 'M', '18 Rue des Tournesols, 75018 Toulouse', '1978-10-08', 'Montpellier', '10123456789012', 3),
-('DUPONT', 'Pierre', 'M', '19 Rue des Lilas, 75019 Toulouse', '1992-01-12', 'Paris', '12345678141234', 1),
-('DURAND', 'Marie', 'MME', '20 Rue des Roses, 75020 Toulouse', '1987-04-21', 'Lyon', '23456789012345', 2),
-('MARTIN', 'Jean', 'M', '21 Rue des Tournesols, 75021 Toulouse', '1980-07-03', 'Marseille', '14567890123457', 3);
+('UNTYPE', 'Pierre', 'M', '19 Rue des Lilas, 75019 Toulouse', '1992-01-12', 'Paris', '12345678141234', 1),
+('LAMARTI', 'Marie', 'MME', '20 Rue des Roses, 75020 Toulouse', '1987-04-21', 'Lyon', '23456789012345', 2),
+('DEMAIN', 'Jean', 'M', '21 Rue des Tournesols, 75021 Toulouse', '1980-07-03', 'Marseille', '14567890123457', 3);
 
 INSERT INTO rendezvous (DateHeureRDV, DuréeRDV, MedID, UsaID) VALUES
 ('2024-01-15 10:00:00', 30, 1, 1),
