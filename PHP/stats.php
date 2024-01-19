@@ -25,6 +25,7 @@
       require("../BDD/BDDusager.php");
       $BDDusager = new BDDusager();
       ?>
+      <h3 class="h2page">Répartition des usagers selon leur sexe et leur âge</h3>
       <table>
         <thead>
           <tr>
@@ -65,6 +66,7 @@
       </table>
       <br>
       <br>
+      <h3 class="h2page">Durée totale des consultations effectuées par chaque médecin (en heure)</h3>
       <table id="myTable">
         <tr>
           <th>Nom</th>
@@ -76,17 +78,17 @@
         require("../BDD/BDDmedecin.php");
         $BDD = new BDDmedecin();
         $medecins = $BDD->getAllHeures();
-        foreach ($medecins as $medecin) {
+        while ($row = $medecins->fetch()) {
           ?>
           <tr>
             <td>
-              <?php echo $medecin["Nom"]; ?>
+              <?php echo $row["Nom"]; ?>
             </td>
             <td>
-              <?php echo $medecin["Prenom"]; ?>
+              <?php echo $row["Prenom"]; ?>
             </td>
             <td>
-              <?php echo $medecin["TotalDuree"]; ?>
+              <?php echo $row["TotalDuree"]; ?>
             </td>
           </tr>
         <?php } ?>

@@ -28,9 +28,13 @@
           <input type="text" name="prenom" required="">
           <label>Prénom</label>
         </div>
+        <label>Civlité</label>
         <div class="user-box">
-          <input type="text" name="civ" required="">
-          <label>Civlité</label>
+          <select name="civ">
+            <option>M</option>
+            <option>MME</option>
+          </select>
+
         </div>
         <button class="retour" type="submit" name="Valider">Valider</button>
         <button class="retour" type="reset" name="Annuler" onclick="location.href='../../choix.php'">Annuler</button>

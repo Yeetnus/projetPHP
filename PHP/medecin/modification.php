@@ -37,7 +37,7 @@
                         </div>
                         <div class="user-box">
                             <input type="text" name="civ" value="<?php echo $row["Civilite"] ?>" required="">
-                            <label>Civlité</label>
+                            <label>Civlité (M ou MME)</label>
                         </div>
                         <button type="submit" name="Valider">Valider</button>
                         <button onclick="resetInput()" name="Annuler">Annuler</button>
@@ -45,11 +45,15 @@
                     <?php }
                 }
                 if (array_key_exists('Valider', $_POST)) {
-                    $prenom = $_POST['prenom'];
-                    $nom = $_POST['nom'];
-                    $civ = $_POST['civ'];
-                    $BDD->update($recordID, $nom, $prenom, $civ);
-                    echo '<script>window.location.href="modifier.php";</script>';
+                    if($_POST['civ']=='M' || $_POST['civ']=='MME') {
+                        $prenom = $_POST['prenom'];
+                        $nom = $_POST['nom'];
+                        $civ = $_POST['civ'];
+                        $BDD->update($recordID, $nom, $prenom, $civ);
+                        echo '<script>window.location.href="modifier.php";</script>';
+                    } else { 
+                        echo 'La civilité doit être M ou MME.'; 
+                    }
                 }
                 ?>
             </form>

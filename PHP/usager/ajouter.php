@@ -35,7 +35,6 @@
           <select name="civ">
             <option>M</option>
             <option>MME</option>
-            <option>AUTRE</option>
           </select>
 
         </div>

@@ -37,7 +37,7 @@
                         </div>
                         <div class="user-box">
                             <input type="text" name="civ" value="<?php echo $row["Civilite"] ?>" required="">
-                            <label>Civlité</label>
+                            <label>Civlité (M ou MME)</label>
                         </div>
                         <div class="user-box">
                             <input type="text" name="adresse" value="<?php echo $row["Adresse"] ?>" required="">
@@ -94,17 +94,22 @@
                     <?php }
                 }
                 if (array_key_exists('Valider', $_POST)) {
-                    $prenom = $_POST['prenom'];
-                    $nom = $_POST['nom'];
-                    $civ = $_POST['civ'];
-                    $adresse = $_POST['adresse'];
-                    $lieuN = $_POST['lieuN'];
-                    $numsecu = $_POST['numsecu'];
-                    $date = $_POST['dateN'];
-                    $dateN = new DateTime($date);
-                    $medid = $_POST['medid'];
-                    $BDD->update($_GET['recordID'], $nom, $prenom, $civ, $adresse, $dateN, $lieuN, $numsecu, $medid);
-                    echo '<script>window.location.href="modifier.php";</script>';
+                    if($_POST['civ']=='M' || $_POST['civ']=='MME') {
+                        $prenom = $_POST['prenom'];
+                        $nom = $_POST['nom'];
+                        $civ = $_POST['civ'];
+                        $adresse = $_POST['adresse'];
+                        $lieuN = $_POST['lieuN'];
+                        $numsecu = $_POST['numsecu'];
+                        $date = $_POST['dateN'];
+                        $dateN = new DateTime($date);
+                        $medid = $_POST['medid'];
+                        $BDD->update($_GET['recordID'], $nom, $prenom, $civ, $adresse, $dateN, $lieuN, $numsecu, $medid);
+                        echo '<script>window.location.href="modifier.php";</script>';
+                    } else {
+                        echo 'La civilité doit être M ou MME.';
+                    }
+                    
                 }
                 ?>
             </form>
