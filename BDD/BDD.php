@@ -27,5 +27,6 @@ class BDD
     {
         return $this->linkpdo;
     }
+
 }
 ?>
