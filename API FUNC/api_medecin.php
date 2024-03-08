@@ -86,13 +86,5 @@ class BDDmedecin
             echo "<script>alert('" . $e->getMessage() . "');</script>";
         }
     }
-
-    public function getAllHeures()
-    {
-        $sql = "SELECT m.Nom, m.Prenom, SUM(r.DuréeRDV)/60 as TotalDuree FROM medecin m, rendezvous r WHERE m.ID = r.MedID GROUP BY m.ID";
-        $result = $this->BDD->getBDD()->query($sql);
-
-        return $result;
-    }
 }
 ?>
