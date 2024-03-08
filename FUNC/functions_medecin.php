@@ -1,6 +1,6 @@
 <?php
 include_once('BDD.php');
-class api_medecin
+class functions_medecin
 {
     private $BDD;
 
@@ -9,11 +9,11 @@ class api_medecin
         $this->BDD = BDD::getInstanceBDD();
     }
 
-    public function insert(string $nom, string $prenom, string $civ)
+    public function insert_medecin(string $nom, string $prenom, string $civ)
     {
 
         try {
-            $sql = "INSERT INTO medecin (Nom, Prenom, Civilite) VALUES (:nom, :prenom, :civ)";
+            $sql = "INSERT INTO medecin (nom, prenom, civilite) VALUES (:nom, :prenom, :civ)";
             $stmt = $this->BDD->getBDD()->prepare($sql);
 
             $stmt->bindParam(':nom', $nom);
@@ -27,30 +27,30 @@ class api_medecin
         }
     }
 
-    public function select()
+    public function select_all_medecin()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin";
+        $sql = "SELECT id_medecin, nom, prenom, civilite FROM medecin";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
-    public function selectById(int $id)
+    public function select_medecin_By_Id(int $id)
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin WHERE ID=$id";
+        $sql = "SELECT id_medecin, nom, prenom, civilite FROM medecin WHERE id_medecin=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
     public function selectNom(int $id)
     {
-        $sql = "SELECT Nom,Prenom FROM medecin WHERE ID=$id";
+        $sql = "SELECT nom, prenom FROM medecin WHERE id_medecin=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
-    public function update(int $id, string $nom, string $prenom, string $civilite)
+    public function update_medecin(int $id, string $nom, string $prenom, string $civilite)
     {
-        $sql = "UPDATE medecin SET Nom=:nom, Prenom=:prenom, Civilite=:civilite WHERE ID=:id";
+        $sql = "UPDATE medecin SET nom=:nom, prenom=:prenom, civilite=:civilite WHERE id_medecin=:id";
         $stmt = $this->BDD->getBDD()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nom', $nom);
@@ -59,12 +59,12 @@ class api_medecin
         $stmt->execute();
     }
 
-    function delete(int $id)
+    function delete_medecin(int $id)
     {
         try {
             $this->BDD->getBDD()->beginTransaction();
 
-            $stmt = $this->BDD->getBDD()->prepare("SELECT COUNT(*) FROM rendezvous WHERE MedID = :id");
+            $stmt = $this->BDD->getBDD()->prepare("SELECT COUNT(*) FROM consultation WHERE id_medecin = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $count = $stmt->fetchColumn();
@@ -73,7 +73,7 @@ class api_medecin
                 throw new Exception('Il y a des rendez-vous attribués à ce médecin. Impossible de supprimer le médecin.');
             }
 
-            $stmt = $this->BDD->getBDD()->prepare("DELETE FROM medecin WHERE ID = :id");
+            $stmt = $this->BDD->getBDD()->prepare("DELETE FROM medecin WHERE id_medecin = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 

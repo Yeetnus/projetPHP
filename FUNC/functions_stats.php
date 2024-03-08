@@ -1,6 +1,6 @@
 <?php
 include_once('BDD.php');
-class api_stats
+class functions_stats
 {
     private $BDD;
 
