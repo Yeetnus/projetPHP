@@ -11,47 +11,48 @@ class functions_rdv
 
     public function selectAllRDV()
     {
-        $sql = "SELECT ID,DateHeureRDV,DuréeRDV,MedID,UsaID FROM rendezvous order by DateHeureRDV";
+        $sql = "SELECT ID,Date_consult,heure_consult,duree_consult,id_medecin,id_usager FROM consultation order by DateHeureRDV";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
     public function selectNomUsa(int $id)
     {
-        $sql = "SELECT Nom FROM usager,rendezvous where UsaID=$id";
+        $sql = "SELECT Nom FROM usager,consultation where id_usager=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
     public function selectNomMed(int $id)
     {
-        $sql = "SELECT Nom FROM medecin,rendezvous where MedID=$id";
+        $sql = "SELECT Nom FROM medecin,consultation where id_medecin=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
     public function selectRDVById(int $id)
     {
-        $sql = "SELECT ID,DateHeureRDV,DuréeRDV, MedID, UsaID FROM rendezvous WHERE ID=$id";
+        $sql = "SELECT ID,date_consult,heure_consult,Duree_consult, id_medecin, id_usager FROM consultation WHERE ID=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
     public function selectRDVByMedId(int $id)
     {
-        $sql = "SELECT ID, DateHeureRDV, DuréeRDV, UsaID FROM rendezvous WHERE MedID=$id";
+        $sql = "SELECT ID, date_consult,heure_consult, duree_consult, id_usager FROM consultation WHERE id_medecin=$id";
         $result = $this->BDD->getBDD()->query($sql);
         return $result;
     }
 
-    public function insertRDV(string $dateheurerdv, string $duree, int $medid, int $usaid)
+    public function insertRDV(string $daterdv,string $heurerdv, string $duree, int $medid, int $usaid)
     {
 
         try {
-            $sql = "INSERT INTO rendezvous (DateHeureRDV, DuréeRDV, MedID, UsaID) VALUES (:dateheurerdv, :duree, :medid, :usaid)";
+            $sql = "INSERT INTO consultation (date_consult,heure_consult, duree_consult, id_medecin, id_usager) VALUES (:daterdv,:heurerdv, :duree, :medid, :usaid)";
             $stmt = $this->BDD->getBDD()->prepare($sql);
 
-            $stmt->bindParam(':dateheurerdv', $dateheurerdv);
+            $stmt->bindParam(':daterdv', $daterdv);
+            $stmt->bindParam(':heurerdv', $heurerdv);
             $stmt->bindParam(':duree', $duree);
             $stmt->bindParam(':medid', $medid);
             $stmt->bindParam(':usaid', $usaid);
@@ -63,14 +64,15 @@ class functions_rdv
         }
     }
 
-    function updateRDV($ID, $dateheurerdv, $duree, $medid, $usaid)
+    function updateRDV($ID, $daterdv,$heurerdv, $duree, $medid, $usaid)
     {
         try {
-            $sql = "UPDATE rendezvous SET DateHeureRDV = :dateheurerdv, DuréeRDV = :duree, MedID = :medid, UsaID = :usaid WHERE ID = :id";
+            $sql = "UPDATE consultation SET date_consult = :daterdv,heure_consult=:heurerdv, duree_consult = :duree, id_medecin = :medid, id_usager = :usaid WHERE ID = :id";
 
             $stmt = $this->BDD->getBDD()->prepare($sql);
 
-            $stmt->bindParam(':dateheurerdv', $dateheurerdv);
+            $stmt->bindParam(':daterdv', $daterdv);
+            $stmt->bindParam(':heurerdv', $heurerdv);
             $stmt->bindParam(':duree', $duree);
             $stmt->bindParam(':medid', $medid);
             $stmt->bindParam(':usaid', $usaid);
@@ -85,7 +87,7 @@ class functions_rdv
 
     public function deleteRDV(string $deleted)
     {
-        $sql = "DELETE FROM rendezvous WHERE ID=:deleted";
+        $sql = "DELETE FROM consultation WHERE ID=:deleted";
         $stmt = $this->BDD->getBDD()->prepare($sql);
         $stmt->bindParam(':deleted', $deleted);
         $stmt->execute();

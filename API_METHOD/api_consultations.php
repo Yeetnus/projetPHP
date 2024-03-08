@@ -1,138 +1,104 @@
 <?php
-include_once('BDD.php');
-class api_consultations
-{
-    private $BDD;
+require('jwt_utils.php');
+require('functions.php');
+$popo = new chuckfacts();
 
-    public function __construct()
-    {
-        $this->BDD = BDD::getInstanceBDD();
+$http_method = $_SERVER['REQUEST_METHOD'];
+switch ($http_method){
+case "POST" :
+    $postedData = file_get_contents('php://input');
+    $data = json_decode($postedData,true);
+    if(!isset($data['id_medecin'])){
+        deliver_response(400, '[R401 API REST] : paramètre id manquant');
+    }else if(!isset($data['id_usager'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }else if(!isset($data['date_consult'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['heure_consult'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['duree_consult'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }else{
+        $matchingData=$popo->insertChuckFacts($data['id_medecin'],$data['id_usager'],$data['date_consult'],$data['duree_consult'],$data['heure_consult']);
+        deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
     }
-
-    public function select()
-    {
-        $sql = "SELECT ID,DateHeureRDV,DuréeRDV,MedID,UsaID FROM rendezvous order by DateHeureRDV";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectNomUsa(int $id)
-    {
-        $sql = "SELECT Nom FROM usager,rendezvous where UsaID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectNomMed(int $id)
-    {
-        $sql = "SELECT Nom FROM medecin,rendezvous where MedID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectById(int $id)
-    {
-        $sql = "SELECT ID,DateHeureRDV,DuréeRDV, MedID, UsaID FROM rendezvous WHERE ID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectRDVByMedId(int $id)
-    {
-        $sql = "SELECT ID, DateHeureRDV, DuréeRDV, UsaID FROM rendezvous WHERE MedID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function insert(string $dateheurerdv, string $duree, int $medid, int $usaid)
-    {
-
-        try {
-            $sql = "INSERT INTO rendezvous (DateHeureRDV, DuréeRDV, MedID, UsaID) VALUES (:dateheurerdv, :duree, :medid, :usaid)";
-            $stmt = $this->BDD->getBDD()->prepare($sql);
-
-            $stmt->bindParam(':dateheurerdv', $dateheurerdv);
-            $stmt->bindParam(':duree', $duree);
-            $stmt->bindParam(':medid', $medid);
-            $stmt->bindParam(':usaid', $usaid);
-
-            $stmt->execute();
-
-        } catch (PDOException $e) {
-            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+    break;
+case "GET" :
+    #$jwt=get_bearer_token();
+    #if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
+        if(!isset($_GET['id']))
+        {
+            $matchingData=$popo->readChuckFacts();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else{
+            $id=htmlspecialchars($_GET['id']);
+            if($popo->getCountId()['count(id)']<$id){
+                deliver_response(404, 'Not found');
+            }
+            $matchingData=$popo->readChuckFactsId($id);
+            deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
         }
-    }
-
-    function update($ID, $dateheurerdv, $duree, $medid, $usaid)
-    {
-        try {
-            $sql = "UPDATE rendezvous SET DateHeureRDV = :dateheurerdv, DuréeRDV = :duree, MedID = :medid, UsaID = :usaid WHERE ID = :id";
-
-            $stmt = $this->BDD->getBDD()->prepare($sql);
-
-            $stmt->bindParam(':dateheurerdv', $dateheurerdv);
-            $stmt->bindParam(':duree', $duree);
-            $stmt->bindParam(':medid', $medid);
-            $stmt->bindParam(':usaid', $usaid);
-            $stmt->bindParam(':id', $ID);
-
-            $stmt->execute();
-
-        } catch (PDOException $e) {
-            die("Erreur de modification de la base de données: " . $e->getMessage());
-        }
-    }
-
-    public function delete(string $deleted)
-    {
-        $sql = "DELETE FROM rendezvous WHERE ID=:deleted";
-        $stmt = $this->BDD->getBDD()->prepare($sql);
-        $stmt->bindParam(':deleted', $deleted);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-
-        }
-    }
-
-    public function medOccuped($medid, $dateheurerdv, $duree)
-    {
-        $records = $this->selectRDVByMedId($medid);
-        if ($records != null) {
-            foreach ($records as $rdv) {
-                $dateHeureObj = new DateTime($dateheurerdv);
-                $dateRDV = $dateHeureObj->format('d/m/Y');
-                $heureRDV = $dateHeureObj->format('H:i');
-
-                $dateHeureObj2 = new DateTime($rdv["DateHeureRDV"]);
-                $dateRDV2 = $dateHeureObj2->format('d/m/Y');
-                $heureRDV2 = $dateHeureObj2->format('H:i');
-                if ($dateRDV == $dateRDV2) {
-                    if ($heureRDV == $heureRDV2) {
-                        return true;
-                    }
-                    if ($heureRDV < $heureRDV2) {
-                        $dateHeureObj->add(new DateInterval('PT' . $duree . 'M'));
-                        $heureRDV = $dateHeureObj->format('H:i');
-                        if ($heureRDV > $heureRDV2) {
-                            return true;
-                        }
-                    }
-                    if ($heureRDV > $heureRDV2) {
-                        $dateHeureObj2->add(new DateInterval('PT' . $rdv["DuréeRDV"] . 'M'));
-                        $heureRDV2 = $dateHeureObj2->format('H:i');
-                        if ($heureRDV2 > $heureRDV) {
-                            return true;
-                        }
-                    }
+    #}else{
+        #deliver_response(400, 'Votre token n\'est pas bon');
+    #}
+    break;
+    case 'PATCH': 
+        if(isset($_GET['id']))
+        {
+            $postedData = file_get_contents('php://input');
+            $data = json_decode($postedData,true);
+            $phrase = $popo->readChuckFactsId($data['id']);
+            if (empty($phrase)) {
+                deliver_response(404, 'Not found');
+            }
+            else {
+            foreach ($phrase as $key => $value) {
+                if (isset($data[$key])) {
+                $phrase[$key] = $data[$key];
                 }
             }
-
+            update($phrase);
+            deliver_response(200,'OK',$phrase);
+            }
         }
-        return false;
+        else {
+            deliver_response(400, '[R401 API REST] : paramètre id manquant');
+        }
+        break;
+    
+    case "PUT":
+        $postedData = file_get_contents('php://input');
+        $data = json_decode($postedData,true);
+        if(!isset($data['id']) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
+            deliver_response(400, '[R401 API REST] : il manque des paramètres');
+        }
+        $matchingData=$popo->updateChuckFacts($data['id'],$data['phrase'],$data['vote'],$data['faute'],$data['signalement']);
+        deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
+        break;
+    
+    case "DELETE":
+        $id=htmlspecialchars($_GET['id']);
+        if($popo->getCountId()<$id ){
+            deliver_response(404, 'Not found');
+        }else if($id<44 || $id>0){
+            deliver_response(400, '[R401 API REST] : vous ne pouvez pas supprimer ces phrases');
+        }
+        $matchingData=$popo->deleteChuckFacts($id);
+        deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+        break;
     }
+function deliver_response($status_code, $status_message, $data=null){
+    http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
+    //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
+    header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse
+    $response['status_code'] = $status_code;
+    $response['status_message'] = $status_message;
+    $response['data'] = $data;
+    /// Mapping de la réponse au format JSON
+    $json_response = json_encode($response);
+    if($json_response===false)
+     die('json encode ERROR : '.json_last_error_msg());
+    /// Affichage de la réponse (Retourné au client)
+    echo $json_response;
 }
-?>
