@@ -1,6 +1,6 @@
 <?php
 include_once('BDD.php');
-class BDDrdv
+class api_consultations
 {
     private $BDD;
 

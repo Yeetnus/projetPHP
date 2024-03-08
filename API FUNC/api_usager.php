@@ -1,6 +1,6 @@
 <?php
 include_once('BDD.php');
-class BDDusager
+class api_usager
 {
     private $BDD;
 

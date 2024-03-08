@@ -1,6 +1,6 @@
 <?php
 include_once('BDD.php');
-class BDDlogin
+class api_connexion
 {
     private $BDD;
 
