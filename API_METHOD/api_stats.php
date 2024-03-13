@@ -1,121 +1,61 @@
 <?php
-include_once('BDD.php');
-class api_stats
-{
-    private $BDD;
+require('jwt_utils.php');
+require('../FUNC/functions_stats.php');
+$popo = new functions_stats();
 
-    public function __construct()
-    {
-        $this->BDD = BDD::getInstanceBDD();
-    }
-
-    public function getMoins25H()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
-        $result = 0;
-        $today = date('Y-m-d');
-        while ($row = $records->fetch()) {
-            $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
-            $age = $diff->format('%y');
-
-            if ($row["Civilite"] == "M" && $age < 25) {
-                $result++;
-            }
+$http_method = $_SERVER['REQUEST_METHOD'];
+switch ($http_method){
+case "GET" :
+    #$jwt=get_bearer_token();
+    #if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
+        if($_GET['id']==1)
+        {
+            $matchingData=$popo->getMoins25H();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else if($_GET['id']==2)
+        {
+            $matchingData=$popo->getEntre25Et50H();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else if($_GET['id']==3)
+        {
+            $matchingData=$popo->getPlus50H();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else if($_GET['id']==4)
+        {
+            $matchingData=$popo->getMoins25F();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else if($_GET['id']==5)
+        {
+            $matchingData=$popo->getEntre25Et50F();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else if($_GET['id']==6)
+        {
+            $matchingData=$popo->getPlus50F();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else if($_GET['id']==7)
+        {
+            $matchingData=$popo->getAllHeures();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
         }
-        return $result;
-    }
-
-    public function getEntre25Et50H()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
-        $result = 0;
-        $today = date('Y-m-d');
-        while ($row = $records->fetch()) {
-            $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
-            $age = $diff->format('%y');
-
-            if ($row["Civilite"] == "M" && $age >= 25 && $age <= 50) {
-                $result++;
-            }
-        }
-        return $result;
-    }
-
-    public function getPlus50H()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
-        $result = 0;
-        $today = date('Y-m-d');
-        while ($row = $records->fetch()) {
-            $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
-            $age = $diff->format('%y');
-
-            if ($row["Civilite"] == "M" && $age > 50) {
-                $result++;
-            }
-        }
-        return $result;
-    }
-
-    public function getMoins25F()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
-        $result = 0;
-        $today = date('Y-m-d');
-        while ($row = $records->fetch()) {
-            $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
-            $age = $diff->format('%y');
-
-            if ($row["Civilite"] == "MME" && $age < 25) {
-                $result++;
-            }
-        }
-        return $result;
-    }
-
-    public function getEntre25Et50F()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
-        $result = 0;
-        $today = date('Y-m-d');
-        while ($row = $records->fetch()) {
-            $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
-            $age = $diff->format('%y');
-
-            if ($row["Civilite"] == "MME" && $age >= 25 && $age <= 50) {
-                $result++;
-            }
-        }
-        return $result;
-    }
-
-    public function getPlus50F()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
-        $result = 0;
-        $today = date('Y-m-d');
-        while ($row = $records->fetch()) {
-            $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
-            $age = $diff->format('%y');
-
-            if ($row["Civilite"] == "MME" && $age > 50) {
-                $result++;
-            }
-        }
-        return $result;
-    }
-
-    public function getAllHeures()
-    {
-        $sql = "SELECT m.Nom, m.Prenom, SUM(r.DuréeRDV)/60 as TotalDuree FROM medecin m, rendezvous r WHERE m.ID = r.MedID GROUP BY m.ID";
-        $result = $this->BDD->getBDD()->query($sql);
-
-        return $result;
-    }
+    #}else{
+        #deliver_response(400, 'Votre token n\'est pas bon');
+    #}
+    break;
+default:
+    deliver_response(405, 'Method Not Allowed');
+    break;
+}
+function deliver_response($status_code, $status_message, $data=null){
+    http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
+    //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
+    header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse
+    $response['status_code'] = $status_code;
+    $response['status_message'] = $status_message;
+    $response['data'] = $data;
+    /// Mapping de la réponse au format JSON
+    $json_response = json_encode($response);
+    if($json_response===false)
+     die('json encode ERROR : '.json_last_error_msg());
+    /// Affichage de la réponse (Retourné au client)
+    echo $json_response;
 }
