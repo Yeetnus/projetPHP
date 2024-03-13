@@ -30,9 +30,10 @@ case "GET" :
             $id=htmlspecialchars($_GET['id_medecin']);
             if($func_med->getCountId($id)!=1){
                 deliver_response(404, 'Not found');
-            }
+            } else {
             $matchingData=$func_med->select_medecin_By_Id($id);
             deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
+            }
         }
     #}else{
         #deliver_response(400, 'Votre token n\'est pas bon');
@@ -61,21 +62,20 @@ case "GET" :
     case "PUT":
         $postedData = file_get_contents('php://input');
         $data = json_decode($postedData,true);
-        if(!isset($data['id']) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
+        $id=htmlspecialchars($_GET['id_medecin']);
+        if(!isset($id) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
             deliver_response(400, '[R401 API REST] : il manque des paramètres');
         }
-        $matchingData=$func_med->updateChuckFacts($data['id'],$data['phrase'],$data['vote'],$data['faute'],$data['signalement']);
+        $matchingData=$func_med->update_medecin($id,$data);
         deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
         break;
     
     case "DELETE":
-        $id=htmlspecialchars($_GET['id']);
-        if($func_med->getCountId()<$id ){
+        $id=htmlspecialchars($_GET['id_medecin']);
+        if($func_med->getCountId($id)!=1){
             deliver_response(404, 'Not found');
-        }else if($id<44 || $id>0){
-            deliver_response(400, '[R401 API REST] : vous ne pouvez pas supprimer ces phrases');
         }
-        $matchingData=$func_med->deleteChuckFacts($id);
+        $matchingData=$func_med->delete_medecin($id);
         deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
         break;
     }
