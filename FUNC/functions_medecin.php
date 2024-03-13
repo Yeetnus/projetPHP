@@ -1,5 +1,5 @@
 <?php
-include_once('BDD.php');
+require_once('BDD.php');
 class functions_medecin
 {
     private $BDD;

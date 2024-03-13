@@ -1,95 +1,95 @@
 <?php
-include_once('BDD.php');
-class api_usager
-{
-    private $BDD;
+//require('jwt_utils.php');
+require_once('../FUNC/functions_usager.php');
+$func_usa = new functions_usager();
 
-    public function __construct()
-    {
-        $this->BDD = BDD::getInstanceBDD();
+$http_method = $_SERVER['REQUEST_METHOD'];
+switch ($http_method){
+case "POST" :
+    $postedData = file_get_contents('php://input');
+    $data = json_decode($postedData,true);
+    if(!isset($data['nom'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }else if(!isset($data['prenom'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['civilite'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }else{
+        $matchingData=$func_usa->insert_usager($data);
+        deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
     }
-
-    public function select()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectById(int $id)
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale, MedID FROM usager WHERE ID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectNom(int $id)
-    {
-        $sql = "SELECT Nom,Prenom FROM usager WHERE ID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function insert(string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu, int $medid)
-    {
-        try {
-            $sql = "INSERT INTO usager (Nom, Prenom, Civilite, Adresse, DateNaissance, LieuNaissance, NumeroSecuriteSociale, MedID) VALUES (:nom, :prenom, :civ, :adresse, :dateN, :lieuN, :numsecu, :medid)";
-            $stmt = $this->BDD->getBDD()->prepare($sql);
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':civ', $civilite);
-            $stmt->bindParam(':adresse', $adresse);
-            $date_string = $dateN->format('Y-m-d');
-            $stmt->bindParam(':dateN', $date_string);
-            $stmt->bindParam(':lieuN', $lieuN);
-            $stmt->bindParam(':numsecu', $numsecu);
-            $stmt->bindParam(':medid', $medid);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
-        }
-    }
-
-    public function update(int $id, string $nom, string $prenom, string $civilite, string $adresse, DateTime $dateN, string $lieuN, string $numsecu, int $medid)
-    {
-        $sql = "UPDATE usager SET Nom=:nom,Prenom=:prenom,Civilite=:civ,Adresse=:adresse,DateNaissance=:dateN,LieuNaissance=:lieuN,NumeroSecuriteSociale=:numsecu, MedID=:medid WHERE ID=:id";
-        $stmt = $this->BDD->getBDD()->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':prenom', $prenom);
-        $stmt->bindParam(':civ', $civilite);
-        $stmt->bindParam(':adresse', $adresse);
-        $date_string = $dateN->format('Y-m-d');
-        $stmt->bindParam(':dateN', $date_string);
-        $stmt->bindParam(':lieuN', $lieuN);
-        $stmt->bindParam(':numsecu', $numsecu);
-        $stmt->bindParam(':medid', $medid);
-        $stmt->execute();
-    }
-
-    public function delete(string $deleted)
-    {
-        $sqlrdv = "DELETE FROM rendezvous WHERE UsaID=:deleted";
-        $sql = "DELETE FROM usager WHERE id=:deleted";
-
-        try {
-            $stmtrdv = $this->BDD->getBDD()->prepare($sqlrdv);
-            $stmtrdv->bindParam(':deleted', $deleted);
-            $stmtrdv->execute();
-
-            $stmt = $this->BDD->getBDD()->prepare($sql);
-            $stmt->bindParam(':deleted', $deleted);
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
-                return true;
+    break;
+case "GET" :
+    #$jwt=get_bearer_token();
+    #if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
+        if(!isset($_GET['id_usager']))
+        {
+            $matchingData=$func_usa->select_all_usager();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else{
+            $id=htmlspecialchars($_GET['id_usager']);
+            if($func_usa->getCountId($id)!=1){
+                deliver_response(404, 'Not found');
             } else {
-                return false;
+            $matchingData=$func_usa->select_usager_By_Id($id);
+            deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
             }
-        } catch (PDOException $e) {
-            echo "Erreur lors de la suppression : " . $e->getMessage();
-            return false;
         }
+    #}else{
+        #deliver_response(400, 'Votre token n\'est pas bon');
+    #}
+    break;
+    case 'PATCH': 
+        if(isset($_GET['id_usager']))
+        {
+            $postedData = file_get_contents('php://input');
+            $data = json_decode($postedData,true);
+            $id=htmlspecialchars($_GET['id_usager']);
+            $usager = $func_usa->select_usager_By_Id($id);
+            if (empty($usager)) {
+                deliver_response(404, 'Not found');
+            }
+            else {
+                $func_usa->update_usager($id, $data);
+                deliver_response(200,'OK',$usager);
+            }
+        }
+        else {
+            deliver_response(400, '[R401 API REST] : paramètre id manquant');
+        }
+        break;
+    
+    case "PUT":
+        $postedData = file_get_contents('php://input');
+        $data = json_decode($postedData,true);
+        $id=htmlspecialchars($_GET['id_usager']);
+        if(!isset($id) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
+            deliver_response(400, '[R401 API REST] : il manque des paramètres');
+        }
+        $matchingData=$func_usa->update_usager($id,$data);
+        deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
+        break;
+    
+    case "DELETE":
+        $id=htmlspecialchars($_GET['id_usager']);
+        if($func_usa->getCountId($id)!=1){
+            deliver_response(404, 'Not found');
+        }
+        $matchingData=$func_usa->delete_usager($id);
+        deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+        break;
     }
+function deliver_response($status_code, $status_message, $data=null){
+    http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
+    //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
+    header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse
+    $response['status_code'] = $status_code;
+    $response['status_message'] = $status_message;
+    $response['data'] = $data;
+    /// Mapping de la réponse au format JSON
+    $json_response = json_encode($response);
+    if($json_response===false)
+     die('json encode ERROR : '.json_last_error_msg());
+    /// Affichage de la réponse (Retourné au client)
+    echo $json_response;
 }
-?>
