@@ -21,23 +21,32 @@ class functions_medecin
             $stmt->bindParam(':civ', $civ);
 
             $stmt->execute();
+            return true;
 
         } catch (PDOException $e) {
             die("Erreur d'insertion dans la base de données: " . $e->getMessage());
         }
     }
 
+    public function getCountId(int $id) 
+    {
+        $sql = "SELECT count(id_medecin) FROM medecin WHERE id_medecin = :id";
+        $stmt = $this->BDD->getBDD()->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
     public function select_all_medecin()
     {
         $sql = "SELECT id_medecin, nom, prenom, civilite FROM medecin";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function select_medecin_By_Id(int $id)
     {
         $sql = "SELECT id_medecin, nom, prenom, civilite FROM medecin WHERE id_medecin=$id";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -48,15 +57,26 @@ class functions_medecin
         return $result;
     }
 
-    public function update_medecin(int $id, string $nom, string $prenom, string $civilite)
+    public function update_medecin(array $data)
     {
+        $get = $this->select_medecin_By_Id($data['id_medecin']);
+        foreach($get as $key => $value) {
+            if (!isset($data[$key])) {
+                $data[$key] = $value;
+            }
+        }
+
         $sql = "UPDATE medecin SET nom=:nom, prenom=:prenom, civilite=:civilite WHERE id_medecin=:id";
         $stmt = $this->BDD->getBDD()->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':prenom', $prenom);
-        $stmt->bindParam(':civilite', $civilite);
+        $stmt->bindParam(':id', $data['id_medecin']);
+        $stmt->bindParam(':nom', $data['nom']);
+        $stmt->bindParam(':prenom', $data['prenom']);
+        $stmt->bindParam(':civilite', $data['civilite']);
         $stmt->execute();
+    
+        $updatedData = $this->select_medecin_By_Id($data['id_medecin']);
+    
+        return $updatedData;
     }
 
     function delete_medecin(int $id)

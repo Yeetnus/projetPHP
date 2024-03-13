@@ -1,90 +1,94 @@
 <?php
-include_once('BDD.php');
-class api_medecin
-{
-    private $BDD;
+//require('jwt_utils.php');
+require('../FUNC/functions_medecin.php');
+$func_med = new functions_medecin();
 
-    public function __construct()
-    {
-        $this->BDD = BDD::getInstanceBDD();
+$http_method = $_SERVER['REQUEST_METHOD'];
+switch ($http_method){
+case "POST" :
+    $postedData = file_get_contents('php://input');
+    $data = json_decode($postedData,true);
+    if(!isset($data['nom'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }else if(!isset($data['prenom'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['civilite'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }else{
+        $matchingData=$func_med->insert_medecin($data['nom'],$data['prenom'],$data['civilite']);
+        deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
     }
-
-    public function insert(string $nom, string $prenom, string $civ)
-    {
-
-        try {
-            $sql = "INSERT INTO medecin (Nom, Prenom, Civilite) VALUES (:nom, :prenom, :civ)";
-            $stmt = $this->BDD->getBDD()->prepare($sql);
-
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':civ', $civ);
-
-            $stmt->execute();
-
-        } catch (PDOException $e) {
-            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
-        }
-    }
-
-    public function select()
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectById(int $id)
-    {
-        $sql = "SELECT ID,Nom,Prenom,Civilite FROM medecin WHERE ID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function selectNom(int $id)
-    {
-        $sql = "SELECT Nom,Prenom FROM medecin WHERE ID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
-        return $result;
-    }
-
-    public function update(int $id, string $nom, string $prenom, string $civilite)
-    {
-        $sql = "UPDATE medecin SET Nom=:nom, Prenom=:prenom, Civilite=:civilite WHERE ID=:id";
-        $stmt = $this->BDD->getBDD()->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':prenom', $prenom);
-        $stmt->bindParam(':civilite', $civilite);
-        $stmt->execute();
-    }
-
-    function delete(int $id)
-    {
-        try {
-            $this->BDD->getBDD()->beginTransaction();
-
-            $stmt = $this->BDD->getBDD()->prepare("SELECT COUNT(*) FROM rendezvous WHERE MedID = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            $count = $stmt->fetchColumn();
-
-            if ($count > 0) {
-                throw new Exception('Il y a des rendez-vous attribués à ce médecin. Impossible de supprimer le médecin.');
+    break;
+case "GET" :
+    #$jwt=get_bearer_token();
+    #if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
+        if(!isset($_GET['id_medecin']))
+        {
+            $matchingData=$func_med->select_all_medecin();
+            deliver_response(200,"tout s'est bien passé",$matchingData);
+        }else{
+            $id=htmlspecialchars($_GET['id_medecin']);
+            if($func_med->getCountId($id)!=1){
+                deliver_response(404, 'Not found');
             }
-
-            $stmt = $this->BDD->getBDD()->prepare("DELETE FROM medecin WHERE ID = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            $this->BDD->getBDD()->commit();
-            return true;
-        } catch (PDOException $e) {
-            $this->BDD->getBDD()->rollBack();
-            throw $e;
-        } catch (Exception $e) {
-            echo "<script>alert('" . $e->getMessage() . "');</script>";
+            $matchingData=$func_med->select_medecin_By_Id($id);
+            deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
         }
+    #}else{
+        #deliver_response(400, 'Votre token n\'est pas bon');
+    #}
+    break;
+    case 'PATCH': 
+        if(isset($_GET['id']))
+        {
+            $postedData = file_get_contents('php://input');
+            $data = json_decode($postedData,true);
+            $medecin = $func_med->select_medecin_By_Id($data['id_medecin']);
+            if (empty($medecin)) {
+                deliver_response(404, 'Not found');
+            }
+            else {
+                $func_med->update_medecin($data);
+                deliver_response(200,'OK',$medecin);
+            }
+        }
+        else {
+            deliver_response(400, '[R401 API REST] : paramètre id manquant');
+        }
+        break;
+    
+    case "PUT":
+        $postedData = file_get_contents('php://input');
+        $data = json_decode($postedData,true);
+        if(!isset($data['id']) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
+            deliver_response(400, '[R401 API REST] : il manque des paramètres');
+        }
+        $matchingData=$func_med->updateChuckFacts($data['id'],$data['phrase'],$data['vote'],$data['faute'],$data['signalement']);
+        deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
+        break;
+    
+    case "DELETE":
+        $id=htmlspecialchars($_GET['id']);
+        if($func_med->getCountId()<$id ){
+            deliver_response(404, 'Not found');
+        }else if($id<44 || $id>0){
+            deliver_response(400, '[R401 API REST] : vous ne pouvez pas supprimer ces phrases');
+        }
+        $matchingData=$func_med->deleteChuckFacts($id);
+        deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+        break;
     }
+function deliver_response($status_code, $status_message, $data=null){
+    http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
+    //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
+    header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse
+    $response['status_code'] = $status_code;
+    $response['status_message'] = $status_message;
+    $response['data'] = $data;
+    /// Mapping de la réponse au format JSON
+    $json_response = json_encode($response);
+    if($json_response===false)
+     die('json encode ERROR : '.json_last_error_msg());
+    /// Affichage de la réponse (Retourné au client)
+    echo $json_response;
 }
-?>
