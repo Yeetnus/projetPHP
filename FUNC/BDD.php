@@ -7,9 +7,9 @@ class BDD
     private function __construct()
     {
         $this->linkpdo = new PDO(
-            "mysql:host=db_project;dbname=php_project;charset=utf8",
-            "test",
-            "test"
+            "mysql:host=localhost;dbname=fonctionsprojetr401;charset=utf8",
+            "root",
+            ""
         );
     }
 
