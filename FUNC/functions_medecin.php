@@ -57,9 +57,9 @@ class functions_medecin
         return $result;
     }
 
-    public function update_medecin(array $data)
+    public function update_medecin(int $id, array $data)
     {
-        $get = $this->select_medecin_By_Id($data['id_medecin']);
+        $get = $this->select_medecin_By_Id($id);
         foreach($get as $key => $value) {
             if (!isset($data[$key])) {
                 $data[$key] = $value;
@@ -68,13 +68,13 @@ class functions_medecin
 
         $sql = "UPDATE medecin SET nom=:nom, prenom=:prenom, civilite=:civilite WHERE id_medecin=:id";
         $stmt = $this->BDD->getBDD()->prepare($sql);
-        $stmt->bindParam(':id', $data['id_medecin']);
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nom', $data['nom']);
         $stmt->bindParam(':prenom', $data['prenom']);
         $stmt->bindParam(':civilite', $data['civilite']);
         $stmt->execute();
     
-        $updatedData = $this->select_medecin_By_Id($data['id_medecin']);
+        $updatedData = $this->select_medecin_By_Id($id);
     
         return $updatedData;
     }

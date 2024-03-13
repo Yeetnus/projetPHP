@@ -39,16 +39,17 @@ case "GET" :
     #}
     break;
     case 'PATCH': 
-        if(isset($_GET['id']))
+        if(isset($_GET['id_medecin']))
         {
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData,true);
-            $medecin = $func_med->select_medecin_By_Id($data['id_medecin']);
+            $id=htmlspecialchars($_GET['id_medecin']);
+            $medecin = $func_med->select_medecin_By_Id($id);
             if (empty($medecin)) {
                 deliver_response(404, 'Not found');
             }
             else {
-                $func_med->update_medecin($data);
+                $func_med->update_medecin($id, $data);
                 deliver_response(200,'OK',$medecin);
             }
         }
