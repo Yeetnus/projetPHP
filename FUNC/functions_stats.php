@@ -11,15 +11,15 @@ class functions_stats
 
     public function getMoins25H()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
+        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
         while ($row = $records->fetch()) {
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "M" && $age < 25) {
+            if ($row["Sexe"] == "M" && $age < 25) {
                 $result++;
             }
         }
@@ -28,15 +28,15 @@ class functions_stats
 
     public function getEntre25Et50H()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
+        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
         while ($row = $records->fetch()) {
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "M" && $age >= 25 && $age <= 50) {
+            if ($row["Sexe"] == "M" && $age >= 25 && $age <= 50) {
                 $result++;
             }
         }
@@ -45,15 +45,15 @@ class functions_stats
 
     public function getPlus50H()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
         while ($row = $records->fetch()) {
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "M" && $age > 50) {
+            if ($row["Sexe"] == "M" && $age > 50) {
                 $result++;
             }
         }
@@ -62,15 +62,15 @@ class functions_stats
 
     public function getMoins25F()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
         while ($row = $records->fetch()) {
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "MME" && $age < 25) {
+            if ($row["Sexe"] == "F" && $age < 25) {
                 $result++;
             }
         }
@@ -79,15 +79,15 @@ class functions_stats
 
     public function getEntre25Et50F()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
         while ($row = $records->fetch()) {
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "MME" && $age >= 25 && $age <= 50) {
+            if ($row["Sexe"] == "F" && $age >= 25 && $age <= 50) {
                 $result++;
             }
         }
@@ -96,15 +96,15 @@ class functions_stats
 
     public function getPlus50F()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
-        $records = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
         while ($row = $records->fetch()) {
             $diff = date_diff(date_create($row["DateNaissance"]), date_create($today));
             $age = $diff->format('%y');
 
-            if ($row["Civilite"] == "MME" && $age > 50) {
+            if ($row["Sexe"] == "F" && $age > 50) {
                 $result++;
             }
         }
@@ -113,8 +113,8 @@ class functions_stats
 
     public function getAllHeures()
     {
-        $sql = "SELECT m.Nom, m.Prenom, SUM(r.DuréeRDV)/60 as TotalDuree FROM medecin m, rendezvous r WHERE m.ID = r.MedID GROUP BY m.ID";
-        $result = $this->BDD->getBDD()->query($sql);
+        $sql = "SELECT m.Nom, m.Prenom, SUM(r.Duree_RDV)/60 as Total_Duree FROM medecin m, rendezvous r WHERE m.ID = r.MedID GROUP BY m.ID";
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
 
         return $result;
     }

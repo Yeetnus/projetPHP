@@ -9,38 +9,45 @@ class functions_rdv
         $this->BDD = BDD::getInstanceBDD();
     }
 
+    public function getCountId ($id)
+    {
+        $sql = "SELECT count($id) FROM consultation";
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function selectAllRDV()
     {
         $sql = "SELECT ID,Date_consult,heure_consult,duree_consult,id_medecin,id_usager FROM consultation order by DateHeureRDV";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function selectNomUsa(int $id)
     {
         $sql = "SELECT Nom FROM usager,consultation where id_usager=$id";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function selectNomMed(int $id)
     {
         $sql = "SELECT Nom FROM medecin,consultation where id_medecin=$id";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function selectRDVById(int $id)
     {
         $sql = "SELECT ID,date_consult,heure_consult,Duree_consult, id_medecin, id_usager FROM consultation WHERE ID=$id";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function selectRDVByMedId(int $id)
     {
         $sql = "SELECT ID, date_consult,heure_consult, duree_consult, id_usager FROM consultation WHERE id_medecin=$id";
-        $result = $this->BDD->getBDD()->query($sql);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 

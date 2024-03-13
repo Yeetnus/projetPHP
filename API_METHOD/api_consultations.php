@@ -1,7 +1,7 @@
 <?php
 require('jwt_utils.php');
-require('functions.php');
-$popo = new chuckfacts();
+require('../FUNC/functions_rdv.php');
+$popo = new functions_rdv();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
 switch ($http_method){
@@ -11,16 +11,15 @@ case "POST" :
     if(!isset($data['id_medecin'])){
         deliver_response(400, '[R401 API REST] : paramètre id manquant');
     }else if(!isset($data['id_usager'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre id_usager manquant');
     }else if(!isset($data['date_consult'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre date_consult manquant');
     }elseif(!isset($data['heure_consult'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre heure_consult manquant');
     }elseif(!isset($data['duree_consult'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre duree_consult manquant');
     }else{
-        $matchingData=$popo->insertChuckFacts($data['id_medecin'],$data['id_usager'],$data['date_consult'],$data['duree_consult'],$data['heure_consult']);
+        $matchingData=$popo->insertRDV($data['id_medecin'],$data['id_usager'],$data['date_consult'],$data['duree_consult'],$data['heure_consult']);
         deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
     }
     break;
@@ -29,14 +28,14 @@ case "GET" :
     #if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
         if(!isset($_GET['id']))
         {
-            $matchingData=$popo->readChuckFacts();
+            $matchingData=$popo->selectAllRDV();
             deliver_response(200,"tout s'est bien passé",$matchingData);
         }else{
             $id=htmlspecialchars($_GET['id']);
-            if($popo->getCountId()['count(id)']<$id){
+            if($popo->getCountId($id)){
                 deliver_response(404, 'Not found');
             }
-            $matchingData=$popo->readChuckFactsId($id);
+            $matchingData=$popo->selectRDVById($id);
             deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
         }
     #}else{
@@ -48,7 +47,7 @@ case "GET" :
         {
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData,true);
-            $phrase = $popo->readChuckFactsId($data['id']);
+            $phrase = $popo->selectRDVById($data['id']);
             if (empty($phrase)) {
                 deliver_response(404, 'Not found');
             }
@@ -70,21 +69,21 @@ case "GET" :
     case "PUT":
         $postedData = file_get_contents('php://input');
         $data = json_decode($postedData,true);
-        if(!isset($data['id']) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
+        if(!isset($data['id']) && !isset($data['date_consult']) && !isset($data['heure_consult']) && !isset($data['duree_consult']) && !isset($data['id_medecin']) && !isset($data['id_usager'])){
             deliver_response(400, '[R401 API REST] : il manque des paramètres');
         }
-        $matchingData=$popo->updateChuckFacts($data['id'],$data['phrase'],$data['vote'],$data['faute'],$data['signalement']);
+        $matchingData=$popo->updateRDV($data['id'],$data['date_consult'],$data['heure_consult'],$data['duree_consult'],$data['id_medecin'],$data['id_usager']);
         deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
         break;
     
     case "DELETE":
         $id=htmlspecialchars($_GET['id']);
-        if($popo->getCountId()<$id ){
+        if($popo->getCountId($id)){
             deliver_response(404, 'Not found');
         }else if($id<44 || $id>0){
             deliver_response(400, '[R401 API REST] : vous ne pouvez pas supprimer ces phrases');
         }
-        $matchingData=$popo->deleteChuckFacts($id);
+        $matchingData=$popo->deleteRDV($id);
         deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
         break;
     }
