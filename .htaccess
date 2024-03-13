@@ -1,4 +1,10 @@
-RewriteEngine on
 
+
+RewriteEngine On
+
+# Retire l'extension .php des URL si le fichier existe
 RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php [NC,L]
+RewriteRule ^(.*)$ $1.php [L]
+
+# Redirige les requêtes avec un paramètre id_medecin
+RewriteRule ^medecins/(\d+)$ api_medecin.php?id_medecin=$1 [L]
