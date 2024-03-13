@@ -38,15 +38,16 @@ class functions_medecin
     }
     public function select_all_medecin()
     {
-        $sql = "SELECT id_medecin, nom, prenom, civilite FROM medecin";
-        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM medecin";
+        $result = $this->BDD->getBDD()->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+       
         return $result;
     }
 
     public function select_medecin_By_Id(int $id)
     {
-        $sql = "SELECT id_medecin, nom, prenom, civilite FROM medecin WHERE id_medecin=$id";
-        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM medecin WHERE id_medecin=$id";
+        $result = $this->BDD->getBDD()->query($sql)->fetchALL(PDO::FETCH_ASSOC);
         return $result;
     }
 
