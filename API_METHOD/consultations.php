@@ -1,5 +1,4 @@
 <?php
-require('jwt_utils.php');
 require('../FUNC/functions_rdv.php');
 $popo = new functions_rdv();
 
@@ -19,7 +18,7 @@ case "POST" :
     }elseif(!isset($data['duree_consult'])){
         deliver_response(400, '[R401 API REST] : paramètre duree_consult manquant');
     }else{
-        $matchingData=$popo->insertRDV($data['id_medecin'],$data['id_usager'],$data['date_consult'],$data['duree_consult'],$data['heure_consult']);
+        $matchingData = $popo->insertRDV($data['date_consult'],$data['heure_consult'] ,$data['duree_consult'],$data['id_medecin'],$data['id_usager']);
         deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
     }
     break;
