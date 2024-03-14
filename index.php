@@ -14,11 +14,11 @@
     <h2>Page de connexion</h2>
     <form action="login.php" method="post">
       <div class="user-box">
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="login" name="login" required>
         <label>Username</label>
       </div>
       <div class="user-box">
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="mdp" name="mdp" required>
         <label>Password</label>
       </div>
       <?php if (isset($_GET['error'])): ?>

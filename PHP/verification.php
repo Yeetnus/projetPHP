@@ -1,7 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header('Location: /index.php');
+if (!isset($_SESSION['login'])) {
+    header('Location: /projet/projetPHP/index.php');
     exit();
 }
-?>

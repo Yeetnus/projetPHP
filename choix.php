@@ -7,13 +7,31 @@
   <title>Page d'accueil</title>
   <link rel="stylesheet" href="CSS/stylechoix.css">
   <link rel="icon" href="IMAGES/logo_cabinet.png">
+  
 </head>
 
 <body>
+  <?php if (!($_SESSION['login']=='secretaire1')): ?>
+    <style>
+      #medecin {
+        display: none;
+      }
+
+      #usager {
+        display: none;
+      }
+
+      #rdv {
+        display: none;
+      }
+    </style>
+  <?php 
+    endif; 
+  ?>
   <div class="global-box">
     <h2>Où souhaitez-vous aller ?</h2>
     <div class="container">
-      <div class="box">
+      <div id="medecin" class="box">
         <a href="PHP/medecin/supprimer.php" class="choice-button">
           Supprimer un médecin
         </a><br>
@@ -24,7 +42,8 @@
           Modifier un médecin
         </a>
       </div>
-      <div class="box">
+
+      <div id="usager" class="box">
         <a href="PHP/usager/supprimer.php" class="choice-button">
           Supprimer un usager
         </a><br>
@@ -35,7 +54,8 @@
           Modifier un usager
         </a>
       </div>
-      <div class="box">
+
+      <div id="rdv" class="box">
         <a href="PHP/rdv/supprimer.php" class="choice-button">
           Supprimer un rendez-vous
         </a><br>
@@ -46,7 +66,8 @@
           Modifier un rendez-vous
         </a>
       </div>
-      <div class="box">
+
+      <div id="stats" class="box">
         <a href="PHP/stats.php" class="choice-button">
           Statistiques
         </a>

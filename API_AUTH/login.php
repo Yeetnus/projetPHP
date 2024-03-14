@@ -1,6 +1,6 @@
 <?php
 require('jwt_utils.php');
-require('../FUNC/functions_auth.php');
+require_once __DIR__.'/../FUNC/functions_auth.php';
 $popo = new functions_auth();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
@@ -10,11 +10,9 @@ switch ($http_method){
     $data = json_decode($postedData,true);
     if ($popo->isValidUser($data['login'], $data['mdp'])) {
         $login=$data['login'];
-
         $headers=array('alg'=>'HS256','typ'=>'JWT');
         $payload=array('login'=>$login,'exp'=>(time()+3600));
         $secret='Je suce cricri';
-
         $jwt=generate_jwt($headers,$payload,$secret);
         deliver_response(200, 'Votre jeton s\'est bien généré',$jwt);
     }else{
@@ -49,4 +47,3 @@ function deliver_response($status_code, $status_message, $data=null){
     /// Affichage de la réponse (Retourné au client)
     echo $json_response;
 }
-?>
