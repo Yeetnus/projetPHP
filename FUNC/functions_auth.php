@@ -1,6 +1,6 @@
 <?php
-include_once('BDD.php');
-class api_connexion
+include_once('../FUNC/BDD.php');
+class functions_auth
 {
     private $BDD;
 
@@ -9,18 +9,48 @@ class api_connexion
         $this->BDD = BDD::getInstanceBDD();
     }
 
-    public function verification(string $login, string $mdp)
-    {
-        $sql = "SELECT Login, Mdp FROM connecter where Login=:login and Mdp=:mdp";
-        $stmt = $this->BDD->getBDD()->prepare($sql);
-        $stmt->bindParam(':login', $login);
-        $stmt->bindParam(':mdp', $mdp);
-        $stmt->execute();
-        $result = $stmt->fetch();
-        if ($result) {
-            return true;
-        } else {
+    public function getRoleUser(string $login,string $mdp){
+        try{
+            if(password_verify($mdp,$login)){
+            $sql = "SELECT role FROM util where login='$login' and password='$mdp'";
+            $result = $this->BDD->getBDD()->query($sql)->fetch();
+            return $result;
+            }
+        } catch (PDOException $e) {
+            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+        }
+    }
+
+    public function isValidUser(string $login,string $mdp){
+        try{
+            $sql = "SELECT login,password FROM util where login='$login' and password='$mdp'";
+            $result = $this->BDD->getBDD()->query($sql)->fetch();
+            if($result){
+                return true;
+            }
             return false;
+        } catch (PDOException $e) {
+            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+        }
+    }
+
+    public function getUser(string $login,string $mdp){
+        try{
+            $sql = "SELECT * FROM util where login='$login' and password='$mdp'";
+            $result = $this->BDD->getBDD()->query($sql)->fetch();
+            return $result;
+        } catch (PDOException $e) {
+            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+        }
+    }
+    
+    public function getRole(string $login,string $mdp){
+        try{
+            $sql = "SELECT role FROM util where login='$login' and password='$mdp'";
+            $result = $this->BDD->getBDD()->query($sql)->fetch();
+            return $result;
+        } catch (PDOException $e) {
+            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
         }
     }
 }
