@@ -18,8 +18,8 @@ class functions_rdv
 
     public function selectAllRDV()
     {
-        $sql = "SELECT ID,Date_consult,heure_consult,duree_consult,id_medecin,id_usager FROM consultation order by DateHeureRDV";
-        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
+        $sql = "SELECT id_consult,Date_consult,heure_consult,duree_consult,id_medecin,id_usager FROM consultation order by date_consult,heure_consult";
+        $result = $this->BDD->getBDD()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -39,14 +39,14 @@ class functions_rdv
 
     public function selectRDVById(int $id)
     {
-        $sql = "SELECT ID,date_consult,heure_consult,Duree_consult, id_medecin, id_usager FROM consultation WHERE ID=$id";
+        $sql = "SELECT id_consult,date_consult,heure_consult,Duree_consult, id_medecin, id_usager FROM consultation WHERE id_consult=$id";
         $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function selectRDVByMedId(int $id)
     {
-        $sql = "SELECT ID, date_consult,heure_consult, duree_consult, id_usager FROM consultation WHERE id_medecin=$id";
+        $sql = "SELECT id_consult, date_consult,heure_consult, duree_consult, id_usager FROM consultation WHERE id_medecin=$id";
         $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -71,18 +71,18 @@ class functions_rdv
         }
     }
 
-    function updateRDV($ID, $daterdv,$heurerdv, $duree, $medid, $usaid)
+    function updateRDV(int $ID, array $data)
     {
         try {
-            $sql = "UPDATE consultation SET date_consult = :daterdv,heure_consult=:heurerdv, duree_consult = :duree, id_medecin = :medid, id_usager = :usaid WHERE ID = :id";
+            $sql = "UPDATE consultation SET date_consult = :daterdv,heure_consult=:heurerdv, duree_consult = :duree, id_medecin = :medid, id_usager = :usaid WHERE id_consult = :id";
 
             $stmt = $this->BDD->getBDD()->prepare($sql);
 
-            $stmt->bindParam(':daterdv', $daterdv);
-            $stmt->bindParam(':heurerdv', $heurerdv);
-            $stmt->bindParam(':duree', $duree);
-            $stmt->bindParam(':medid', $medid);
-            $stmt->bindParam(':usaid', $usaid);
+            $stmt->bindParam(':daterdv', $data['date_consult']);
+            $stmt->bindParam(':heurerdv', $data['heure_consult']);
+            $stmt->bindParam(':duree', $data['duree_consult']);
+            $stmt->bindParam(':medid', $data['id_medecin']);
+            $stmt->bindParam(':usaid', $data['id_usager']);
             $stmt->bindParam(':id', $ID);
 
             $stmt->execute();
@@ -94,7 +94,7 @@ class functions_rdv
 
     public function deleteRDV(string $deleted)
     {
-        $sql = "DELETE FROM consultation WHERE ID=:deleted";
+        $sql = "DELETE FROM consultation WHERE id_consult=:deleted";
         $stmt = $this->BDD->getBDD()->prepare($sql);
         $stmt->bindParam(':deleted', $deleted);
         $stmt->execute();

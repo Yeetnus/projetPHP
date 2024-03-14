@@ -42,22 +42,18 @@ case "GET" :
     #}
     break;
     case 'PATCH': 
-        if(isset($_GET['id']))
+        if(isset($_GET['id_consult']))
         {
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData,true);
-            $phrase = $popo->selectRDVById($data['id']);
-            if (empty($phrase)) {
+            $id=htmlspecialchars($_GET['id_consult']);
+            $rdv = $popo->selectRDVById($id);
+            if (empty($rdv)) {
                 deliver_response(404, 'Not found');
             }
             else {
-            foreach ($phrase as $key => $value) {
-                if (isset($data[$key])) {
-                $phrase[$key] = $data[$key];
-                }
-            }
-            update($phrase);
-            deliver_response(200,'OK',$phrase);
+                $popo->updateRDV($id, $data);
+                deliver_response(200,'OK',$rdv);
             }
         }
         else {
@@ -68,22 +64,22 @@ case "GET" :
     case "PUT":
         $postedData = file_get_contents('php://input');
         $data = json_decode($postedData,true);
-        if(!isset($data['id']) && !isset($data['date_consult']) && !isset($data['heure_consult']) && !isset($data['duree_consult']) && !isset($data['id_medecin']) && !isset($data['id_usager'])){
+        $id=htmlspecialchars($_GET['id_medecin']);
+        if(!isset($id) && !isset($data['nom']) && !isset($data['prenom']) && !isset($data['civilite'])){
             deliver_response(400, '[R401 API REST] : il manque des paramètres');
         }
-        $matchingData=$popo->updateRDV($data['id'],$data['date_consult'],$data['heure_consult'],$data['duree_consult'],$data['id_medecin'],$data['id_usager']);
-        deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
+        $matchingData=$func_med->update_medecin($id,$data);
+        deliver_response(200,"Le médecin s'est bien modifié",$matchingData);
         break;
     
     case "DELETE":
-        $id=htmlspecialchars($_GET['id']);
+        $id=htmlspecialchars($_GET['id_consult']);
         if($popo->getCountId($id)){
+            $matchingData=$popo->deleteRDV($id);
+            deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+        }else{
             deliver_response(404, 'Not found');
-        }else if($id<44 || $id>0){
-            deliver_response(400, '[R401 API REST] : vous ne pouvez pas supprimer ces phrases');
         }
-        $matchingData=$popo->deleteRDV($id);
-        deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
         break;
     }
 function deliver_response($status_code, $status_message, $data=null){
