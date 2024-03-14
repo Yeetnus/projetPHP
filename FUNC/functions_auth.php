@@ -12,7 +12,7 @@ class functions_auth
     public function getRoleUser(string $login,string $mdp){
         try{
             if(password_verify($mdp,$login)){
-            $sql = "SELECT role FROM util where login='$login' and password='$mdp'";
+            $sql = "SELECT role FROM user_auth_v1 where login='$login' and mdp='$mdp'";
             $result = $this->BDD->getBDD()->query($sql)->fetch();
             return $result;
             }
@@ -23,7 +23,7 @@ class functions_auth
 
     public function isValidUser(string $login,string $mdp){
         try{
-            $sql = "SELECT login,password FROM util where login='$login' and password='$mdp'";
+            $sql = "SELECT login,mdp FROM user_auth_v1 where login='$login' and mdp='$mdp'";
             $result = $this->BDD->getBDD()->query($sql)->fetch();
             if($result){
                 return true;
@@ -36,7 +36,7 @@ class functions_auth
 
     public function getUser(string $login,string $mdp){
         try{
-            $sql = "SELECT * FROM util where login='$login' and password='$mdp'";
+            $sql = "SELECT * FROM user_auth_v1 where login='$login' and mdp='$mdp'";
             $result = $this->BDD->getBDD()->query($sql)->fetch();
             return $result;
         } catch (PDOException $e) {
@@ -46,7 +46,7 @@ class functions_auth
 
     public function getRole(string $login,string $mdp){
         try{
-            $sql = "SELECT role FROM util where login='$login' and password='$mdp'";
+            $sql = "SELECT role FROM user_auth_v1 where login='$login' and mdp='$mdp'";
             $result = $this->BDD->getBDD()->query($sql)->fetch();
             return $result;
         } catch (PDOException $e) {

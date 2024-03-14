@@ -23,7 +23,7 @@ switch ($http_method){
     break;
 case "GET" :
     $jwt=get_bearer_token();
-    if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
+    if(is_jwt_valid($jwt,'Je suce cricri')){
         deliver_response(200, 'Votre token est bon');
     }else{
         deliver_response(400, 'Votre token n\'est pas bon');
