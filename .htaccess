@@ -4,7 +4,12 @@ RewriteEngine On
 
 RewriteRule ^API_METHOD/medecins/?$ API_METHOD/medecins.php [L]
 RewriteRule ^API_METHOD/medecins/([0-9]+)$ API_METHOD/medecins.php?id_medecin=$1 [L]
+
+RewriteRule ^API_METHOD/usagers/?$ API_METHOD/usagers.php [L]
+RewriteRule ^API_METHOD/usagers/([0-9]+)$ API_METHOD/usagers.php?id_usager=$1 [L]
+
 RewriteRule ^API_METHOD/consultations/?$ API_METHOD/consultations.php [L]
 RewriteRule ^API_METHOD/consultations/([0-9]+)$ API_METHOD/consultations.php?id_consult=$1 [L]
+
 RewriteRule ^API_METHOD/stats/usagers/?$   API_METHOD/stats.php?id=$1 [L]
 RewriteRule ^API_METHOD/stats/medecins/([0-9]+)$   API_METHOD/stats.php=$1 [L]
