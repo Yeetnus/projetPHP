@@ -32,7 +32,7 @@ case "GET" :
         {
             $matchingData=$popo->getPlus50F();
             deliver_response(200,"tout s'est bien passé",$matchingData);
-        }else if($_GET['id']==7)
+        }else
         {
             $matchingData=$popo->getAllHeures();
             deliver_response(200,"tout s'est bien passé",$matchingData);

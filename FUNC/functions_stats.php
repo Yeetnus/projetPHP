@@ -11,7 +11,7 @@ class functions_stats
 
     public function getMoins25H()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
+        $sql = "SELECT * FROM usager";
         $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
@@ -28,7 +28,7 @@ class functions_stats
 
     public function getEntre25Et50H()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID FROM usager";
+        $sql = "SELECT * FROM usager";
         $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
@@ -45,7 +45,7 @@ class functions_stats
 
     public function getPlus50H()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $sql = "SELECT *  FROM usager";
         $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
@@ -62,7 +62,7 @@ class functions_stats
 
     public function getMoins25F()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $sql = "SELECT *  FROM usager";
         $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
@@ -79,7 +79,7 @@ class functions_stats
 
     public function getEntre25Et50F()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $sql = "SELECT * FROM usager";
         $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
@@ -96,7 +96,7 @@ class functions_stats
 
     public function getPlus50F()
     {
-        $sql = "SELECT ID,Nom,Prenom,Civilite,Adresse,Code_postal,ville,Sexe,DateNaissance,LieuNaissance,NumeroSecuriteSociale,MedID  FROM usager";
+        $sql = "SELECT *  FROM usager";
         $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         $result = 0;
         $today = date('Y-m-d');
