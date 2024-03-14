@@ -19,7 +19,7 @@ class functions_usager
     public function select_usager_By_Id(int $id)
     {
         $sql = "SELECT id_usager, nom, prenom, civilite, sexe, adresse, code_postal, ville, date_nais, lieu_nais, num_secu, id_medecin FROM usager WHERE id_usager=$id";
-        $result = $this->BDD->getBDD()->query($sql)->fetch++(PDO::FETCH_ASSOC);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
     public function getCountId(int $id) 
