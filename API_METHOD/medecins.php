@@ -9,14 +9,14 @@ case "POST" :
     $postedData = file_get_contents('php://input');
     $data = json_decode($postedData,true);
     if(!isset($data['nom'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez le nom du médecin.');
     }else if(!isset($data['prenom'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez le prénom du médecin.');
     }elseif(!isset($data['civilite'])){
-        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez la civilité du médecin.');
     }else{
         $matchingData=$func_med->insert_medecin($data['nom'],$data['prenom'],$data['civilite']);
-        deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
+        deliver_response(200,"Le médecin s'est bien ajouté",$matchingData);
     }
     break;
 case "GET" :
@@ -25,14 +25,14 @@ case "GET" :
         if(!isset($_GET['id_medecin']))
         {
             $matchingData=$func_med->select_all_medecin();
-            deliver_response(200,"tout s'est bien passé",$matchingData);
+            deliver_response(200,"Tout s'est bien passé",$matchingData);
         }else{
             $id=htmlspecialchars($_GET['id_medecin']);
             if($func_med->getCountId($id)!=1){
                 deliver_response(404, 'Not found');
             } else {
             $matchingData=$func_med->select_medecin_By_Id($id);
-            deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
+            deliver_response(200,"Le médecin a bien été selectionné",$matchingData);
             }
         }
     #}else{
@@ -63,11 +63,11 @@ case "GET" :
         $postedData = file_get_contents('php://input');
         $data = json_decode($postedData,true);
         $id=htmlspecialchars($_GET['id_medecin']);
-        if(!isset($id) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
+        if(!isset($id) && !isset($data['nom']) && !isset($data['prenom']) && !isset($data['civilite'])){
             deliver_response(400, '[R401 API REST] : il manque des paramètres');
         }
         $matchingData=$func_med->update_medecin($id,$data);
-        deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
+        deliver_response(200,"Le médecin s'est bien modifié",$matchingData);
         break;
     
     case "DELETE":
@@ -76,7 +76,7 @@ case "GET" :
             deliver_response(404, 'Not found');
         }
         $matchingData=$func_med->delete_medecin($id);
-        deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+        deliver_response(200,"Le médecin s'est bien supprimé",$matchingData);
         break;
     }
 function deliver_response($status_code, $status_message, $data=null){

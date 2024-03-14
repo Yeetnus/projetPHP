@@ -47,9 +47,11 @@ class functions_medecin
     public function select_medecin_By_Id(int $id)
     {
         $sql = "SELECT * FROM medecin WHERE id_medecin=$id";
-        $result = $this->BDD->getBDD()->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    
 
     public function selectNom(int $id)
     {
@@ -61,7 +63,8 @@ class functions_medecin
     public function update_medecin(int $id, array $data)
     {
         $get = $this->select_medecin_By_Id($id);
-        foreach($get as $key => $value) {
+        
+        foreach ($get as $key => $value) {
             if (!isset($data[$key])) {
                 $data[$key] = $value;
             }
