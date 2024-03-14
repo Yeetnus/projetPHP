@@ -1,5 +1,5 @@
 <?php
-include_once('../FUNC/BDD.php');
+include_once('../FUNC/BDDlogin.php');
 class functions_auth
 {
     private $BDD;
@@ -43,7 +43,7 @@ class functions_auth
             die("Erreur d'insertion dans la base de données: " . $e->getMessage());
         }
     }
-    
+
     public function getRole(string $login,string $mdp){
         try{
             $sql = "SELECT role FROM util where login='$login' and password='$mdp'";

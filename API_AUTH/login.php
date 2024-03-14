@@ -10,10 +10,9 @@ switch ($http_method){
     $data = json_decode($postedData,true);
     if ($popo->isValidUser($data['login'], $data['mdp'])) {
         $login=$data['login'];
-        $role=$popo->getRoleUser($data['login'], $data['mdp']);
 
         $headers=array('alg'=>'HS256','typ'=>'JWT');
-        $payload=array('login'=>$login,'role'=>$role,'exp'=>(time()+3600));
+        $payload=array('login'=>$login,'exp'=>(time()+3600));
         $secret='Je suce cricri';
 
         $jwt=generate_jwt($headers,$payload,$secret);
