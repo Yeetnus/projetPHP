@@ -1,7 +1,7 @@
 <?php
 require('jwt_utils.php');
 require('../FUNC/functions_auth.php');
-$popo = new chuckfacts();
+$popo = new functions_auth();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
 switch ($http_method){

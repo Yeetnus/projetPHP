@@ -13,3 +13,5 @@ RewriteRule ^API_METHOD/consultations/([0-9]+)$ API_METHOD/consultations.php?id_
 
 RewriteRule ^API_METHOD/stats/usagers/?$   API_METHOD/stats.php?id=$1 [L]
 RewriteRule ^API_METHOD/stats/medecins/([0-9]+)$   API_METHOD/stats.php=$1 [L]
+
+RewriteRule ^API_AUTH/([0-9]+)$   API_AUTH/login.php=$1 [L]
