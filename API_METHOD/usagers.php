@@ -14,6 +14,22 @@ case "POST" :
         deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
     }elseif(!isset($data['civilite'])){
         deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['sexe'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['adresse'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['code_postal'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['ville'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['date_nais'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['lieu_nais'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['num_secu'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+    }elseif(!isset($data['id_medecin'])){
+        deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
     }else{
         $matchingData=$func_usa->insert_usager($data);
         deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
