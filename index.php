@@ -13,7 +13,7 @@
 <body>
   <div class="login-box">
     <h2>Page de connexion</h2>
-    <form id='login-form  ' >
+    <form id='login-form' onsubmit="veriflogin(); return false;" >
       <div class="user-box">
         <input type="text" id="login" name="login" required>
         <label>Username</label>
@@ -28,15 +28,6 @@
       <input name="Login" type="submit" value="Login" class="choice-button retour">
     </form>
   </div>
-  <script>
-    // Ajoutez un gestionnaire d'événements à votre formulaire
-    document.getElementById('login-form').addEventListener('submit', function(event) {
-      // Empêchez le formulaire de se soumettre normalement
-      event.preventDefault();
-      // Appelez votre fonction veriflogin() ici
-      veriflogin();
-    });
-  </script>
 </body>
 
 </html>
