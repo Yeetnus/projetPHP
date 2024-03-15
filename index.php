@@ -7,12 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="IMAGES/logo_cabinet.png">
   <title>Connexion</title>
+  <script type="text/javascript" src="JS_client/login.js"></script>
 </head>
 
 <body>
   <div class="login-box">
     <h2>Page de connexion</h2>
-    <form action="login.php" method="post">
+    <form id='login-form  ' >
       <div class="user-box">
         <input type="text" id="login" name="login" required>
         <label>Username</label>
@@ -27,6 +28,15 @@
       <input name="Login" type="submit" value="Login" class="choice-button retour">
     </form>
   </div>
+  <script>
+    // Ajoutez un gestionnaire d'événements à votre formulaire
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      // Empêchez le formulaire de se soumettre normalement
+      event.preventDefault();
+      // Appelez votre fonction veriflogin() ici
+      veriflogin();
+    });
+  </script>
 </body>
 
 </html>
