@@ -10,9 +10,11 @@ switch ($http_method){
     $data = json_decode($postedData,true);
     if ($popo->isValidUser($data['login'], $data['mdp'])) {
         $login=$data['login'];
+        $id_auth = $data['id_auth'];
+        $role = $data['role'];
         $headers=array('alg'=>'HS256','typ'=>'JWT');
-        $payload=array('login'=>$login,'exp'=>(time()+3600));
-        $secret='Je suce cricri';
+        $payload=array('login'=>$login,'role'=>$role,'exp'=>(time()+3600));
+        $secret='secret';
         $jwt=generate_jwt($headers,$payload,$secret);
         deliver_response(200, 'Votre jeton s\'est bien généré',$jwt);
     }else{
@@ -21,7 +23,7 @@ switch ($http_method){
     break;
 case "GET" :
     $jwt=get_bearer_token();
-    if(is_jwt_valid($jwt,'Je suce cricri')){
+    if(is_jwt_valid($jwt,'secret')){
         deliver_response(200, 'Votre token est bon');
     }else{
         deliver_response(400, 'Votre token n\'est pas bon');
