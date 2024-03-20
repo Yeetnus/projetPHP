@@ -22,9 +22,9 @@
         <input type="password" id="mdp" name="mdp" required>
         <label>Password</label>
       </div>
-      <?php if (isset($_GET['error'])): ?>
-        <p class="error-message" style="color: red;">Le nom d'utilisateur ou le mot de passe est incorrect.</p>
-      <?php endif; ?>
+      <div id="error" style='display:none;'>
+        <p id="error-message" style="color:red;">Nom d'utilisateur ou mot de passe incorrect</p>
+      </div>
       <input name="Login" type="submit" value="Login" class="choice-button retour">
     </form>
   </div>

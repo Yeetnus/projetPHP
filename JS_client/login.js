@@ -20,7 +20,8 @@ function veriflogin() {
                     window.location.href = "http://localhost/projet/projetPHP/choix.php";
                     break;
                 case 403:
-                    alert("Login ou mot de passe incorrect");
+                    alert('Connexion refusée');
+                    document.getElementById('error').style.display = 'block';
                     break;
                 default:
                     alert("Erreur inconnue");
