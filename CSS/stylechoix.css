@@ -36,10 +36,12 @@ h2 {
   text-decoration: none;
   border-radius: 5px;
   margin-bottom: 10px;
+  transition: transform .2s
 }
 
 .choice-button:hover {
   background: #141e30;
+  transform: scale(1.05);
 }
 
 

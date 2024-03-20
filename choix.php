@@ -10,24 +10,7 @@
   
 </head>
 
-<body>
-  <?php if (!($_SESSION['login']=='secretaire1')): ?>
-    <style>
-      #medecin {
-        display: none;
-      }
-
-      #usager {
-        display: none;
-      }
-
-      #rdv {
-        display: none;
-      }
-    </style>
-  <?php 
-    endif; 
-  ?>
+<body>  
   <div class="global-box">
     <h2>Où souhaitez-vous aller ?</h2>
     <div class="container">
