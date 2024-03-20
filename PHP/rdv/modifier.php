@@ -51,51 +51,28 @@
           <th>Patient</th>
           <th>Choix</th>
         </tr>
-        <?php
-        require("../../BDD/BDDrdv.php");
-        $BDD = new BDDrdv();
-        $records = $BDD->select();
-        while ($row = $records->fetch()) {
-          $recordID = $row["ID"];
-          require_once("../../BDD/BDDmedecin.php");
-          $BDDmed = new BDDmedecin();
-          $recordNom = $BDDmed->selectNom($row["MedID"]);
-          while ($medecin = $recordNom->fetch()) {
-            $nommed = $medecin["Nom"] . " " . $medecin["Prenom"];
-          }
-          require_once("../../BDD/BDDusager.php");
-          $BDDusa = new BDDusager();
-          $recordNomusa = $BDDusa->selectNom($row["UsaID"]);
-          while ($usager = $recordNomusa->fetch()) {
-            $nomusa = $usager["Nom"] . " " . $usager["Prenom"];
-          }
-          $date = $row["DateHeureRDV"];
-          $dateHeureObj = new DateTime($date);
-          $dateRDV = $dateHeureObj->format('d/m/Y');
-          $heureRDV = $dateHeureObj->format('H:i'); ?>
           <tr>
-            <td>
-              <?php echo $dateRDV; ?>
+            <td id="date">
+
+            </td>
+            <td id="heure">
+
+            </td>
+            <td id="duree">
+              
+            </td>
+            <td id="nomMed">
+              
+            </td>
+            <td id="nomUsa">
+              
             </td>
             <td>
-              <?php echo $heureRDV; ?>
-            </td>
-            <td>
-              <?php echo $row["DuréeRDV"]; ?>
-            </td>
-            <td>
-              <?php echo $nommed; ?>
-            </td>
-            <td>
-              <?php echo $nomusa; ?>
-            </td>
-            <td>
-              <a href='modification.php?recordID=<?php echo $recordID ?>' class="delete-icon">
-                <img src="../../IMAGES/update-icon-50.png"></a>
+              
             </td>
           </tr>
-        <?php } ?>
       </table>
+      <script>
       <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
     </div>
   </div>

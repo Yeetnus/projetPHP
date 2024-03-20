@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../FUNC/BDDlogin.php';
+require_once __DIR__.'/BDDlogin.php';
 class functions_auth
 {
     private $BDD;

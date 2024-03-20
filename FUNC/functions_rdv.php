@@ -18,7 +18,7 @@ class functions_rdv
 
     public function selectAllRDV()
     {
-        $sql = "SELECT id_consult,Date_consult,heure_consult,duree_consult,id_medecin,id_usager FROM consultation order by date_consult,heure_consult";
+        $sql = "SELECT c.id_consult,c.date_consult,c.heure_consult,c.duree_consult,m.nom as nomMed,u.nom as nomUsager FROM consultation c, medecin m,usager u where m.id_medecin=c.id_medecin and u.id_usager=c.id_usager order by date_consult,heure_consult";
         $result = $this->BDD->getBDD()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

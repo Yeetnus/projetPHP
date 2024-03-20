@@ -1,4 +1,3 @@
-<?php require_once 'verification.php' ?>
 <!DOCTYPE HTML>
 <html>
 
@@ -10,7 +9,6 @@
 </head>
 
 <header>
-<?php include "../HTML/header.php"; ?>
 </header>
 
 <body>
@@ -21,10 +19,6 @@
           value="Logout">
       </form>
       <h2 class="h2page">Différentes statistiques du cabinet</h2>
-      <?php
-      require("../BDD/BDDusager.php");
-      $BDDusager = new BDDusager();
-      ?>
       <h3 class="h2page">Répartition des usagers selon leur sexe et leur âge</h3>
       <table>
         <thead>
@@ -38,28 +32,22 @@
           <tr>
             <td>Moins de 25 ans</td>
             <td>
-              <?php echo $BDDusager->getMoins25H() ?>
             </td>
             <td>
-              <?php echo $BDDusager->getMoins25F() ?>
             </td>
           </tr>
           <tr>
             <td>Entre 25 et 50 ans</td>
             <td>
-              <?php echo $BDDusager->getEntre25Et50H() ?>
             </td>
             <td>
-              <?php echo $BDDusager->getEntre25Et50F() ?>
             </td>
           </tr>
           <tr>
             <td>Plus de 50 ans</td>
             <td>
-              <?php echo $BDDusager->getPlus50H() ?>
             </td>
             <td>
-              <?php echo $BDDusager->getPlus50F() ?>
             </td>
           </tr>
         </tbody>
@@ -73,25 +61,14 @@
           <th>Prenom</th>
           <th>Durée</th>
         </tr>
-
-        <?php
-        require("../BDD/BDDmedecin.php");
-        $BDD = new BDDmedecin();
-        $medecins = $BDD->getAllHeures();
-        while ($row = $medecins->fetch()) {
-          ?>
           <tr>
             <td>
-              <?php echo $row["Nom"]; ?>
             </td>
             <td>
-              <?php echo $row["Prenom"]; ?>
             </td>
             <td>
-              <?php echo $row["TotalDuree"]; ?>
             </td>
           </tr>
-        <?php } ?>
       </table>
       <form>
     </div>

@@ -1,6 +1,6 @@
 <?php
 require('jwt_utils.php');
-require_once __DIR__.'/../FUNC/functions_auth.php';
+require_once __DIR__.'/functions_auth.php';
 $popo = new functions_auth();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
