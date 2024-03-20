@@ -16,10 +16,12 @@ function veriflogin() {
             console.log(response.status);
             switch (response.status) {
                 case 200:
+                    alert('Connexion réussie');
                     window.location.href = "http://localhost/projet/projetPHP/choix.php";
                     break;
-                case 401:
-                    alert("Login ou mot de passe incorrect");
+                case 403:
+                    alert('Connexion refusée');
+                    document.getElementById('error').style.display = 'block';
                     break;
                 default:
                     alert("Erreur inconnue");

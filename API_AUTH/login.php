@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('jwt_utils.php');
 require_once __DIR__.'/functions_auth.php';
 $popo = new functions_auth();
@@ -13,12 +14,15 @@ switch ($http_method){
         $id_auth = $data['id_auth'];
         $role = $data['role'];
         $headers=array('alg'=>'HS256','typ'=>'JWT');
-        $payload=array('login'=>$login,'role'=>$role,'exp'=>(time()+3600));
+        $payload=array('login'=>$login, 'role'=>$role,'exp'=>(time()+3600));
         $secret='secret';
         $jwt=generate_jwt($headers,$payload,$secret);
-        deliver_response(200, 'Votre jeton s\'est bien généré',$jwt);
+        
+        $_SESSION['session'] = 'aaaaa';
+        
+        deliver_response(200, 'Votre jeton s\'est bien généré',$jwt);        
     }else{
-        deliver_response(400, 'Vos identifiants ne sont pas bons',$data);
+        deliver_response(403, 'Vos identifiants ne sont pas bons',$data);
     }
     break;
 case "GET" :
