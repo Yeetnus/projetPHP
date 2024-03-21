@@ -1,6 +1,6 @@
 <?php
 session_start();
 if (!isset($_SESSION['session'])) {
-    header('Location: /projet/projetPHP/index.php');
+    header('Location: /projet/projetPHP/index.html');
     exit();
 }
