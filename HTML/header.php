@@ -9,7 +9,7 @@
 <body>
     <nav class="vertical-menu-wrapper">
         <div class="vertical-menu-logo">
-            <div><a href="/choix.php"><img src="/IMAGES/logo_cabinet_100.png"></a></div>
+
         </div>
         <hr />
         <ul class="<vertical-menu">
@@ -36,7 +36,7 @@
                     <li><a href="/PHP/rdv/modifier.php">Modifier une consultation</a></li>
                 </ul>
             </li>
-            <hr />
+            <hr/>
             <li><a href="/PHP/stats.php">Statistiques</a></li>
         </ul>
     </nav>

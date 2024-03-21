@@ -6,6 +6,8 @@
   <title>Modifier consultation</title>
   <link rel="stylesheet" href="../../CSS/style.css">
   <link rel="icon" href="../../IMAGES/logo_cabinet.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" src="../../JS_client/modifier_rdv.js"></script>
   <script>
     function recherche() {
       var input, filter, table, tr, td, i, txtValue;
@@ -52,19 +54,19 @@
           <th>Choix</th>
         </tr>
           <tr>
-            <td id="date">
+            <td>
 
             </td>
-            <td id="heure">
+            <td>
 
             </td>
-            <td id="duree">
+            <td>
               
             </td>
-            <td id="nomMed">
+            <td>
               
             </td>
-            <td id="nomUsa">
+            <td>
               
             </td>
             <td>
@@ -72,7 +74,6 @@
             </td>
           </tr>
       </table>
-      <script>
       <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
     </div>
   </div>
