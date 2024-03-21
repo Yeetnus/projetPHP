@@ -7,27 +7,9 @@
     <title>Modifier médecin</title>
     <link rel="stylesheet" href="../../CSS/style.css">
     <link rel="icon" href="../../IMAGES/logo_cabinet.png">
-    <script>
-        function recherche() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        };
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="../../JS_client/medecin.js"></script>
+    
 </head>
 
 <header>
@@ -49,29 +31,16 @@
                     <th>Civilité</th>
                     <th>Choix</th>
                 </tr>
-                <?php
-                require("../../BDD/BDDmedecin.php");
-                $BDD = new BDDmedecin();
-                $records = $BDD->select();
-                while ($row = $records->fetch()) {
-                    $recordID = $row["ID"];
-                    $nom = $row["Nom"]; ?>
-                    <tr>
-                        <td>
-                            <?php echo $row["Nom"]; ?>
-                        </td>
-                        <td>
-                            <?php echo $row["Prenom"]; ?>
-                        </td>
-                        <td>
-                            <?php echo $row["Civilite"]; ?>
-                        </td>
-                        <td>
-                            <a href='modification.php?recordID=<?php echo $recordID ?>' class="delete-icon">
-                                <img src="../../IMAGES/update-icon-50.png"></a>
-                        </td>
-                    </tr>
-                <?php } ?>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
             </table>
             <button class="retour" onclick="location.href='../../choix.php'">Retour</button>
         </div>

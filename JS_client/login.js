@@ -16,7 +16,9 @@ function veriflogin() {
             console.log(response.status);
             switch (response.status) {
                 case 200:
+                    alert('Connexion réussie');
                     window.location.href = "http://localhost/projet/projetPHP/choix.php";
+                    alert('Connexion réussie');
                     break;
                 case 403:
                     alert('Connexion refusée');
