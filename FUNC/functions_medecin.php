@@ -10,23 +10,33 @@ class functions_medecin
     }
 
     public function insert_medecin(string $nom, string $prenom, string $civ)
-    {
+{
+    try {
+        $sql = "INSERT INTO medecin (nom, prenom, civilite) VALUES (:nom, :prenom, :civ)";
+        $stmt = $this->BDD->getBDD()->prepare($sql);
 
-        try {
-            $sql = "INSERT INTO medecin (nom, prenom, civilite) VALUES (:nom, :prenom, :civ)";
-            $stmt = $this->BDD->getBDD()->prepare($sql);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':civ', $civ);
 
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':civ', $civ);
+        $stmt->execute();
 
-            $stmt->execute();
-            return true;
+        // Get the ID of the last inserted row
+        $lastId = $this->BDD->getBDD()->lastInsertId();
 
-        } catch (PDOException $e) {
-            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
-        }
+        // Fetch the inserted row
+        $sql = "SELECT * FROM medecin WHERE id_medecin = :id";
+        $stmt = $this->BDD->getBDD()->prepare($sql);
+        $stmt->bindParam(':id', $lastId);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+
+    } catch (PDOException $e) {
+        die("Erreur d'insertion dans la base de données: " . $e->getMessage());
     }
+}
 
     public function getCountId(int $id) 
     {
@@ -36,6 +46,7 @@ class functions_medecin
         $stmt->execute();
         return $stmt->fetchColumn();
     }
+    
     public function select_all_medecin()
     {
         $sql = "SELECT * FROM medecin";
