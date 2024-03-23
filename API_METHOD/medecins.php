@@ -4,17 +4,22 @@ require_once('../FUNC/functions_medecin.php');
 $func_med = new functions_medecin();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
-switch ($http_method){
+switch ($http_method)
+{
 case "POST" :
     $postedData = file_get_contents('php://input');
     $data = json_decode($postedData,true);
-    if(!isset($data['nom'])){
+    if(!isset($data['nom']))
+    {
         deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez le nom du médecin.');
-    }else if(!isset($data['prenom'])){
+    }else if(!isset($data['prenom']))
+    {
         deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez le prénom du médecin.');
-    }elseif(!isset($data['civilite'])){
+    }elseif(!isset($data['civilite']))
+    {
         deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez la civilité du médecin.');
-    }else{
+    }else
+    {
         $matchingData=$func_med->insert_medecin($data['nom'],$data['prenom'],$data['civilite']);
         deliver_response(200,"Le médecin s'est bien ajouté",$matchingData);
     }
@@ -26,13 +31,16 @@ case "GET" :
         {
             $matchingData=$func_med->select_all_medecin();
             deliver_response(200,"Tout s'est bien passé",$matchingData);
-        }else{
+        }else
+        {
             $id=htmlspecialchars($_GET['id_medecin']);
-            if($func_med->getCountId($id)!=1){
+            if($func_med->getCountId($id)!=1)
+            {
                 deliver_response(404, 'Not found');
-            } else {
-            $matchingData=$func_med->select_medecin_By_Id($id);
-            deliver_response(200,"Le médecin a bien été selectionné",$matchingData);
+            } else 
+            {
+                $matchingData=$func_med->select_medecin_By_Id($id);
+                deliver_response(200,"Le médecin a bien été selectionné",$matchingData);
             }
         }
     #}else{
@@ -46,15 +54,18 @@ case "GET" :
             $data = json_decode($postedData,true);
             $id=htmlspecialchars($_GET['id_medecin']);
             $medecin = $func_med->select_medecin_By_Id($id);
-            if (empty($medecin)) {
+            if (empty($medecin)) 
+            {
                 deliver_response(404, 'Not found');
             }
-            else {
+            else 
+            {
                 $func_med->update_medecin($id, $data);
                 deliver_response(200,'OK',$medecin);
             }
         }
-        else {
+        else 
+        {
             deliver_response(400, '[R401 API REST] : paramètre id manquant');
         }
         break;
@@ -63,7 +74,8 @@ case "GET" :
         $postedData = file_get_contents('php://input');
         $data = json_decode($postedData,true);
         $id=htmlspecialchars($_GET['id_medecin']);
-        if(!isset($id) && !isset($data['nom']) && !isset($data['prenom']) && !isset($data['civilite'])){
+        if(!isset($id) && !isset($data['nom']) && !isset($data['prenom']) && !isset($data['civilite']))
+        {
             deliver_response(400, '[R401 API REST] : il manque des paramètres');
         }
         $matchingData=$func_med->update_medecin($id,$data);
@@ -72,14 +84,18 @@ case "GET" :
     
     case "DELETE":
         $id=htmlspecialchars($_GET['id_medecin']);
-        if($func_med->getCountId($id)!=1){
+        if($func_med->getCountId($id)!=1)
+        {
             deliver_response(404, 'Not found');
+        } else 
+        {
+            $matchingData=$func_med->delete_medecin($id);
+            deliver_response(200,"Le médecin s'est bien supprimé",$matchingData);
         }
-        $matchingData=$func_med->delete_medecin($id);
-        deliver_response(200,"Le médecin s'est bien supprimé",$matchingData);
         break;
     }
-function deliver_response($status_code, $status_message, $data=null){
+
+    function deliver_response($status_code, $status_message, $data=null){
     http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
     //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
     header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse

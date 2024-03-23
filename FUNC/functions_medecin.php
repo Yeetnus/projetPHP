@@ -108,18 +108,17 @@ class functions_medecin
                 throw new Exception('Il y a des rendez-vous attribués à ce médecin. Impossible de supprimer le médecin.');
             }
 
+            $med = $this->select_medecin_By_Id($id);
+
             $stmt = $this->BDD->getBDD()->prepare("DELETE FROM medecin WHERE id_medecin = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
             $this->BDD->getBDD()->commit();
-            return true;
+            return $med;
         } catch (PDOException $e) {
             $this->BDD->getBDD()->rollBack();
             throw $e;
-        } catch (Exception $e) {
-            echo "<script>alert('" . $e->getMessage() . "');</script>";
-        }
+        } 
     }
 }
-?>
