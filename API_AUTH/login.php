@@ -12,9 +12,8 @@ switch ($http_method){
     if ($popo->isValidUser($data['login'], $data['mdp'])) {
         $login=$data['login']; 
         $role = $popo->getRoleUser($data['login'], $data['mdp']);
-        deliver_response(200, 'pute',$role);
         $headers=array('alg'=>'HS256','typ'=>'JWT');
-        $payload=array('login'=>$login, 'role'=>"admin",'exp'=>(time()+3600));
+        $payload=array('login'=>$login, 'role'=>$role,'exp'=>(time()+3600));
         $secret='secret';
         $jwt=generate_jwt($headers,$payload,$secret);
         
@@ -27,8 +26,14 @@ switch ($http_method){
     break;
 case "GET" :
     $jwt=get_bearer_token();
+    
     if(is_jwt_valid($jwt,'secret')){
-        deliver_response(200, 'Votre token est bon');
+        $token_parts = explode('.', $jwt);
+        $payload_base64 = $token_parts[1];
+        $payload_json = base64_decode($payload_base64);
+        $payload_data = json_decode($payload_json);
+        $role = $payload_data->role;
+        deliver_response(200, 'Votre token est bon',$role);
     }else{
         deliver_response(400, 'Votre token n\'est pas bon');
     }

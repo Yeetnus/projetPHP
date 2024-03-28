@@ -18,14 +18,14 @@ class functions_stats
             END AS age_group, COUNT(*) AS count
             FROM usager
             GROUP BY civilite, age_group";
-        $records = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
+        $records = $this->BDD->getBDD()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return $records;
     }
 
     public function getStatsMedecins()
     {
-        $sql = "SELECT m.Nom, m.Prenom, SUM(r.Duree_RDV)/60 as Total_Duree FROM medecin m, rendezvous r WHERE m.ID = r.MedID GROUP BY m.ID";
-        $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
+        $sql = "SELECT m.Nom, m.Prenom, SUM(r.duree_consult)/60 as Total_Duree FROM medecin m, consultation r WHERE m.id_medecin = r.id_medecin GROUP BY m.id_medecin";
+        $result = $this->BDD->getBDD()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }

@@ -1,5 +1,5 @@
 <?php
-require('jwt_utils.php');
+require('../API_AUTH/jwt_utils.php');
 require('../FUNC/functions_stats.php');
 $popo = new functions_stats();
 
