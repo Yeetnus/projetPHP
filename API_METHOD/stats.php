@@ -1,13 +1,15 @@
 <?php
 require('jwt_utils.php');
 require('../FUNC/functions_stats.php');
+require('../FUNC/BDD.php');
+$pipi=new BDD();
 $popo = new functions_stats();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
 switch ($http_method){
 case "GET" :
-    #$jwt=get_bearer_token();
-    #if(is_jwt_valid($jwt,'948SgdrS2G3Xnmr8U3bKwrvGZN294aF5')){
+    $jwt=get_bearer_token();
+    if(is_jwt_valid($jwt,'secret')){
         if($_GET['id']==1)
         {
             $matchingData=$popo->getMoins25H();
@@ -37,9 +39,9 @@ case "GET" :
             $matchingData=$popo->getAllHeures();
             deliver_response(200,"tout s'est bien passé",$matchingData);
         }
-    #}else{
-        #deliver_response(400, 'Votre token n\'est pas bon');
-    #}
+    }else{
+        #eliver_response(400, 'Votre token n\'est pas bon');
+    }
     break;
 default:
     deliver_response(405, 'Method Not Allowed');

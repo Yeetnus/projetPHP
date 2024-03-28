@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('jwt_utils.php');
-require_once __DIR__.'/functions_auth.php';
+require('../FUNC/functions_auth.php');
 $popo = new functions_auth();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
@@ -10,11 +10,11 @@ switch ($http_method){
     $postedData = file_get_contents('php://input');
     $data = json_decode($postedData,true);
     if ($popo->isValidUser($data['login'], $data['mdp'])) {
-        $login=$data['login'];
-        $id_auth = $data['id_auth'];
-        $role = $data['role'];
+        $login=$data['login']; 
+        $role = $popo->getRoleUser($data['login'], $data['mdp']);
+        deliver_response(200, 'pute',$role);
         $headers=array('alg'=>'HS256','typ'=>'JWT');
-        $payload=array('login'=>$login, 'role'=>$role,'exp'=>(time()+3600));
+        $payload=array('login'=>$login, 'role'=>"admin",'exp'=>(time()+3600));
         $secret='secret';
         $jwt=generate_jwt($headers,$payload,$secret);
         

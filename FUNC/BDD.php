@@ -28,5 +28,18 @@ class BDD
         return $this->linkpdo;
     }
 
+    public function isAdmin(string $login,string $mdp){
+        try{
+            $sql = "SELECT login,password,role FROM util where login='$login' and mdp='$mdp' and role='admin'";
+            $result = $this->getBDD()->query($sql)->fetch();
+            if($result){
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            die("Erreur d'insertion dans la base de données: " . $e->getMessage());
+        }
+    }
+
 }
 ?>
