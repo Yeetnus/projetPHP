@@ -1,7 +1,6 @@
 <?php
 require('../API_AUTH/jwt_utils.php');
 require_once('../FUNC/functions_medecin.php');
-require('../FUNC/BDD.php');
 $func_med = new functions_medecin();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
@@ -48,13 +47,13 @@ case "GET" :
         $payload_data = json_decode($payload_json);
         $role = $payload_data->role;
         if($role=="admin"){
-            if(!isset($_GET['id_medecin']))
+            if(!isset($_GET['id']))
             {
                 $matchingData=$func_med->select_all_medecin();
                 deliver_response(200,"Tout s'est bien passé",$matchingData);
             }else
             {
-                $id=htmlspecialchars($_GET['id_medecin']);
+                $id=htmlspecialchars($_GET['id']);
                 if($func_med->getCountId($id)!=1)
                 {
                     deliver_response(404, 'Not found');
@@ -80,11 +79,11 @@ case "GET" :
             $payload_data = json_decode($payload_json);
             $role = $payload_data->role;
             if($role=="admin"){
-                if(isset($_GET['id_medecin']))
+                if(isset($_GET['id']))
                 {
                     $postedData = file_get_contents('php://input');
                     $data = json_decode($postedData,true);
-                    $id=htmlspecialchars($_GET['id_medecin']);
+                    $id=htmlspecialchars($_GET['id']);
                     $medecin = $func_med->select_medecin_By_Id($id);
                     if (empty($medecin)) 
                     {
@@ -137,7 +136,7 @@ case "GET" :
     case "DELETE":
         $jwt=get_bearer_token();
         if(is_jwt_valid($jwt,'secret')){
-            $id=htmlspecialchars($_GET['id_medecin']);
+            $id=htmlspecialchars($_GET['id']);
             if($func_med->getCountId($id)!=1)
             {
                 deliver_response(404, 'Not found');

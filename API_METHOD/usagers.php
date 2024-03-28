@@ -1,8 +1,6 @@
 <?php
-require('jwt_utils.php');
+require('../API_AUTH/jwt_utils.php');
 require_once('../FUNC/functions_usager.php');
-require('../FUNC/BDD.php');
-$pipi=new BDD();
 $func_usa = new functions_usager();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
@@ -60,12 +58,12 @@ case "GET" :
         $payload_data = json_decode($payload_json);
         $role = $payload_data->role;
         if($role=="admin"){
-            if(!isset($_GET['id_usager']))
+            if(!isset($_GET['id']))
             {
                 $matchingData=$func_usa->select_all_usager();
                 deliver_response(200,"tout s'est bien passé",$matchingData);
             }else{
-                $id=htmlspecialchars($_GET['id_usager']);
+                $id=htmlspecialchars($_GET['id']);
                 if($func_usa->getCountId($id)!=1){
                     deliver_response(404, 'Not found');
                 } else {
@@ -89,11 +87,11 @@ case "GET" :
             $payload_data = json_decode($payload_json);
             $role = $payload_data->role;
             if($role=="admin"){
-                if(isset($_GET['id_usager']))
+                if(isset($_GET['id']))
                 {
                     $postedData = file_get_contents('php://input');
                     $data = json_decode($postedData,true);
-                    $id=htmlspecialchars($_GET['id_usager']);
+                    $id=htmlspecialchars($_GET['id']);
                     $usager = $func_usa->select_usager_By_Id($id);
                     if (empty($usager)) {
                         deliver_response(404, 'Not found');
@@ -125,7 +123,7 @@ case "GET" :
             if($role=="admin"){
                 $postedData = file_get_contents('php://input');
                 $data = json_decode($postedData,true);
-                $id=htmlspecialchars($_GET['id_usager']);
+                $id=htmlspecialchars($_GET['id']);
                 if(!isset($id) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
                     deliver_response(400, '[R401 API REST] : il manque des paramètres');
                 }
@@ -148,7 +146,7 @@ case "GET" :
             $payload_data = json_decode($payload_json);
             $role = $payload_data->role;
             if($role=="admin"){
-                $id=htmlspecialchars($_GET['id_usager']);
+                $id=htmlspecialchars($_GET['id']);
                 if($func_usa->getCountId($id)!=1){
                     deliver_response(404, 'Not found');
                 }

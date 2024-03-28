@@ -41,7 +41,9 @@ class functions_rdv
     {
         $sql = "SELECT id_consult,date_consult,heure_consult,Duree_consult, id_medecin, id_usager FROM consultation WHERE id_consult=$id";
         $result = $this->BDD->getBDD()->query($sql)->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        if($result!=null){
+            return $result;
+        }
     }
 
     public function selectRDVByMedId(int $id)

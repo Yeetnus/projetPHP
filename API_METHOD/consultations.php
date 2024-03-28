@@ -59,9 +59,6 @@ case "GET" :
                 deliver_response(200,"tout s'est bien passé",$matchingData);
             }else{
                 $id=htmlspecialchars($_GET['id']);
-                if($popo->getCountId($id)){
-                    deliver_response(404, 'Not found');
-                }
                 $matchingData=$popo->selectRDVById($id);
                 deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
             }
@@ -140,7 +137,7 @@ case "GET" :
             $payload_data = json_decode($payload_json);
             $role = $payload_data->role;
             if($role=="admin"){
-                $id=htmlspecialchars($_GET['id_consult']);
+                $id=htmlspecialchars($_GET['id']);
                 if($popo->getCountId($id)){
                     $matchingData=$popo->deleteRDV($id);
                     deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
