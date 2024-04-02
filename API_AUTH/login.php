@@ -33,15 +33,15 @@ case "GET" :
         $payload_json = base64_decode($payload_base64);
         $payload_data = json_decode($payload_json);
         $role = $payload_data->role;
-        deliver_response(200, 'Votre token est bon',$role);
+        deliver_response(200, 'Votre jeton est bon',$role);
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre jeton n\'est pas bon');
     }
     break;
 
 
 default:
-    deliver_response(400, '[R401 API REST] : cette méthode n\'est pas utilisable');
+    deliver_response(405, 'Method Not Allowed');
 }
 
 function deliver_response($status_code, $status_message, $data=null){

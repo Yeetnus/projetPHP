@@ -19,23 +19,23 @@ case "POST" :
             $data = json_decode($postedData,true);
             if(!isset($data['nom']))
             {
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez le nom du médecin.');
+                deliver_response(400, 'Paramètre nom manquant');
             }else if(!isset($data['prenom']))
             {
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez le prénom du médecin.');
+                deliver_response(400, 'Paramètre prenom manquant');
             }elseif(!isset($data['civilite']))
             {
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant, veuillez précisez la civilité du médecin.');
+                deliver_response(400, 'Paramètre civilite manquant');
             }else
             {
                 $matchingData=$func_med->insert_medecin($data['nom'],$data['prenom'],$data['civilite']);
-                deliver_response(200,"Le médecin s'est bien ajouté",$matchingData);
+                deliver_response(201,"Le médecin s'est bien ajouté",$matchingData);
             }
         }else{
-            deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+            deliver_response(403, 'Vous n\'avez pas les droits pour ajouter un médecin');
         }
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
 case "GET" :
@@ -50,7 +50,7 @@ case "GET" :
             if(!isset($_GET['id']))
             {
                 $matchingData=$func_med->select_all_medecin();
-                deliver_response(200,"Tout s'est bien passé",$matchingData);
+                deliver_response(200,"Les médecin ont bien étés sélectionnés",$matchingData);
             }else
             {
                 $id=htmlspecialchars($_GET['id']);
@@ -60,14 +60,14 @@ case "GET" :
                 } else 
                 {
                     $matchingData=$func_med->select_medecin_By_Id($id);
-                    deliver_response(200,"Le médecin a bien été selectionné",$matchingData);
+                    deliver_response(200,"Le médecin s\'est bien selectionné",$matchingData);
                 }
             }
         }else{
-            deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+            deliver_response(403, 'Vous n\'avez pas les droits pour sélectionner un médecin');
         }
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
     case 'PATCH':
@@ -92,18 +92,18 @@ case "GET" :
                     else 
                     {
                         $func_med->update_medecin($id, $data);
-                        deliver_response(200,'OK',$medecin);
+                        deliver_response(200,'Le médecin s\'est bien modifié',$medecin);
                     }
                 }
                 else 
                 {
-                    deliver_response(400, '[R401 API REST] : paramètre id manquant');
+                    deliver_response(400, 'Paramètre id manquant');
                 }
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour modifier un médecin');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -121,33 +121,40 @@ case "GET" :
                 $id=htmlspecialchars($_GET['id_medecin']);
                 if(!isset($id) && !isset($data['nom']) && !isset($data['prenom']) && !isset($data['civilite']))
                 {
-                    deliver_response(400, '[R401 API REST] : il manque des paramètres');
+                    deliver_response(400, 'Il manque des paramètres');
                 }
                 $matchingData=$func_med->update_medecin($id,$data);
                 deliver_response(200,"Le médecin s'est bien modifié",$matchingData);
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour modifier un médecin');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
         break;
     
     case "DELETE":
         $jwt=get_bearer_token();
         if(is_jwt_valid($jwt,'secret')){
-            $id=htmlspecialchars($_GET['id']);
-            if($func_med->getCountId($id)!=1)
-            {
-                deliver_response(404, 'Not found');
-            } else 
-            {
-                $matchingData=$func_med->delete_medecin($id);
-                deliver_response(200,"Le médecin s'est bien supprimé",$matchingData);
+            if($role=="admin"){
+                $id=htmlspecialchars($_GET['id']);
+                if($func_med->getCountId($id)!=1)
+                {
+                    deliver_response(404, 'Not found');
+                } else 
+                {
+                    $matchingData=$func_med->delete_medecin($id);
+                    deliver_response(200,"Le médecin s'est bien supprimé",$matchingData);
+                }
+            }else{
+                deliver_response(403, 'Vous n\'avez pas les droits pour supprimer un médecin');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
+        break;
+    default:
+        deliver_response(405, 'Method Not Allowed');
         break;
     }
 

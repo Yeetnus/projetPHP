@@ -17,36 +17,36 @@ case "POST" :
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData,true);
             if(!isset($data['nom'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre nom manquant');
             }else if(!isset($data['prenom'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre prenom manquant');
             }elseif(!isset($data['civilite'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre civilite manquant');
             }elseif(!isset($data['sexe'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre sexe manquant');
             }elseif(!isset($data['adresse'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre adresse manquant');
             }elseif(!isset($data['code_postal'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre code_postal manquant');
             }elseif(!isset($data['ville'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre ville manquant');
             }elseif(!isset($data['date_nais'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre date_nais manquant');
             }elseif(!isset($data['lieu_nais'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre lieu_nais manquant');
             }elseif(!isset($data['num_secu'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre num_secu manquant');
             }elseif(!isset($data['id_medecin'])){
-                deliver_response(400, '[R401 API REST] : paramètre phrase manquant');
+                deliver_response(400, 'Paramètre id_medecin manquant');
             }else{
                 $matchingData=$func_usa->insert_usager($data);
-                deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
+                deliver_response(201,"L'usager s'est bien ajouté",$matchingData);
             }
         }else{
-            deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+            deliver_response(403, 'Vous n\'avez pas les droits pour ajouter un usager');
         }
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
 case "GET" :
@@ -68,14 +68,14 @@ case "GET" :
                     deliver_response(404, 'Not found');
                 } else {
                 $matchingData=$func_usa->select_usager_By_Id($id);
-                deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
+                deliver_response(200,"L'usager s'est bien selectionné",$matchingData);
                 }
             }
         }else{
-            deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+            deliver_response(403, 'Vous n\'avez pas les droits pour sélectionner un usager');
         }
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
     case 'PATCH': 
@@ -98,17 +98,17 @@ case "GET" :
                     }
                     else {
                         $func_usa->update_usager($id, $data);
-                        deliver_response(200,'OK',$usager);
+                        deliver_response(200,'L\'usager s\'est bien modifié',$usager);
                     }
                 }
                 else {
-                    deliver_response(400, '[R401 API REST] : paramètre id manquant');
+                    deliver_response(400, 'Paramètre id manquant');
                 }
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour modifier un usager');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -125,15 +125,21 @@ case "GET" :
                 $data = json_decode($postedData,true);
                 $id=htmlspecialchars($_GET['id']);
                 if(!isset($id) && !isset($data['date_consult']) && !isset($data['heure_']) && !isset($data['faute']) && !isset($data['signalement'])){
-                    deliver_response(400, '[R401 API REST] : il manque des paramètres');
+                    deliver_response(400, 'Il manque des paramètres');
                 }
-                $matchingData=$func_usa->update_usager($id,$data);
-                deliver_response(200,"La phrase s'est bien modifiée",$matchingData);
+                $usager = $func_usa->select_usager_By_Id($id);
+                if (empty($usager)) {
+                    deliver_response(404, 'Not found');
+                }
+                else {
+                    $matchingData=$func_usa->update_usager($id,$data);
+                    deliver_response(200,"L\'usager s'est bien modifié",$matchingData);
+                }
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour modifier un usager');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -151,13 +157,16 @@ case "GET" :
                     deliver_response(404, 'Not found');
                 }
                 $matchingData=$func_usa->delete_usager($id);
-                deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+                deliver_response(200,"L\'usager s'est bien supprimé",$matchingData);
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour supprimer un usager');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
+        break;
+    default:
+        deliver_response(405, 'Method Not Allowed');
         break;
     }
 function deliver_response($status_code, $status_message, $data=null){

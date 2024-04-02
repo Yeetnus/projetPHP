@@ -24,26 +24,27 @@ case "POST" :
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData,true);
             if(!isset($data['id_medecin'])){
-                deliver_response(400, '[R401 API REST] : paramètre id manquant');
+                deliver_response(400, 'Paramètre id manquant');
             }else if(!isset($data['id_usager'])){
-                deliver_response(400, '[R401 API REST] : paramètre id_usager manquant');
+                deliver_response(400, 'Paramètre id_usager manquant');
             }else if(!isset($data['date_consult'])){
-                deliver_response(400, '[R401 API REST] : paramètre date_consult manquant');
+                deliver_response(400, 'Paramètre date_consult manquant');
             }elseif(!isset($data['heure_consult'])){
-                deliver_response(400, '[R401 API REST] : paramètre heure_consult manquant');
+                deliver_response(400, 'Paramètre heure_consult manquant');
             }elseif(!isset($data['duree_consult'])){
-                deliver_response(400, '[R401 API REST] : paramètre duree_consult manquant');
+                deliver_response(400, 'Paramètre duree_consult manquant');
             }else{
                 $matchingData = $popo->insertRDV($data['date_consult'],$data['heure_consult'] ,$data['duree_consult'],$data['id_medecin'],$data['id_usager']);
-                deliver_response(200,"La consultation s'est bien ajoutée",$matchingData);
+                deliver_response(201,"La consultation s'est bien ajoutée",$matchingData);
             }
         }else{
-            deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+            deliver_response(403, 'Vous n\'avez pas les droits pour ajouter une consultation');
         }
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
+
 case "GET" :
     $jwt=get_bearer_token();
     if(is_jwt_valid($jwt,'secret')){
@@ -56,19 +57,25 @@ case "GET" :
             if(!isset($_GET['id']))
             {
                 $matchingData=$popo->selectAllRDV();
-                deliver_response(200,"tout s'est bien passé",$matchingData);
+                deliver_response(200,"Les consultations ont bien étés sélectionnées",$matchingData);
             }else{
                 $id=htmlspecialchars($_GET['id']);
                 $matchingData=$popo->selectRDVById($id);
-                deliver_response(200,"La consultation a bien été selectionnée",$matchingData);
+                if (empty($$matchingData)) {
+                    deliver_response(404, 'Not found');
+                }
+                else {
+                    deliver_response(200,"La consultation s\'est bien sélectionnée",$matchingData);
+                }
             }
         }else{
-            deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+            deliver_response(403, 'Vous n\'avez pas les droits pour sélectionner une consultation');
         }
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
+
     case 'PATCH': 
         $jwt=get_bearer_token();
         if(is_jwt_valid($jwt,'secret')){
@@ -89,17 +96,17 @@ case "GET" :
                     }
                     else {
                         $popo->updateRDV($id, $data);
-                        deliver_response(200,'OK',$rdv);
+                        deliver_response(201,'La consultation s\'est bien modifiée',$rdv);
                     }
                 }
                 else {
-                    deliver_response(400, '[R401 API REST] : paramètre id manquant');
+                    deliver_response(400, 'Paramètre id manquant');
                 }
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour modifier une consultation');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -116,15 +123,21 @@ case "GET" :
                 $data = json_decode($postedData,true);
                 $id=htmlspecialchars($_GET['id_medecin']);
                 if(!isset($id) && !isset($data['nom']) && !isset($data['prenom']) && !isset($data['civilite'])){
-                    deliver_response(400, '[R401 API REST] : il manque des paramètres');
+                    deliver_response(400, 'Il manque des paramètres');
                 }
-                $matchingData=$func_med->update_medecin($id,$data);
-                deliver_response(200,"Le médecin s'est bien modifié",$matchingData);
+                $rdv = $popo->selectRDVById($id);
+                if (empty($rdv)) {
+                    deliver_response(404, 'Not found');
+                }
+                else {
+                    $matchingData=$func_med->update_medecin($id,$data);
+                    deliver_response(200,"Votre consultation s'est bien modifiée",$matchingData);
+                }
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour modifier une consultation');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -140,16 +153,19 @@ case "GET" :
                 $id=htmlspecialchars($_GET['id']);
                 if($popo->getCountId($id)){
                     $matchingData=$popo->deleteRDV($id);
-                    deliver_response(200,"La phrase s'est bien supprimée",$matchingData);
+                    deliver_response(200,"La consultation s'est bien supprimée",$matchingData);
                 }else{
                     deliver_response(404, 'Not found');
                 }
             }else{
-                deliver_response(400, 'Vous n\'avez pas les droits pour ajouter une consultation');
+                deliver_response(403, 'Vous n\'avez pas les droits pour supprimer une consultation');
             }
         }else{
-            deliver_response(400, 'Votre token n\'est pas bon');
+            deliver_response(498, 'Votre token n\'est pas bon');
         }
+        break;
+    default:
+        deliver_response(405, 'Method Not Allowed');
         break;
     }
 function deliver_response($status_code, $status_message, $data=null){

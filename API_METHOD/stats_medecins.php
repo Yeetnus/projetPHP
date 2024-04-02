@@ -9,9 +9,9 @@ case "GET" :
     $jwt=get_bearer_token();
     if(is_jwt_valid($jwt,'secret')){
         $matchingData=$popo->getStatsMedecins();
-        deliver_response(200,"tout s'est bien passé",$matchingData);
+        deliver_response(200,"Les stats de médecin ont bien étés renvoyées",$matchingData);
     }else{
-        deliver_response(400, 'Votre token n\'est pas bon');
+        deliver_response(498, 'Votre token n\'est pas bon');
     }
     break;
 default:
