@@ -1,4 +1,44 @@
 <?php
+function deliver_response($status_code, $status_message, $data=null){
+        http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
+        //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
+        header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse
+        $response['status_code'] = $status_code;
+        $response['status_message'] = $status_message;
+        $response['data'] = $data;
+        /// Mapping de la réponse au format JSON
+        $json_response = json_encode($response);
+        if($json_response===false)
+        die('json encode ERROR : '.json_last_error_msg());
+        /// Affichage de la réponse (Retourné au client)
+        echo $json_response;
+}
+
+function is_valid($token){
+
+    $url = 'https://yeetnus.alwaysdata.net/api_auth/api_auth/login.php';
+
+    $headers = array(
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $token
+    );
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $responseJson = json_decode($response, true);
+
+    if (!isset($responseJson['status_code']) || $responseJson['status_code'] != 200) {
+        return false;
+    }
+    return $responseJson['status_code'] == 200;
+}
+
 function generate_jwt($headers, $payload, $secret) {
 	$headers_encoded = base64url_encode(json_encode($headers));
 
@@ -10,34 +50,6 @@ function generate_jwt($headers, $payload, $secret) {
 	$jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
 
 	return $jwt;
-}
-
-function is_jwt_valid($jwt, $secret) {
-	// split the jwt
-	$tokenParts = explode('.', $jwt);
-	//print_r($tokenParts);
-	$header = base64_decode($tokenParts[0]);
-	$payload = base64_decode($tokenParts[1]);
-	$signature_provided = $tokenParts[2];
-
-	// check the expiration time - note this will cause an error if there is no 'exp' claim in the jwt
-	$expiration = json_decode($payload)->exp;
-	$is_token_expired = ($expiration - time()) < 0;
-
-	// build a signature based on the header and payload using the secret
-	$base64_url_header = base64url_encode($header);
-	$base64_url_payload = base64url_encode($payload);
-	$signature = hash_hmac('SHA256', $base64_url_header . "." . $base64_url_payload, $secret, true);
-	$base64_url_signature = base64url_encode($signature);
-
-	// verify it matches the signature provided in the jwt
-	$is_signature_valid = ($base64_url_signature === $signature_provided);
-
-	if ($is_token_expired || !$is_signature_valid) {
-		return FALSE;
-	} else {
-		return TRUE;
-	}
 }
 
 function base64url_encode($data) {
@@ -78,5 +90,3 @@ function get_bearer_token() {
     }
     return null;
 }
-
-?>
