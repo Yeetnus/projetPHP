@@ -41,7 +41,7 @@ case "POST" :
             deliver_response(403, 'Vous n\'avez pas les droits pour ajouter une consultation');
         }
     }else{
-        deliver_response(498, 'Votre token n\'est pas bon');
+        deliver_response(401, 'Votre token n\'est pas bon');
     }
     break;
 
@@ -72,7 +72,7 @@ case "GET" :
             deliver_response(403, 'Vous n\'avez pas les droits pour sélectionner une consultation');
         }
     }else{
-        deliver_response(498, 'Votre token n\'est pas bon');
+        deliver_response(401, 'Votre token n\'est pas bon');
     }
     break;
 
@@ -106,7 +106,7 @@ case "GET" :
                 deliver_response(403, 'Vous n\'avez pas les droits pour modifier une consultation');
             }
         }else{
-            deliver_response(498, 'Votre token n\'est pas bon');
+            deliver_response(401, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -137,7 +137,7 @@ case "GET" :
                 deliver_response(403, 'Vous n\'avez pas les droits pour modifier une consultation');
             }
         }else{
-            deliver_response(498, 'Votre token n\'est pas bon');
+            deliver_response(401, 'Votre token n\'est pas bon');
         }
         break;
     
@@ -161,7 +161,7 @@ case "GET" :
                 deliver_response(403, 'Vous n\'avez pas les droits pour supprimer une consultation');
             }
         }else{
-            deliver_response(498, 'Votre token n\'est pas bon');
+            deliver_response(401, 'Votre token n\'est pas bon');
         }
         break;
     default:
