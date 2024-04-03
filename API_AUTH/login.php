@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../api_method/functions.php');
+require('jwt_utils.php');
 require('../func/functions_auth.php');
 $popo = new functions_auth();
 
@@ -27,7 +27,7 @@ switch ($http_method){
 case "GET" :
     $jwt=get_bearer_token();
     
-    if(is_valid($jwt)){
+    if(is_jwt_valid($jwt,'secret')){
         $token_parts = explode('.', $jwt);
         $payload_base64 = $token_parts[1];
         $payload_json = base64_decode($payload_base64);
