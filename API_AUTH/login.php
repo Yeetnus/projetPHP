@@ -1,7 +1,7 @@
 <?php
 session_start();
-require('../API_METHOD/functions.php');
-require('../FUNC/functions_auth.php');
+require('../api_method/functions.php');
+require('../func/functions_auth.php');
 $popo = new functions_auth();
 
 $http_method = $_SERVER['REQUEST_METHOD'];

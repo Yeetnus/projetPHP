@@ -1,6 +1,6 @@
 <?php
 require('functions.php');
-require('../FUNC/functions_rdv.php');
+require('../func/functions_rdv.php');
 $popo = new functions_rdv();
 
 $http_method = $_SERVER['REQUEST_METHOD'];

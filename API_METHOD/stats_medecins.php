@@ -1,6 +1,6 @@
 <?php
 require('functions.php');
-require('../FUNC/functions_stats.php');
+require('../func/functions_stats.php');
 $popo = new functions_stats();
 
 $http_method = $_SERVER['REQUEST_METHOD'];

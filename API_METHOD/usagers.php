@@ -1,6 +1,6 @@
 <?php
 require('functions.php');
-require_once('../FUNC/functions_usager.php');
+require_once('../func/functions_usager.php');
 $func_usa = new functions_usager();
 
 $http_method = $_SERVER['REQUEST_METHOD'];

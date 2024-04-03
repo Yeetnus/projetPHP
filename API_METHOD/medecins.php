@@ -1,6 +1,6 @@
 <?php
 require('functions.php');
-require_once('../FUNC/functions_medecin.php');
+require_once('../func/functions_medecin.php');
 $func_med = new functions_medecin();
 
 $http_method = $_SERVER['REQUEST_METHOD'];
